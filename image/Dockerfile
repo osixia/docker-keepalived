@@ -4,6 +4,7 @@ MAINTAINER Bertrand Gouny <bertrand.gouny@osixia.net>
 # This container need run options :
 # --privileged=true
 # --net=host
+# -v /lib/modules:/lib/modules
 
 # Use baseimage-docker's init system.
 CMD ["/sbin/my_init"]
