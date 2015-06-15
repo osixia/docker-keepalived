@@ -6,6 +6,8 @@ MAINTAINER Bertrand Gouny <bertrand.gouny@osixia.net>
 # --net=host
 # -v /lib/modules:/lib/modules
 
+# sudo docker run --privileged=true --net=host -v /lib/modules:/lib/modules -d osixia/keepalived:0.1.0
+
 # Use baseimage-docker's init system.
 CMD ["/sbin/my_init"]
 

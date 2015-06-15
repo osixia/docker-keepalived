@@ -28,13 +28,13 @@ if [ ! -e "$FIRST_START_DONE" ]; then
         # it's just a peer
         # stored in a variable
         if [ -n "${!peer}" ]; then
-          sed -i "s|{{ peer_ip }}|${!peer}\n    {{ peer_ip }}|g" /etc/keepalived/keepalived.conf
+          sed -i "s|{{ keepalived_unicast_peers }}|${!peer}\n    {{ keepalived_unicast_peers }}|g" /etc/keepalived/keepalived.conf
         # directly
         else
-          sed -i "s|{{ peer_ip }}|${peer}\n    {{ peer_ip }}|g" /etc/keepalived/keepalived.conf
+          sed -i "s|{{ keepalived_unicast_peers }}|${peer}\n    {{ keepalived_unicast_peers }}|g" /etc/keepalived/keepalived.conf
         fi
       done
-      sed -i "/{{ peer_ip }}/d" /etc/keepalived/keepalived.conf
+      sed -i "/{{ keepalived_unicast_peers }}/d" /etc/keepalived/keepalived.conf
 
       # virtual ips
       KEEPALIVED_VIRTUAL_IPS=($KEEPALIVED_VIRTUAL_IPS)
@@ -43,13 +43,13 @@ if [ ! -e "$FIRST_START_DONE" ]; then
         # it's just a peer
         # stored in a variable
         if [ -n "${!vip}" ]; then
-          sed -i "s|{{ floating_ip }}|${!vip}\n    {{ floating_ip }}|g" /etc/keepalived/keepalived.conf
+          sed -i "s|{{ keepalived_virtual_ips }}|${!vip}\n    {{ keepalived_virtual_ips }}|g" /etc/keepalived/keepalived.conf
         # directly
         else
-          sed -i "s|{{ floating_ip }}|${vip}\n    {{ floating_ip }}|g" /etc/keepalived/keepalived.conf
+          sed -i "s|{{ keepalived_virtual_ips }}|${vip}\n    {{ keepalived_virtual_ips }}|g" /etc/keepalived/keepalived.conf
         fi
       done
-      sed -i "/{{ floating_ip }}/d" /etc/keepalived/keepalived.conf
+      sed -i "/{{ keepalived_virtual_ips }}/d" /etc/keepalived/keepalived.conf
     fi
   fi
 
