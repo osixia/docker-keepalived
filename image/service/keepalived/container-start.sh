@@ -24,7 +24,6 @@ if [ ! -e "$FIRST_START_DONE" ]; then
 
       if [ -n "$KEEPALIVED_NOTIFY" ]; then
         sed -i "s|{{ keepalived_notify }}|notify \"$KEEPALIVED_NOTIFY\"|g" /etc/keepalived/keepalived.conf
-        chmod 777 $KEEPALIVED_NOTIFY
       else
         sed -i "/{{ keepalived_notify }}/d" /etc/keepalived/keepalived.conf
       fi
@@ -59,9 +58,6 @@ if [ ! -e "$FIRST_START_DONE" ]; then
       done
       sed -i "/{{ keepalived_virtual_ips }}/d" /etc/keepalived/keepalived.conf
     fi
-
-    cat /etc/keepalived/keepalived.conf
-    cat $KEEPALIVED_NOTIFY
 
   fi
 
