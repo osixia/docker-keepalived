@@ -1,4 +1,4 @@
-#!/bin/bash -ex
+#!/bin/bash -e
 
 FIRST_START_DONE="/etc/docker-keepalived-first-start-done"
 
@@ -12,6 +12,7 @@ if [ ! -e "$FIRST_START_DONE" ]; then
       echo "Error: No default keepalived.conf found in /osixia/keepalived/keepalived.conf"
       exit 1
     else
+
       ln -s /osixia/keepalived/keepalived.conf /etc/keepalived/keepalived.conf
 
       #
@@ -51,6 +52,7 @@ if [ ! -e "$FIRST_START_DONE" ]; then
       done
       sed -i "/{{ keepalived_virtual_ips }}/d" /etc/keepalived/keepalived.conf
     fi
+
   fi
 
   touch $FIRST_START_DONE
