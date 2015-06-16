@@ -23,7 +23,8 @@ if [ ! -e "$FIRST_START_DONE" ]; then
       sed -i "s|{{ keepalived_password }}|$KEEPALIVED_PASSWORD|g" /etc/keepalived/keepalived.conf
 
       if [ -n "$KEEPALIVED_NOTIFY" ]; then
-        sed -i "s|{{ keepalived_notify }}|notify $KEEPALIVED_NOTIFY|g" /etc/keepalived/keepalived.conf
+        sed -i "s|{{ keepalived_notify }}|notify \"$KEEPALIVED_NOTIFY\"|g" /etc/keepalived/keepalived.conf
+        chmod 777 $KEEPALIVED_NOTIFY
       else
         sed -i "/{{ keepalived_notify }}/d" /etc/keepalived/keepalived.conf
       fi
@@ -60,7 +61,7 @@ if [ ! -e "$FIRST_START_DONE" ]; then
     fi
 
     cat /etc/keepalived/keepalived.conf
-    cat /osixia/keepalived/notify-example.sh
+    cat $KEEPALIVED_NOTIFY
 
   fi
 
