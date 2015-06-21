@@ -16,16 +16,16 @@ NAME=$2
 STATE=$3
 
 case $STATE in
-        "MASTER") echo "I'm the MASTER! Whup whup." >> keepalived.info
+        "MASTER") logger "I'm the MASTER! Whup whup."
                   exit 0
                   ;;
-        "BACKUP") "Ok, i'm just a backup, great." >> keepalived.info
+        "BACKUP") logger "Ok, i'm just a backup, great."
                   exit 0
                   ;;
-        "FAULT")  echo "Fault, what ?" >> keepalived.info
+        "FAULT")  logger "Fault, what ?"
                   exit 0
                   ;;
-        *)        echo "Unknown state" >> keepalived.info
+        *)        logger "Unknown state"
                   exit 1
                   ;;
 esac
