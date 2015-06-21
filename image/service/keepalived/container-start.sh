@@ -22,6 +22,12 @@ if [ ! -e "$FIRST_START_DONE" ]; then
       sed -i "s|{{ keepalived_priority }}|$KEEPALIVED_PRIORITY|g" /etc/keepalived/keepalived.conf
       sed -i "s|{{ keepalived_password }}|$KEEPALIVED_PASSWORD|g" /etc/keepalived/keepalived.conf
 
+      if [ -n "$KEEPALIVED_NOTIFY" ]; then
+        sed -i "s|{{ keepalived_notify }}|notify \"$KEEPALIVED_NOTIFY\"|g" /etc/keepalived/keepalived.conf
+      else
+        sed -i "/{{ keepalived_notify }}/d" /etc/keepalived/keepalived.conf
+      fi
+
       # unicast peers
       KEEPALIVED_UNICAST_PEERS=($KEEPALIVED_UNICAST_PEERS)
       for peer in "${KEEPALIVED_UNICAST_PEERS[@]}"
