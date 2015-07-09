@@ -1,5 +1,8 @@
 # Changelog
 
+## 0.1.3
+  - Fix libnl dependency
+
 ## 0.1.2
   - Keepalived version 1.2.19
   - Update default config :
