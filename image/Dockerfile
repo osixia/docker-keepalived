@@ -18,7 +18,7 @@ RUN apt-get -y update \
     && ./configure --with-kernel-dir=/lib/modules/$(uname -r)/build \
     && make && make install \
     && cd - && mkdir -p /etc/keepalived \
-    && apt-get remove -y --purge --auto-remove make gcc pkg-config libssl-dev libnl-dev
+    && apt-get remove -y --purge --auto-remove make gcc pkg-config libssl-dev
 
 # Add Keepalived assets
 ADD service/keepalived/assets /osixia/keepalived
