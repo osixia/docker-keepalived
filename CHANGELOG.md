@@ -1,5 +1,8 @@
 # Changelog
 
+## 0.1.4
+  - Use light-baseimage
+
 ## 0.1.3
   - Fix libnl dependency
 
