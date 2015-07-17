@@ -30,4 +30,4 @@ RUN ./sbin/install-service \
   && apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 # Add default env variables
-ADD env.yml /etc/env.yml
+ADD env.yaml /etc/env.yaml
