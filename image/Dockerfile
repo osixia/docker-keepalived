@@ -1,35 +1,42 @@
-FROM osixia/baseimage:0.10.4
+FROM osixia/light-baseimage:0.1.0
 MAINTAINER Bertrand Gouny <bertrand.gouny@osixia.net>
 
 # Keepalived version
 ENV KEEPALIVED_VERSION 1.2.19
 
-# Use baseimage-docker's init system.
-CMD ["/sbin/my_init"]
+# Use baseimage's init system.
+# https://github.com/osixia/docker-light-baseimage/blob/stable/image/tool/run
+CMD ["/container/tool/run"]
 
 # Install Keepalived
 RUN apt-get -y update \
     && LC_ALL=C DEBIAN_FRONTEND=noninteractive apt-get install -y \
-    make gcc pkg-config libssl-dev libnl-dev \
+      curl \
+      make \
+      gcc \
+      pkg-config \
+      libssl-dev \
+      libnl-3-dev \
+      libnl-genl-3-dev \
     && curl -o keepalived.tar.gz -SL http://keepalived.org/software/keepalived-${KEEPALIVED_VERSION}.tar.gz \
-    && mkdir -p /osixia/keepalived-sources \
-    && tar -xzf keepalived.tar.gz --strip 1 -C /osixia/keepalived-sources \
-    && cd osixia/keepalived-sources \
+    && mkdir -p /container/keepalived-sources \
+    && tar -xzf keepalived.tar.gz --strip 1 -C /container/keepalived-sources \
+    && cd container/keepalived-sources \
     && ./configure --with-kernel-dir=/lib/modules/$(uname -r)/build \
     && make && make install \
     && cd - && mkdir -p /etc/keepalived \
-    && apt-get remove -y --purge --auto-remove make gcc pkg-config libssl-dev
+    && apt-get remove -y --purge --auto-remove curl make gcc pkg-config libssl-dev
 
-# Add Keepalived assets
-ADD service/keepalived/assets /osixia/keepalived
+# Add service directory to /container/service
+ADD service /container/service
 
-# Clean all
-RUN rm keepalived.tar.gz \
-  && apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+# Use baseimage install-service script and clean all
+# https://github.com/osixia/docker-light-baseimage/blob/stable/image/tool/install-service
+RUN /container/tool/install-service \
+    && rm -f keepalived.tar.gz \
+    && rm -rf /container/keepalived-sources \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 # Add default env variables
-ADD env.yml /etc/env.yml
-
-# Add Keepalived container start config & daemon
-ADD service/keepalived/container-start.sh /etc/my_init.d/keepalived
-ADD service/keepalived/daemon.sh /etc/service/keepalived/run
+ADD env.yaml /etc/env.yaml

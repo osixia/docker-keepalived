@@ -1,5 +1,7 @@
 # osixia/keepalived
 
+[![](https://badge.imagelayers.io/osixia/keepalived:latest.svg)](https://imagelayers.io/?images=osixia/keepalived:latest 'Get your own badge on imagelayers.io')
+
 A docker image to run Keepalived.
 > [keepalived.org](http://keepalived.org/)
 

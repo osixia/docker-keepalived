@@ -8,12 +8,12 @@ if [ ! -e "$FIRST_START_DONE" ]; then
   # config folder is empty use bootstrap config if available
   if [ ! -e /etc/keepalived/keepalived.conf ]; then
     echo "No keepalived.conf provided using image default one"
-    if [ ! -e /osixia/keepalived/keepalived.conf ]; then
-      echo "Error: No default keepalived.conf found in /osixia/keepalived/keepalived.conf"
+    if [ ! -e /container/service/keepalived/assets/keepalived.conf ]; then
+      echo "Error: No default keepalived.conf found in /container/service/keepalived/assets/keepalived.conf"
       exit 1
     else
 
-      ln -s /osixia/keepalived/keepalived.conf /etc/keepalived/keepalived.conf
+      ln -s /container/service/keepalived/assets/keepalived.conf /etc/keepalived/keepalived.conf
 
       #
       # bootstrap config
