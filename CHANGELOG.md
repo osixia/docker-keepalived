@@ -1,6 +1,9 @@
 # Changelog
 
 ## 0.1.4
+  - Upgrade baseimage: osixia/light-baseimage:0.1.1
+
+## 0.1.4
   - Use light-baseimage
 
 ## 0.1.3
