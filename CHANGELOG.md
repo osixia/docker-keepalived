@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.1.6
+  - Better way to add custom config
+  - Improve documentation
+
 ## 0.1.5
   - Upgrade baseimage: osixia/light-baseimage:0.1.1
 
