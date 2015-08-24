@@ -7,9 +7,9 @@ A docker image to run Keepalived.
 
 ## Quick start
 
-This image require the kernel module ip_vs loaded on the host and need to be run with : --privileged --net=host
+This image require the kernel module ip_vs loaded on the host (`modprobe ip_vs`) and need to be run with : --cap-add=NET_ADMIN --net=host
 
-    docker run --privileged --net=host -d osixia/keepalived
+    docker run --cap-add=NET_ADMIN --net=host -d osixia/keepalived
 
 ## Environment Variables
 
