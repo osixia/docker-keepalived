@@ -1,4 +1,4 @@
-FROM osixia/light-baseimage:0.1.1
+FROM osixia/light-baseimage:0.1.2
 MAINTAINER Bertrand Gouny <bertrand.gouny@osixia.net>
 
 # Keepalived version
@@ -39,4 +39,4 @@ RUN /container/tool/install-service \
     && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 # Add default env variables
-ADD env.yaml /etc/env.yaml
+ADD env.yaml /container/environment/env.yaml
