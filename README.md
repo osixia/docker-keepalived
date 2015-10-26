@@ -13,7 +13,7 @@ This image require the kernel module ip_vs loaded on the host (`modprobe ip_vs`)
 
 ## Environment Variables
 
-Environement variables defaults are set in **image/env.yaml**. You can modify environment variable values directly in this file and rebuild the image ([see manual build](#manual-build)). You can also override those values at run time with -e argument or by setting your own env.yaml file as a docker volume to `/etc/env.yaml`. See examples below.
+Environement variables defaults are set in **image/env.yaml**. You can modify environment variable values directly in this file and rebuild the image ([see manual build](#manual-build)). You can also override those values at run time with -e argument or by setting your own env.yaml file as a docker volume to `/container/environment/env.yaml`. See examples below.
 
 - **KEEPALIVED_INTERFACE**: Keepalived network interface. Defaults to `eth0`
 - **KEEPALIVED_PASSWORD**: Keepalived password. Defaults to `d0cker`
@@ -46,9 +46,9 @@ Environment variable can be set directly by adding the -e argument in the comman
 	docker run -e KEEPALIVED_INTERFACE="eno1" -e KEEPALIVED_PASSWORD="password!" \
 	-e KEEPALIVED_PRIORITY="100" -d osixia/keepalived
 
-Or by setting your own `env.yaml` file as a docker volume to `/etc/env.yaml`
+Or by setting your own `env.yaml` file as a docker volume to `/container/environment/env.yaml`
 
-	docker run -v /data/my-env.yaml:/etc/env.yaml \
+	docker run -v /data/my-env.yaml:/container/environment/env.yaml \
 	-d osixia/keepalived
 
 ## Manual build
