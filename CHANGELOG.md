@@ -1,14 +1,17 @@
 # Changelog
 
+## 0.1.8
+  - Upgrade baseimage: light-baseimage:0.1.4
+
 ## 0.1.7
-  - Upgrade baseimage: osixia/light-baseimage:0.1.2
+  - Upgrade baseimage: light-baseimage:0.1.2
 
 ## 0.1.6
   - Better way to add custom config
   - Improve documentation
 
 ## 0.1.5
-  - Upgrade baseimage: osixia/light-baseimage:0.1.1
+  - Upgrade baseimage: light-baseimage:0.1.1
 
 ## 0.1.4
   - Use light-baseimage
