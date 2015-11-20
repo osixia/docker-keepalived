@@ -1,4 +1,4 @@
-FROM osixia/light-baseimage:0.1.4
+FROM osixia/light-baseimage:0.1.5
 MAINTAINER Bertrand Gouny <bertrand.gouny@osixia.net>
 
 # Keepalived version
