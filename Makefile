@@ -1,5 +1,5 @@
 NAME = osixia/keepalived
-VERSION = 0.1.9
+VERSION = 0.2.0
 
 .PHONY: all build test tag_latest release
 
