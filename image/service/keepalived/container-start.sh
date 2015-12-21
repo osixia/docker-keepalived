@@ -16,6 +16,7 @@ if [ ! -e "$FIRST_START_DONE" ]; then
 
   if [ -n "$KEEPALIVED_NOTIFY" ]; then
     sed -i --follow-symlinks --follow-symlinks "s|{{ keepalived_notify }}|notify \"$KEEPALIVED_NOTIFY\"|g" /etc/keepalived/keepalived.conf
+    chmod +x $KEEPALIVED_NOTIFY
   else
     sed -i --follow-symlinks --follow-symlinks "/{{ keepalived_notify }}/d" /etc/keepalived/keepalived.conf
   fi
