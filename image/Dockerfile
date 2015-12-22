@@ -10,7 +10,7 @@ CMD ["/container/tool/run"]
 
 # Install Keepalived
 RUN apt-get -y update \
-    && LC_ALL=C DEBIAN_FRONTEND=noninteractive apt-get install -y \
+    && LC_ALL=C DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
       curl \
       make \
       gcc \
