@@ -30,7 +30,7 @@ Environement variables defaults are set in **image/env.yaml**. You can modify en
   To convert yaml to python online : http://yaml-online-parser.appspot.com/
 
 
-- **KEEPALIVED_VIRTUAL_IPS** Add a read only user. Defaults to :
+- **KEEPALIVED_VIRTUAL_IPS** Keepalived virtual IPs. Defaults to :
 
       - 192.168.1.231
       - 192.168.1.232
