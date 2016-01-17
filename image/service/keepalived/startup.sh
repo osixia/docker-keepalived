@@ -26,32 +26,16 @@ if [ ! -e "$FIRST_START_DONE" ]; then
   fi
 
   # unicast peers
-  KEEPALIVED_UNICAST_PEERS=($KEEPALIVED_UNICAST_PEERS)
-  for peer in "${KEEPALIVED_UNICAST_PEERS[@]}"
+  for peer in $(complex-bash-env iterate "${KEEPALIVED_UNICAST_PEERS}")
   do
-    # it's just a peer
-    # stored in a variable
-    if [ -n "${!peer}" ]; then
-      sed -i --follow-symlinks "s|{{ keepalived_unicast_peers }}|${!peer}\n    {{ keepalived_unicast_peers }}|g" /etc/keepalived/keepalived.conf
-    # directly
-    else
-      sed -i --follow-symlinks "s|{{ keepalived_unicast_peers }}|${peer}\n    {{ keepalived_unicast_peers }}|g" /etc/keepalived/keepalived.conf
-    fi
+    sed -i --follow-symlinks "s|{{ keepalived_unicast_peers }}|${peer}\n    {{ keepalived_unicast_peers }}|g" /etc/keepalived/keepalived.conf
   done
   sed -i --follow-symlinks "/{{ keepalived_unicast_peers }}/d" /etc/keepalived/keepalived.conf
 
   # virtual ips
-  KEEPALIVED_VIRTUAL_IPS=($KEEPALIVED_VIRTUAL_IPS)
-  for vip in "${KEEPALIVED_VIRTUAL_IPS[@]}"
+  for vip in $(complex-bash-env iterate "${KEEPALIVED_VIRTUAL_IPS}")
   do
-    # it's just a peer
-    # stored in a variable
-    if [ -n "${!vip}" ]; then
-      sed -i --follow-symlinks "s|{{ keepalived_virtual_ips }}|${!vip}\n    {{ keepalived_virtual_ips }}|g" /etc/keepalived/keepalived.conf
-    # directly
-    else
-      sed -i --follow-symlinks "s|{{ keepalived_virtual_ips }}|${vip}\n    {{ keepalived_virtual_ips }}|g" /etc/keepalived/keepalived.conf
-    fi
+    sed -i --follow-symlinks "s|{{ keepalived_virtual_ips }}|${vip}\n    {{ keepalived_virtual_ips }}|g" /etc/keepalived/keepalived.conf
   done
   sed -i --follow-symlinks "/{{ keepalived_virtual_ips }}/d" /etc/keepalived/keepalived.conf
 
