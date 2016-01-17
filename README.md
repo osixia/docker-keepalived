@@ -5,6 +5,8 @@
 A docker image to run Keepalived.
 > [keepalived.org](http://keepalived.org/)
 
+/!\ this documentation is a work in progress.
+
 ## Quick start
 
 This image require the kernel module ip_vs loaded on the host (`modprobe ip_vs`) and need to be run with : --cap-add=NET_ADMIN --net=host
