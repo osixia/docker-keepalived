@@ -1,11 +1,15 @@
 #!/bin/bash -e
 
-FIRST_START_DONE="/etc/docker-keepalived-first-start-done"
+# set -x (bash debug) if log level is trace
+# https://github.com/osixia/docker-light-baseimage/blob/stable/image/tool/log-helper
+log-helper level eq trace && set -x
+
+FIRST_START_DONE="${CONTAINER_STATE_DIR}/docker-keepalived-first-start-done"
 
 # container first start
 if [ ! -e "$FIRST_START_DONE" ]; then
 
-  ln -s /container/service/keepalived/assets/keepalived.conf /etc/keepalived/keepalived.conf
+  ln -sf ${CONTAINER_SERVICE_DIR}/keepalived/assets/keepalived.conf /etc/keepalived/keepalived.conf
 
   #
   # bootstrap config
