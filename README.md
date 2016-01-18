@@ -5,13 +5,39 @@
 A docker image to run Keepalived.
 > [keepalived.org](http://keepalived.org/)
 
-/!\ this documentation is a work in progress.
+
 
 ## Quick start
 
 This image require the kernel module ip_vs loaded on the host (`modprobe ip_vs`) and need to be run with : --cap-add=NET_ADMIN --net=host
 
     docker run --cap-add=NET_ADMIN --net=host -d osixia/keepalived:0.2.0
+
+## Beginner Guide
+
+### Use your own Keepalived config
+This image comes with a keepalived config file that can be easily customized via environment variables for a quick bootstrap,
+but setting your own keepalived.conf is possible. 2 options:
+
+- Link your config file at run time to `/container/service/keepalived/assets/keepalived.conf` :
+
+      docker run --volume /data/my-keepalived.conf:/container/service/keepalived/assets/keepalived.conf --detach osixia/keepalived:0.2.0
+
+- Add your config file by extending or cloning this image, please refer to the [Advanced User Guide](#advanced-user-guide)
+
+### Debug
+
+The container default log level is **info**.
+Available levels are: `none`, `error`, `warning`, `info`, `debug` and `trace`.
+
+Example command to run the container in `debug` mode:
+
+	docker run --detach osixia/keepalived:0.2.0 --loglevel debug
+
+See all command line options:
+
+	docker run osixia/keepalived:0.2.0 --help
+
 
 ## Environment Variables
 
@@ -48,13 +74,13 @@ See how to [set your own environment variables](#set-your-own-environment-variab
 
 Environment variable can be set directly by adding the -e argument in the command line, for example :
 
-	docker run -e KEEPALIVED_INTERFACE="eno1" -e KEEPALIVED_PASSWORD="password!" \
-	-e KEEPALIVED_PRIORITY="100" -d osixia/keepalived
+	docker run --env KEEPALIVED_INTERFACE="eno1" --env KEEPALIVED_PASSWORD="password!" \
+	--env KEEPALIVED_PRIORITY="100" --detach osixia/keepalived
 
 Or by setting your own `env.yaml` file as a docker volume to `/container/environment/env.yaml`
 
-	docker run -v /data/my-env.yaml:/container/environment/env.yaml \
-	-d osixia/keepalived
+	docker run --volume /data/my-env.yaml:/container/environment/env.yaml \
+	--detach osixia/keepalived
 
 ### Set your own environment variables
 
@@ -89,6 +115,7 @@ Dockerfile example:
     FROM osixia/osixia/keepalived:0.2.0
     MAINTAINER Your Name <your@name.com>
 
+    ADD keepalived.conf /container/service/keepalived/assets/keepalived.conf
     ADD environment /container/environment/01-custom
     ADD scripts.sh /container/service/keepalived/assets/notify.sh
 
@@ -109,6 +136,8 @@ Adapt Makefile, set your image NAME and VERSION, for example :
 	becomes :
 	NAME = billy-the-king/keepalived
 	VERSION = 0.1.0
+
+Add your custom scripts, environment files, config ...
 
 Build your image :
 
