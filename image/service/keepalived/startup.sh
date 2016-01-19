@@ -23,16 +23,16 @@ if [ ! -e "$FIRST_START_DONE" ]; then
   fi
 
   # unicast peers
-  for peer in $(complex-bash-env iterate "${KEEPALIVED_UNICAST_PEERS}")
+  for peer in $(complex-bash-env iterate KEEPALIVED_UNICAST_PEERS)
   do
-    sed -i "s|{{ keepalived_unicast_peers }}|${peer}\n    {{ keepalived_unicast_peers }}|g" ${CONTAINER_SERVICE_DIR}/keepalived/assets/keepalived.conf
+    sed -i "s|{{ keepalived_unicast_peers }}|${!peer}\n    {{ keepalived_unicast_peers }}|g" ${CONTAINER_SERVICE_DIR}/keepalived/assets/keepalived.conf
   done
   sed -i "/{{ keepalived_unicast_peers }}/d" ${CONTAINER_SERVICE_DIR}/keepalived/assets/keepalived.conf
 
   # virtual ips
-  for vip in $(complex-bash-env iterate "${KEEPALIVED_VIRTUAL_IPS}")
+  for vip in $(complex-bash-env iterate KEEPALIVED_VIRTUAL_IPS)
   do
-    sed -i "s|{{ keepalived_virtual_ips }}|${vip}\n    {{ keepalived_virtual_ips }}|g" ${CONTAINER_SERVICE_DIR}/keepalived/assets/keepalived.conf
+    sed -i "s|{{ keepalived_virtual_ips }}|${!vip}\n    {{ keepalived_virtual_ips }}|g" ${CONTAINER_SERVICE_DIR}/keepalived/assets/keepalived.conf
   done
   sed -i "/{{ keepalived_virtual_ips }}/d" ${CONTAINER_SERVICE_DIR}/keepalived/assets/keepalived.conf
 
