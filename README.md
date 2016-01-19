@@ -1,6 +1,6 @@
 # osixia/keepalived
 
-[![](https://badge.imagelayers.io/osixia/keepalived:latest.svg)](https://imagelayers.io/?images=osixia/keepalived:latest 'Get your own badge on imagelayers.io') | Latest release: 0.2.0 - [Changelog](CHANGELOG.md) | [Docker Hub](https://hub.docker.com/r/osixia/keepalived/) 
+[![](https://badge.imagelayers.io/osixia/keepalived:latest.svg)](https://imagelayers.io/?images=osixia/keepalived:latest 'Get your own badge on imagelayers.io') | Latest release: 0.2.0 - Keepalived 1.2.19 - [Changelog](CHANGELOG.md) | [Docker Hub](https://hub.docker.com/r/osixia/keepalived/) 
 
 A docker image to run Keepalived.
 > [keepalived.org](http://keepalived.org/)
@@ -20,8 +20,6 @@ A docker image to run Keepalived.
 	- [Tests](#tests)
 	- [Under the hood: osixia/light-baseimage](#under-the-hood-osixialight-baseimage)
 - [Changelog](#changelog)
-
-
 
 ## Quick start
 
