@@ -84,6 +84,8 @@ See how to [set your own environment variables](#set-your-own-environment-variab
 
 - **KEEPALIVED_NOTIFY** Script to execute when node state change. Defaults to `/container/service/keepalived/assets/notify.sh`
 
+- **KEEPALIVED_COMMAND_LINE_ARGUMENTS** Keepalived command line arguments; Defaults to `--log-detail --dump-conf`
+
 ### Set environment variables at run time :
 
 Environment variable can be set directly by adding the -e argument in the command line, for example :

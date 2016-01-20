@@ -4,4 +4,4 @@
 # https://github.com/osixia/docker-light-baseimage/blob/stable/image/tool/log-helper
 log-helper level eq trace && set -x
 
-exec /usr/local/sbin/keepalived -f /etc/keepalived/keepalived.conf --dont-fork --log-console -D -d
+exec /usr/local/sbin/keepalived -f /etc/keepalived/keepalived.conf --dont-fork --log-console ${KEEPALIVED_COMMAND_LINE_ARGUMENTS}
