@@ -23,18 +23,18 @@ RUN apt-get -y update \
     && ./configure --with-kernel-dir=/lib/modules/$(uname -r)/build \
     && make && make install \
     && cd - && mkdir -p /etc/keepalived \
-    && apt-get remove -y --purge --auto-remove curl make gcc pkg-config libssl-dev
-
-# Add service directory to /container/service
-ADD service /container/service
-
-# Use baseimage install-service script and clean all
-# https://github.com/osixia/docker-light-baseimage/blob/stable/image/tool/install-service
-RUN /container/tool/install-service \
+    && apt-get remove -y --purge --auto-remove curl make gcc pkg-config libssl-dev \
     && rm -f keepalived.tar.gz \
     && rm -rf /container/keepalived-sources \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+
+# Add service directory to /container/service
+ADD service /container/service
+
+# Use baseimage install-service script
+# https://github.com/osixia/docker-light-baseimage/blob/stable/image/tool/install-service
+RUN /container/tool/install-service
 
 # Add default env variables
 ADD environment /container/environment/99-default
