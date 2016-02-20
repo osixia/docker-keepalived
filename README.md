@@ -1,6 +1,13 @@
 # osixia/keepalived
 
-[![](https://badge.imagelayers.io/osixia/keepalived:latest.svg)](https://imagelayers.io/?images=osixia/keepalived:latest 'Get your own badge on imagelayers.io') | Latest release: 0.2.0 - Keepalived 1.2.19 - [Changelog](CHANGELOG.md) | [Docker Hub](https://hub.docker.com/r/osixia/keepalived/) 
+[![Docker Pulls](https://img.shields.io/docker/pulls/osixia/keepalived.svg)][hub]
+[![Docker Stars](https://img.shields.io/docker/stars/osixia/keepalived.svg)][hub]
+[![Image Size](https://img.shields.io/imagelayers/image-size/osixia/keepalived/latest.svg)](https://imagelayers.io/?images=osixia/keepalived:latest)
+[![Image Layers](https://img.shields.io/imagelayers/layers/osixia/keepalived/latest.svg)](https://imagelayers.io/?images=osixia/keepalived:latest)
+
+[hub]: https://hub.docker.com/r/osixia/keepalived/
+
+Latest release: 0.2.1 - Keepalived 1.2.19 - [Changelog](CHANGELOG.md) | [Docker Hub](https://hub.docker.com/r/osixia/keepalived/) 
 
 A docker image to run Keepalived.
 > [keepalived.org](http://keepalived.org/)
@@ -8,6 +15,7 @@ A docker image to run Keepalived.
 - [Quick start](#quick-start)
 - [Beginner Guide](#beginner-guide)
 	- [Use your own Backup Manager config](#use-your-own-backup-manager-config)
+	- [Fix docker mounted file problems](#fix-docker-mounted-file-problems)
 	- [Debug](#debug)
 - [Environment Variables](#environment-variables)
 	- [Set your own environment variables](#set-your-own-environment-variables)
@@ -15,7 +23,7 @@ A docker image to run Keepalived.
 		- [Link environment file](#link-environment-file)
 		- [Make your own image or extend this image](#make-your-own-image-or-extend-this-image)
 - [Advanced User Guide](#advanced-user-guide)
-	- [Extend osixia/keepalived:0.2.0 image](#extend-osixiakeepalived020-image)
+	- [Extend osixia/keepalived:0.2.1 image](#extend-osixiakeepalived021-image)
 	- [Make your own keepalived image](#make-your-own-keepalived-image)
 	- [Tests](#tests)
 	- [Under the hood: osixia/light-baseimage](#under-the-hood-osixialight-baseimage)
@@ -25,7 +33,7 @@ A docker image to run Keepalived.
 
 This image require the kernel module ip_vs loaded on the host (`modprobe ip_vs`) and need to be run with : --cap-add=NET_ADMIN --net=host
 
-    docker run --cap-add=NET_ADMIN --net=host -d osixia/keepalived:0.2.0
+    docker run --cap-add=NET_ADMIN --net=host -d osixia/keepalived:0.2.1
 
 ## Beginner Guide
 
@@ -35,9 +43,17 @@ but setting your own keepalived.conf is possible. 2 options:
 
 - Link your config file at run time to `/container/service/keepalived/assets/keepalived.conf` :
 
-      docker run --volume /data/my-keepalived.conf:/container/service/keepalived/assets/keepalived.conf --detach osixia/keepalived:0.2.0
+      docker run --volume /data/my-keepalived.conf:/container/service/keepalived/assets/keepalived.conf --detach osixia/keepalived:0.2.1
 
 - Add your config file by extending or cloning this image, please refer to the [Advanced User Guide](#advanced-user-guide)
+
+### Fix docker mounted file problems
+
+You may have some problems with mounted files on some systems. The startup script try to make some file adjustment and fix files owner and permissions, this can result in multiple errors. See [Docker documentation](https://docs.docker.com/v1.4/userguide/dockervolumes/#mount-a-host-file-as-a-data-volume).
+
+To fix that run the container with `--copy-service` argument :
+
+		docker run [your options] osixia/keepalived:0.2.1 --copy-service
 
 ### Debug
 
@@ -46,11 +62,11 @@ Available levels are: `none`, `error`, `warning`, `info`, `debug` and `trace`.
 
 Example command to run the container in `debug` mode:
 
-	docker run --detach osixia/keepalived:0.2.0 --loglevel debug
+	docker run --detach osixia/keepalived:0.2.1 --loglevel debug
 
 See all command line options:
 
-	docker run osixia/keepalived:0.2.0 --help
+	docker run osixia/keepalived:0.2.1 --help
 
 
 ## Environment Variables
@@ -70,7 +86,7 @@ See how to [set your own environment variables](#set-your-own-environment-variab
 
   If you want to set this variable at docker run command add the tag `#PYTHON2BASH:` and convert the yaml in python:
 
-      docker run --env KEEPALIVED_UNICAST_PEERS="#PYTHON2BASH:['192.168.1.10', '192.168.1.11']" --detach osixia/keepalived:0.2.0
+      docker run --env KEEPALIVED_UNICAST_PEERS="#PYTHON2BASH:['192.168.1.10', '192.168.1.11']" --detach osixia/keepalived:0.2.1
 
   To convert yaml to python online : http://yaml-online-parser.appspot.com/
 
@@ -104,7 +120,7 @@ Or by setting your own `env.yaml` file as a docker volume to `/container/environ
 Environment variables can be set by adding the --env argument in the command line, for example:
 
     docker run --env KEEPALIVED_INTERFACE="eno1" --env KEEPALIVED_PASSWORD="password!" \
-    --env KEEPALIVED_PRIORITY="100" --detach osixia/keepalived:0.2.0
+    --env KEEPALIVED_PRIORITY="100" --detach osixia/keepalived:0.2.1
 
 
 #### Link environment file
@@ -112,7 +128,7 @@ Environment variables can be set by adding the --env argument in the command lin
 For example if your environment file is in :  /data/environment/my-env.yaml
 
 	docker run --volume /data/environment/my-env.yaml:/container/environment/01-custom/env.yaml \
-	--detach osixia/keepalived:0.2.0
+	--detach osixia/keepalived:0.2.1
 
 Take care to link your environment file to `/container/environment/XX-somedir` (with XX < 99 so they will be processed before default environment files) and not  directly to `/container/environment` because this directory contains predefined baseimage environment files to fix container environment (INITRD, LANG, LANGUAGE and LC_CTYPE).
 
@@ -122,13 +138,13 @@ This is the best solution if you have a private registry. Please refer to the [A
 
 ## Advanced User Guide
 
-### Extend osixia/keepalived:0.2.0 image
+### Extend osixia/keepalived:0.2.1 image
 
 If you need to add your custom TLS certificate, bootstrap config or environment files the easiest way is to extends this image.
 
 Dockerfile example:
 
-    FROM osixia/osixia/keepalived:0.2.0
+    FROM osixia/osixia/keepalived:0.2.1
     MAINTAINER Your Name <your@name.com>
 
     ADD keepalived.conf /container/service/keepalived/assets/keepalived.conf
@@ -147,7 +163,7 @@ Clone this project :
 Adapt Makefile, set your image NAME and VERSION, for example :
 
 	NAME = osixia/keepalived
-	VERSION = 0.2.0
+	VERSION = 0.2.1
 
 	becomes :
 	NAME = billy-the-king/keepalived

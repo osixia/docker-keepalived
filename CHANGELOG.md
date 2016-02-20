@@ -1,5 +1,8 @@
 # Changelog
 
+## 0.2.1
+  - Upgrade baseimage: light-baseimage:0.2.2
+
 ## 0.2.0
   - Upgrade baseimage: light-baseimage:0.2.1
   - Makefile with build no cache
