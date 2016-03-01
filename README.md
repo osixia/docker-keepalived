@@ -102,18 +102,6 @@ See how to [set your own environment variables](#set-your-own-environment-variab
 
 - **KEEPALIVED_COMMAND_LINE_ARGUMENTS** Keepalived command line arguments; Defaults to `--log-detail --dump-conf`
 
-### Set environment variables at run time :
-
-Environment variable can be set directly by adding the -e argument in the command line, for example :
-
-	docker run --env KEEPALIVED_INTERFACE="eno1" --env KEEPALIVED_PASSWORD="password!" \
-	--env KEEPALIVED_PRIORITY="100" --detach osixia/keepalived
-
-Or by setting your own `env.yaml` file as a docker volume to `/container/environment/env.yaml`
-
-	docker run --volume /data/my-env.yaml:/container/environment/env.yaml \
-	--detach osixia/keepalived
-
 ### Set your own environment variables
 
 #### Use command line argument
