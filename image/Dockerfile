@@ -1,10 +1,10 @@
 # Use osixia/light-baseimage
 # sources: https://github.com/osixia/docker-light-baseimage
-FROM osixia/light-baseimage:0.2.2
+FROM osixia/light-baseimage:0.2.4
 MAINTAINER Bertrand Gouny <bertrand.gouny@osixia.net>
 
 # Keepalived version
-ENV KEEPALIVED_VERSION 1.2.19
+ENV KEEPALIVED_VERSION 1.2.23
 
 # Download, build and install Keepalived
 RUN apt-get -y update \
