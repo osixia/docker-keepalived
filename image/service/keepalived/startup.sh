@@ -39,6 +39,12 @@ if [ ! -e "$FIRST_START_DONE" ]; then
   touch $FIRST_START_DONE
 fi
 
+# try to delete virtual ips from interface
+for vip in $(complex-bash-env iterate KEEPALIVED_VIRTUAL_IPS)
+do
+  ip addr del ${vip}/32 dev ${KEEPALIVED_INTERFACE} || true
+done
+
 if [ ! -e "/etc/backup-manager.conf" ]; then
   ln -sf ${CONTAINER_SERVICE_DIR}/keepalived/assets/keepalived.conf /etc/keepalived/keepalived.conf
 fi
