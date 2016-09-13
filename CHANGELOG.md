@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.2.24
+  - Keepalived version 1.2.24
+  - We now use the keepalived version number as docker image tag
+
 ## 0.2.3
   - Upgrade baseimage: light-baseimage:0.2.5
 
