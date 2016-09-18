@@ -2,12 +2,13 @@
 
 [![Docker Pulls](https://img.shields.io/docker/pulls/osixia/keepalived.svg)][hub]
 [![Docker Stars](https://img.shields.io/docker/stars/osixia/keepalived.svg)][hub]
+[![](https://images.microbadger.com/badges/image/osixia/keepalived.svg)](http://microbadger.com/images/osixia/keepalived "Get your own image badge on microbadger.com")
 
 [hub]: https://hub.docker.com/r/osixia/keepalived/
 
 Latest release: 1.2.24 - Keepalived 1.2.24 - [Changelog](CHANGELOG.md) | [Docker Hub](https://hub.docker.com/r/osixia/keepalived/) 
 
-A docker image to run Keepalived.
+**A docker image to run Keepalived.**
 > [keepalived.org](http://keepalived.org/)
 
 - [Quick start](#quick-start)
