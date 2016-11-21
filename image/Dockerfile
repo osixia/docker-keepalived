@@ -1,10 +1,10 @@
 # Use osixia/light-baseimage
 # sources: https://github.com/osixia/docker-light-baseimage
-FROM osixia/light-baseimage:0.2.5
+FROM osixia/light-baseimage:0.2.6
 MAINTAINER Bertrand Gouny <bertrand.gouny@osixia.net>
 
 # Keepalived version
-ENV KEEPALIVED_VERSION 1.2.24
+ENV KEEPALIVED_VERSION 1.3.0
 
 # Download, build and install Keepalived
 RUN apt-get -y update \
@@ -13,6 +13,8 @@ RUN apt-get -y update \
        gcc \
        libnl-3-dev \
        libnl-genl-3-dev \
+       libnl-route-3-dev \
+       libnfnetlink-dev \
        libssl-dev \
        make \
        pkg-config \
@@ -23,7 +25,7 @@ RUN apt-get -y update \
     && ./configure --with-kernel-dir=/lib/modules/$(uname -r)/build \
     && make && make install \
     && cd - && mkdir -p /etc/keepalived \
-    && apt-get remove -y --purge --auto-remove curl make gcc pkg-config libssl-dev \
+    && apt-get remove -y --purge --auto-remove curl make gcc pkg-config \
     && rm -f keepalived.tar.gz \
     && rm -rf /container/keepalived-sources \
     && apt-get clean \
