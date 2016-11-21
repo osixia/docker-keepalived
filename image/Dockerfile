@@ -25,7 +25,7 @@ RUN apt-get -y update \
     && ./configure --with-kernel-dir=/lib/modules/$(uname -r)/build \
     && make && make install \
     && cd - && mkdir -p /etc/keepalived \
-    && apt-get remove -y --purge --auto-remove curl make gcc pkg-config libssl-dev \
+    && apt-get remove -y --purge --auto-remove curl make gcc pkg-config \
     && rm -f keepalived.tar.gz \
     && rm -rf /container/keepalived-sources \
     && apt-get clean \
