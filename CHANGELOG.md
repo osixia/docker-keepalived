@@ -1,5 +1,8 @@
 # Changelog
 
+## 1.3.1
+  - Keepalived version 1.3.1
+
 ## 1.3.0
   - Keepalived version 1.3.0
   - Upgrade baseimage: light-baseimage:0.2.6

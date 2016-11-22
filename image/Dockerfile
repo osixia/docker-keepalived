@@ -4,7 +4,7 @@ FROM osixia/light-baseimage:0.2.6
 MAINTAINER Bertrand Gouny <bertrand.gouny@osixia.net>
 
 # Keepalived version
-ENV KEEPALIVED_VERSION 1.3.0
+ENV KEEPALIVED_VERSION 1.3.1
 
 # Download, build and install Keepalived
 RUN apt-get -y update \
