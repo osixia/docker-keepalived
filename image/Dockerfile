@@ -4,13 +4,15 @@ FROM osixia/light-baseimage:0.2.6
 MAINTAINER Bertrand Gouny <bertrand.gouny@osixia.net>
 
 # Keepalived version
-ENV KEEPALIVED_VERSION 1.3.2
+ENV KEEPALIVED_VERSION 1.3.4
 
 # Download, build and install Keepalived
 RUN apt-get -y update \
     && LC_ALL=C DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
        curl \
        gcc \
+       iptables-dev \
+       libipset-dev \
        libnl-3-dev \
        libnl-genl-3-dev \
        libnl-route-3-dev \

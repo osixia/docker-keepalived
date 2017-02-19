@@ -1,5 +1,5 @@
 NAME = osixia/keepalived
-VERSION = 1.3.2
+VERSION = 1.3.4
 
 .PHONY: all build build-nocache test tag_latest release
 
