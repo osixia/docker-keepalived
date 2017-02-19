@@ -11,6 +11,8 @@ RUN apt-get -y update \
     && LC_ALL=C DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
        curl \
        gcc \
+       iptables-dev \
+       libipset-dev \
        libnl-3-dev \
        libnl-genl-3-dev \
        libnl-route-3-dev \
