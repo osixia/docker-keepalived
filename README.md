@@ -131,7 +131,7 @@ If you need to add your custom TLS certificate, bootstrap config or environment 
 
 Dockerfile example:
 
-    FROM osixia/osixia/keepalived:1.3.5
+    FROM osixia/keepalived:1.3.5
     MAINTAINER Your Name <your@name.com>
 
     ADD keepalived.conf /container/service/keepalived/assets/keepalived.conf
