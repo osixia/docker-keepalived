@@ -17,6 +17,7 @@ RUN apt-get -y update \
        libnl-genl-3-dev \
        libnl-route-3-dev \
        libnfnetlink-dev \
+       libsnmp-dev \
        libssl-dev \
        make \
        pkg-config \
@@ -24,7 +25,7 @@ RUN apt-get -y update \
     && mkdir -p /container/keepalived-sources \
     && tar -xzf keepalived.tar.gz --strip 1 -C /container/keepalived-sources \
     && cd container/keepalived-sources \
-    && ./configure --with-kernel-dir=/lib/modules/$(uname -r)/build \
+    && ./configure --with-kernel-dir=/lib/modules/$(uname -r)/build --enable-snmp \
     && make && make install \
     && cd - && mkdir -p /etc/keepalived \
     && apt-get remove -y --purge --auto-remove curl make gcc pkg-config \
