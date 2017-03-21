@@ -24,7 +24,7 @@ RUN apt-get -y update \
     && mkdir -p /container/keepalived-sources \
     && tar -xzf keepalived.tar.gz --strip 1 -C /container/keepalived-sources \
     && cd container/keepalived-sources \
-    && ./configure --with-kernel-dir=/lib/modules/$(uname -r)/build \
+    && ./configure --disable-dynamic-linking \
     && make && make install \
     && cd - && mkdir -p /etc/keepalived \
     && apt-get remove -y --purge --auto-remove curl make gcc pkg-config \
