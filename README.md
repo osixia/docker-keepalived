@@ -8,8 +8,6 @@
 
 Latest release: 1.3.5 - Keepalived 1.3.5 - [Changelog](CHANGELOG.md) | [Docker Hub](https://hub.docker.com/r/osixia/keepalived/) 
 
-## /!\ Due to segmentation fault in keepalived 1.3.5 the image have been removed please use v1.3.4
-
 **A docker image to run Keepalived.**
 > [keepalived.org](http://keepalived.org/)
 
