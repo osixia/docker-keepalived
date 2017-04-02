@@ -1,25 +1,29 @@
 # Use osixia/light-baseimage
 # sources: https://github.com/osixia/docker-light-baseimage
-FROM osixia/light-baseimage:0.2.6
+FROM osixia/alpine-light-baseimage:0.1.2
 MAINTAINER Bertrand Gouny <bertrand.gouny@osixia.net>
 
 # Keepalived version
 ENV KEEPALIVED_VERSION 1.3.5
 
+RUN addgroup -S keepalived_script && adduser -D -S -G keepalived_script keepalived_script
+
 # Download, build and install Keepalived
-RUN apt-get -y update \
-    && LC_ALL=C DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
+RUN apk --no-cache add \
        curl \
        gcc \
+       ipset \
+       ipset-dev \
+       iptables \
        iptables-dev \
-       libipset-dev \
-       libnl-3-dev \
-       libnl-genl-3-dev \
-       libnl-route-3-dev \
+       libnfnetlink \
        libnfnetlink-dev \
-       libssl-dev \
+       libnl3 \
+       libnl3-dev \
        make \
-       pkg-config \
+       musl-dev \
+       openssl \
+       openssl-dev \
     && curl -o keepalived.tar.gz -SL http://keepalived.org/software/keepalived-${KEEPALIVED_VERSION}.tar.gz \
     && mkdir -p /container/keepalived-sources \
     && tar -xzf keepalived.tar.gz --strip 1 -C /container/keepalived-sources \
@@ -27,11 +31,18 @@ RUN apt-get -y update \
     && ./configure --disable-dynamic-linking \
     && make && make install \
     && cd - && mkdir -p /etc/keepalived \
-    && apt-get remove -y --purge --auto-remove curl make gcc pkg-config \
     && rm -f keepalived.tar.gz \
     && rm -rf /container/keepalived-sources \
-    && apt-get clean \
-    && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+    && apk --no-cache del \
+        gcc \
+        ipset-dev \
+        iptables-dev \
+        libnfnetlink-dev \
+        libnl3-dev \
+        make \
+        musl-dev \
+        openssl-dev
+
 
 # Add service directory to /container/service
 ADD service /container/service

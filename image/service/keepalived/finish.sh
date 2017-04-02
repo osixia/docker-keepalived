@@ -7,7 +7,20 @@ log-helper level eq trace && set -x
 # try to delete virtual ips from interface
 for vip in $(complex-bash-env iterate KEEPALIVED_VIRTUAL_IPS)
 do
-  ip addr del ${!vip}/32 dev ${KEEPALIVED_INTERFACE} || true
+  IP_INFO=$(ip addr list | grep ${!vip}) || continue
+  IP_V6=$(echo "${IP_INFO}" | grep "inet6")
+  IP_IP=$(echo "${IP_INFO}" |  awk '{print $2}')
+
+  # ipv4
+  if [ -z "${IP_V6}" ]; then
+    IP_INTERFACE=$(echo "${IP_INFO}" |  awk '{print $5}')
+  # ipv6
+  else
+    echo "skipping address: ${IP_IP} - ipv6 not supported yet :("
+    continue
+  fi
+
+  ip addr del ${IP_IP} dev ${IP_INTERFACE} || true
 done
 
 exit 0
