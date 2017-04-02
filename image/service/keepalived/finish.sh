@@ -7,9 +7,9 @@ log-helper level eq trace && set -x
 # try to delete virtual ips from interface
 for vip in $(complex-bash-env iterate KEEPALIVED_VIRTUAL_IPS)
 do
-  IP=$(echo ${!vip} | awk '{print $1}'}
+  IP=$(echo ${!vip} | awk '{print $1}')
   IP_INFO=$(ip addr list | grep ${IP}) || continue
-  IP_V6=$(echo "${IP_INFO}" | grep "inet6")
+  IP_V6=$(echo "${IP_INFO}" | grep "inet6") || true
 
   # ipv4
   if [ -z "${IP_V6}" ]; then

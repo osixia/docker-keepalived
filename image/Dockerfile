@@ -34,6 +34,7 @@ RUN apk --no-cache add \
     && rm -f keepalived.tar.gz \
     && rm -rf /container/keepalived-sources \
     && apk --no-cache del \
+        curl \
         gcc \
         ipset-dev \
         iptables-dev \

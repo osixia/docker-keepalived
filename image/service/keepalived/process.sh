@@ -8,7 +8,7 @@ echo -n "Waiting config file /usr/local/etc/keepalived/keepalived.conf"
 while [ ! -e "/usr/local/etc/keepalived/keepalived.conf" ]
 do
   echo -n "."
-  sleep
+  sleep 0.1
 done
 echo "ok"
 
