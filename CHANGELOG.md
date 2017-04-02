@@ -1,5 +1,8 @@
 # Changelog
 
+## 1.3.6
+  - Fix startup.sh and finish.sh ip address removal
+
 ## 1.3.5
   - Keepalived version 1.3.5
 
