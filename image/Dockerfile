@@ -1,10 +1,10 @@
 # Use osixia/light-baseimage
 # sources: https://github.com/osixia/docker-light-baseimage
-FROM osixia/alpine-light-baseimage:0.1.2
+FROM osixia/alpine-light-baseimage:0.1.4
 MAINTAINER Bertrand Gouny <bertrand.gouny@osixia.net>
 
 # Keepalived version
-ENV KEEPALIVED_VERSION 1.3.5
+ARG KEEPALIVED_VERSION=1.3.5
 
 RUN addgroup -S keepalived_script && adduser -D -S -G keepalived_script keepalived_script
 
