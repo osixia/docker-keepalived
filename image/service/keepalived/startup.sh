@@ -11,30 +11,31 @@ if [ ! -e "$FIRST_START_DONE" ]; then
   #
   # bootstrap config
   #
-  sed -i --follow-symlinks "s|{{ keepalived_interface }}|$KEEPALIVED_INTERFACE|g" ${CONTAINER_SERVICE_DIR}/keepalived/assets/keepalived.conf
-  sed -i --follow-symlinks "s|{{ keepalived_priority }}|$KEEPALIVED_PRIORITY|g" ${CONTAINER_SERVICE_DIR}/keepalived/assets/keepalived.conf
-  sed -i --follow-symlinks "s|{{ keepalived_password }}|$KEEPALIVED_PASSWORD|g" ${CONTAINER_SERVICE_DIR}/keepalived/assets/keepalived.conf
+  sed -i "s|{{ KEEPALIVED_INTERFACE }}|$KEEPALIVED_INTERFACE|g" ${CONTAINER_SERVICE_DIR}/keepalived/assets/keepalived.conf
+  sed -i "s|{{ KEEPALIVED_PRIORITY }}|$KEEPALIVED_PRIORITY|g" ${CONTAINER_SERVICE_DIR}/keepalived/assets/keepalived.conf
+  sed -i "s|{{ KEEPALIVED_PASSWORD }}|$KEEPALIVED_PASSWORD|g" ${CONTAINER_SERVICE_DIR}/keepalived/assets/keepalived.conf
 
   if [ -n "$KEEPALIVED_NOTIFY" ]; then
-    sed -i --follow-symlinks "s|{{ keepalived_notify }}|notify \"$KEEPALIVED_NOTIFY\"|g" ${CONTAINER_SERVICE_DIR}/keepalived/assets/keepalived.conf
+    sed -i "s|{{ KEEPALIVED_NOTIFY }}|notify \"$KEEPALIVED_NOTIFY\"|g" ${CONTAINER_SERVICE_DIR}/keepalived/assets/keepalived.conf
+    chown keepalived_script:keepalived_script $KEEPALIVED_NOTIFY
     chmod +x $KEEPALIVED_NOTIFY
   else
-    sed -i --follow-symlinks "/{{ keepalived_notify }}/d" ${CONTAINER_SERVICE_DIR}/keepalived/assets/keepalived.conf
+    sed -i "/{{ KEEPALIVED_NOTIFY }}/d" ${CONTAINER_SERVICE_DIR}/keepalived/assets/keepalived.conf
   fi
 
   # unicast peers
   for peer in $(complex-bash-env iterate KEEPALIVED_UNICAST_PEERS)
   do
-    sed -i --follow-symlinks "s|{{ keepalived_unicast_peers }}|${!peer}\n    {{ keepalived_unicast_peers }}|g" ${CONTAINER_SERVICE_DIR}/keepalived/assets/keepalived.conf
+    sed -i "s|{{ KEEPALIVED_UNICAST_PEERS }}|${!peer}\n    {{ KEEPALIVED_UNICAST_PEERS }}|g" ${CONTAINER_SERVICE_DIR}/keepalived/assets/keepalived.conf
   done
-  sed -i --follow-symlinks "/{{ keepalived_unicast_peers }}/d" ${CONTAINER_SERVICE_DIR}/keepalived/assets/keepalived.conf
+  sed -i "/{{ KEEPALIVED_UNICAST_PEERS }}/d" ${CONTAINER_SERVICE_DIR}/keepalived/assets/keepalived.conf
 
   # virtual ips
   for vip in $(complex-bash-env iterate KEEPALIVED_VIRTUAL_IPS)
   do
-    sed -i --follow-symlinks "s|{{ keepalived_virtual_ips }}|${!vip}\n    {{ keepalived_virtual_ips }}|g" ${CONTAINER_SERVICE_DIR}/keepalived/assets/keepalived.conf
+    sed -i "s|{{ KEEPALIVED_VIRTUAL_IPS }}|${!vip}\n    {{ KEEPALIVED_VIRTUAL_IPS }}|g" ${CONTAINER_SERVICE_DIR}/keepalived/assets/keepalived.conf
   done
-  sed -i --follow-symlinks "/{{ keepalived_virtual_ips }}/d" ${CONTAINER_SERVICE_DIR}/keepalived/assets/keepalived.conf
+  sed -i "/{{ KEEPALIVED_VIRTUAL_IPS }}/d" ${CONTAINER_SERVICE_DIR}/keepalived/assets/keepalived.conf
 
   touch $FIRST_START_DONE
 fi
@@ -42,11 +43,24 @@ fi
 # try to delete virtual ips from interface
 for vip in $(complex-bash-env iterate KEEPALIVED_VIRTUAL_IPS)
 do
-  ip addr del ${vip}/32 dev ${KEEPALIVED_INTERFACE} || true
+  IP=$(echo ${!vip} | awk '{print $1}')
+  IP_INFO=$(ip addr list | grep ${IP}) || continue
+  IP_V6=$(echo "${IP_INFO}" | grep "inet6") || true
+
+  # ipv4
+  if [ -z "${IP_V6}" ]; then
+    IP_INTERFACE=$(echo "${IP_INFO}" |  awk '{print $5}')
+  # ipv6
+  else
+    echo "skipping address: ${IP} - ipv6 not supported yet :("
+    continue
+  fi
+
+  ip addr del ${IP} dev ${IP_INTERFACE} || true
 done
 
-if [ ! -e "/etc/backup-manager.conf" ]; then
-  ln -sf ${CONTAINER_SERVICE_DIR}/keepalived/assets/keepalived.conf /etc/keepalived/keepalived.conf
+if [ ! -e "/usr/local/etc/keepalived/keepalived.conf" ]; then
+  ln -sf ${CONTAINER_SERVICE_DIR}/keepalived/assets/keepalived.conf /usr/local/etc/keepalived/keepalived.conf
 fi
 
 exit 0
