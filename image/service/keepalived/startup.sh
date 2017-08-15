@@ -17,7 +17,6 @@ if [ ! -e "$FIRST_START_DONE" ]; then
 
   if [ -n "$KEEPALIVED_NOTIFY" ]; then
     sed -i "s|{{ KEEPALIVED_NOTIFY }}|notify \"$KEEPALIVED_NOTIFY\"|g" ${CONTAINER_SERVICE_DIR}/keepalived/assets/keepalived.conf
-    chown keepalived_script:keepalived_script $KEEPALIVED_NOTIFY
     chmod +x $KEEPALIVED_NOTIFY
   else
     sed -i "/{{ KEEPALIVED_NOTIFY }}/d" ${CONTAINER_SERVICE_DIR}/keepalived/assets/keepalived.conf

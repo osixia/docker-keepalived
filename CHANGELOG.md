@@ -2,6 +2,7 @@
 
 ## 1.3.6
   - Keepalived version 1.3.6
+  - Remove keepalived_script script user, to run scripts with root user
 
 ## 1.3.5-1
   - Fix startup.sh and finish.sh ip address removal

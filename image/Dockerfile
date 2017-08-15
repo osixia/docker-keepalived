@@ -6,8 +6,6 @@ MAINTAINER Bertrand Gouny <bertrand.gouny@osixia.net>
 # Keepalived version
 ARG KEEPALIVED_VERSION=1.3.6
 
-RUN addgroup -S keepalived_script && adduser -D -S -G keepalived_script keepalived_script
-
 # Download, build and install Keepalived
 RUN apk --no-cache add \
        curl \
