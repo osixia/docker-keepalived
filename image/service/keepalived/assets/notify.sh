@@ -16,16 +16,16 @@ NAME=$2
 STATE=$3
 
 case $STATE in
-        "MASTER") logger -s -t keepalived-notify "I'm the MASTER! Whup whup."
+        "MASTER") echo "I'm the MASTER! Whup whup." > /proc/1/fd/1
                   exit 0
                   ;;
-        "BACKUP") logger -s -t keepalived-notify "Ok, i'm just a backup, great."
+        "BACKUP") echo "Ok, i'm just a backup, great." > /proc/1/fd/1
                   exit 0
                   ;;
-        "FAULT")  logger -s -t keepalived-notify "Fault, what ?"
+        "FAULT")  echo "Fault, what ?" > /proc/1/fd/1
                   exit 0
                   ;;
-        *)        logger -s -t keepalived-notify "Unknown state"
+        *)        echo "Unknown state" > /proc/1/fd/1
                   exit 1
                   ;;
 esac
