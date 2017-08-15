@@ -4,7 +4,7 @@ FROM osixia/alpine-light-baseimage:0.1.4
 MAINTAINER Bertrand Gouny <bertrand.gouny@osixia.net>
 
 # Keepalived version
-ARG KEEPALIVED_VERSION=1.3.5
+ARG KEEPALIVED_VERSION=1.3.6
 
 RUN addgroup -S keepalived_script && adduser -D -S -G keepalived_script keepalived_script
 
