@@ -1,5 +1,8 @@
 # Changelog
 
+## 1.3.6-1
+  - Upgrade baseimage: alpine-light-baseimage:0.1.5
+
 ## 1.3.6
   - Keepalived version 1.3.6
   - Remove keepalived_script script user, to run scripts with root user
