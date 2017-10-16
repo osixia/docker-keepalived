@@ -1,6 +1,6 @@
 # Use osixia/light-baseimage
 # sources: https://github.com/osixia/docker-light-baseimage
-FROM osixia/alpine-light-baseimage:0.1.4
+FROM osixia/alpine-light-baseimage:0.1.5
 MAINTAINER Bertrand Gouny <bertrand.gouny@osixia.net>
 
 # Keepalived version
