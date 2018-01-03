@@ -1,5 +1,8 @@
 # Changelog
 
+## 1.4.0
+  - Keepalived version 1.4.0
+
 ## 1.3.9
   - Keepalived version 1.3.9
 
