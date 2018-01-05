@@ -26,6 +26,7 @@ Latest release: 1.4.0 - Keepalived 1.4.0 - [Changelog](CHANGELOG.md) | [Docker H
 	- [Make your own keepalived image](#make-your-own-keepalived-image)
 	- [Tests](#tests)
 	- [Under the hood: osixia/light-baseimage](#under-the-hood-osixialight-baseimage)
+- [Security](#security)
 - [Changelog](#changelog)
 
 ## Quick start
@@ -181,6 +182,11 @@ Install Bats, and in this project directory run :
 
 This image is based on osixia/light-baseimage.
 More info: https://github.com/osixia/docker-light-baseimage
+
+## Security
+If you discover a security vulnerability within this docker image, please send an email to the Osixia! team at security@osixia.net. For minor vulnerabilities feel free to add an issue here on github.
+
+Please include as many details as possible.
 
 ## Changelog
 
