@@ -5,6 +5,10 @@ Please refer to the upstream [keepalived changelog](https://github.com/acassen/k
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project follows keepalived versioning.
 
+## [1.4.1] - 2018-01-29
+### Changed
+  - Upgrade keepalived version to 1.4.1
+
 ## [1.4.0] - 2018-01-11
 ### Changed
   - Upgrade keepalived version to 1.4.0
