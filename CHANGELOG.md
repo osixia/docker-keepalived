@@ -5,6 +5,10 @@ Please refer to the upstream [keepalived changelog](https://github.com/acassen/k
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project follows keepalived versioning.
 
+## [1.4.2] - Unreleased
+### Changed
+  - Upgrade keepalived version to 1.4.2
+
 ## [1.4.1] - 2018-01-29
 ### Changed
   - Upgrade keepalived version to 1.4.1
@@ -134,5 +138,34 @@ and this project follows keepalived versioning.
 ### Added
   - Notify script
 
-## [0.1.0] - 2015-06-16
+## 0.1.0 - 2015-06-16
 Initial release
+
+[1.4.2]: https://github.com/osixia/docker-keepalived/compare/v1.4.1...v1.4.2
+[1.4.1]: https://github.com/osixia/docker-keepalived/compare/v1.4.0...v1.4.1
+[1.4.0]: https://github.com/osixia/docker-keepalived/compare/v1.3.9...v1.4.0
+[1.3.9]: https://github.com/osixia/docker-keepalived/compare/v1.3.8...v1.3.9
+[1.3.8]: https://github.com/osixia/docker-keepalived/compare/v1.3.6-1...v1.3.8
+[1.3.6-1]: https://github.com/osixia/docker-keepalived/compare/v1.3.6...v1.3.6-1
+[1.3.6]: https://github.com/osixia/docker-keepalived/compare/v1.3.5-1...v1.3.6
+[1.3.5-1]: https://github.com/osixia/docker-keepalived/compare/v1.3.5...v1.3.5-1
+[1.3.5]: https://github.com/osixia/docker-keepalived/compare/v1.3.4...v1.3.5
+[1.3.4]: https://github.com/osixia/docker-keepalived/compare/v1.3.3...v1.3.4
+[1.3.3]: https://github.com/osixia/docker-keepalived/compare/v1.3.2...v1.3.3
+[1.3.2]: https://github.com/osixia/docker-keepalived/compare/v1.3.1...v1.3.2
+[1.3.1]: https://github.com/osixia/docker-keepalived/compare/v1.3.0...v1.3.1
+[1.3.0]: https://github.com/osixia/docker-keepalived/compare/v1.2.24...v1.3.0
+[1.2.24]: https://github.com/osixia/docker-keepalived/compare/v0.2.3...v1.2.24
+[0.2.3]: https://github.com/osixia/docker-keepalived/compare/v0.2.2...v0.2.3
+[0.2.2]: https://github.com/osixia/docker-keepalived/compare/v0.2.1...v0.2.2
+[0.2.1]: https://github.com/osixia/docker-keepalived/compare/v0.2.0...v0.2.1
+[0.2.0]: https://github.com/osixia/docker-keepalived/compare/v0.1.9...v0.2.0
+[0.1.9]: https://github.com/osixia/docker-keepalived/compare/v0.1.8...v0.1.9
+[0.1.8]: https://github.com/osixia/docker-keepalived/compare/v0.1.7...v0.1.8
+[0.1.7]: https://github.com/osixia/docker-keepalived/compare/v0.1.6...v0.1.7
+[0.1.6]: https://github.com/osixia/docker-keepalived/compare/v0.1.5...v0.1.6
+[0.1.5]: https://github.com/osixia/docker-keepalived/compare/v0.1.4...v0.1.5
+[0.1.4]: https://github.com/osixia/docker-keepalived/compare/v0.1.3...v0.1.4
+[0.1.3]: https://github.com/osixia/docker-keepalived/compare/v0.1.2...v0.1.3
+[0.1.2]: https://github.com/osixia/docker-keepalived/compare/v0.1.1...v0.1.2
+[0.1.1]: https://github.com/osixia/docker-keepalived/compare/v0.1.0...v0.1.1
