@@ -6,6 +6,9 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project follows keepalived versioning.
 
 ## [1.4.4] - 2018-04-14
+### Added
+  - Router ID with environment KEEPALIVED_ROUTER_ID #16
+  
 ### Changed
   - Upgrade keepalived version to 1.4.4
 

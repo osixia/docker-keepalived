@@ -79,6 +79,7 @@ See how to [set your own environment variables](#set-your-own-environment-variab
 - **KEEPALIVED_INTERFACE**: Keepalived network interface. Defaults to `eth0`
 - **KEEPALIVED_PASSWORD**: Keepalived password. Defaults to `d0cker`
 - **KEEPALIVED_PRIORITY** Keepalived node priority. Defaults to `150`
+- **KEEPALIVED_ROUTER_ID** Keepalived virtual router ID. Defaults to `51`
 
 - **KEEPALIVED_UNICAST_PEERS** Keepalived unicast peers. Defaults to :
       - 192.168.1.10
