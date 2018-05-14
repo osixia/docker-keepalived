@@ -5,6 +5,10 @@ Please refer to the upstream [keepalived changelog](https://github.com/acassen/k
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project follows keepalived versioning.
 
+## [1.4.4] - 2018-04-14
+### Changed
+  - Upgrade keepalived version to 1.4.4
+
 ## [1.4.2] - 2018-03-03
 ### Changed
   - Upgrade keepalived version to 1.4.2
@@ -141,6 +145,7 @@ and this project follows keepalived versioning.
 ## 0.1.0 - 2015-06-16
 Initial release
 
+[1.4.4]: https://github.com/osixia/docker-keepalived/compare/v1.4.2...v1.4.4
 [1.4.2]: https://github.com/osixia/docker-keepalived/compare/v1.4.1...v1.4.2
 [1.4.1]: https://github.com/osixia/docker-keepalived/compare/v1.4.0...v1.4.1
 [1.4.0]: https://github.com/osixia/docker-keepalived/compare/v1.3.9...v1.4.0

@@ -4,10 +4,11 @@ FROM osixia/alpine-light-baseimage:0.1.5
 MAINTAINER Bertrand Gouny <bertrand.gouny@osixia.net>
 
 # Keepalived version
-ARG KEEPALIVED_VERSION=1.4.2
+ARG KEEPALIVED_VERSION=1.4.4
 
 # Download, build and install Keepalived
 RUN apk --no-cache add \
+       autoconf \
        curl \
        gcc \
        ipset \
@@ -32,6 +33,7 @@ RUN apk --no-cache add \
     && rm -f keepalived.tar.gz \
     && rm -rf /container/keepalived-sources \
     && apk --no-cache del \
+        autoconf \
         curl \
         gcc \
         ipset-dev \
