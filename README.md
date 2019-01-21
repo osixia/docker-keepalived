@@ -104,6 +104,8 @@ See how to [set your own environment variables](#set-your-own-environment-variab
 
 - **KEEPALIVED_COMMAND_LINE_ARGUMENTS** Keepalived command line arguments; Defaults to `--log-detail --dump-conf`
 
+- **KEEPALIVED_STATE** The starting state of keepalived; it can either be MASTER or BACKUP.
+
 ### Set your own environment variables
 
 #### Use command line argument
