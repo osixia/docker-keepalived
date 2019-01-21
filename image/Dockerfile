@@ -3,7 +3,7 @@
 FROM osixia/alpine-light-baseimage:0.1.5
 
 # Keepalived version
-ARG KEEPALIVED_VERSION=2.0.10
+ARG KEEPALIVED_VERSION=2.0.11
 
 # Download, build and install Keepalived
 RUN apk --no-cache add \
@@ -42,7 +42,6 @@ RUN apk --no-cache add \
     make \
     musl-dev \
     openssl-dev
-
 
 # Add service directory to /container/service
 ADD service /container/service
