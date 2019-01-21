@@ -166,6 +166,8 @@ and this project follows keepalived versioning.
 ## 0.1.0 - 2015-06-16
 Initial release
 
+[2.0.11]: https://github.com/osixia/docker-keepalived/compare/v2.0.10...v2.0.11
+[2.0.10]: https://github.com/osixia/docker-keepalived/compare/v1.4.5...v2.0.10
 [1.4.5]: https://github.com/osixia/docker-keepalived/compare/v1.4.4...v1.4.5
 [1.4.4]: https://github.com/osixia/docker-keepalived/compare/v1.4.2...v1.4.4
 [1.4.2]: https://github.com/osixia/docker-keepalived/compare/v1.4.1...v1.4.2
