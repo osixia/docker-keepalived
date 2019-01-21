@@ -6,6 +6,9 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project follows keepalived versioning.
 
 ## [2.0.11] - 2019-01.21
+### Added
+  - KEEPALIVED_STATE environment variable
+
 ### Changed
   - Upgrade keepalived version to 2.0.11
 
