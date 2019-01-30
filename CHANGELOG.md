@@ -7,7 +7,7 @@ and this project follows keepalived versioning.
 
 ## [2.0.12] - 2019-01.30
 ### Changed
-  - Upgrade keepalived version to 2.0.11
+  - Upgrade keepalived version to 2.0.12
 
 ## [2.0.11] - 2019-01.21
 ### Added
