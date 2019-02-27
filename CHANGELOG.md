@@ -5,11 +5,15 @@ Please refer to the upstream [keepalived changelog](https://github.com/acassen/k
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project follows keepalived versioning.
 
-## [2.0.12] - 2019-01.30
+## [2.0.13] - 2019-02-27
 ### Changed
-  - Upgrade keepalived version to 2.0.11
+  - Upgrade keepalived version to 2.0.13
 
-## [2.0.11] - 2019-01.21
+## [2.0.12] - 2019-01-30
+### Changed
+  - Upgrade keepalived version to 2.0.12
+
+## [2.0.11] - 2019-01-21
 ### Added
   - KEEPALIVED_STATE environment variable
 
@@ -170,6 +174,7 @@ and this project follows keepalived versioning.
 ## 0.1.0 - 2015-06-16
 Initial release
 
+[2.0.13]: https://github.com/osixia/docker-keepalived/compare/v2.0.12...v2.0.13
 [2.0.12]: https://github.com/osixia/docker-keepalived/compare/v2.0.11...v2.0.12
 [2.0.11]: https://github.com/osixia/docker-keepalived/compare/v2.0.10...v2.0.11
 [2.0.10]: https://github.com/osixia/docker-keepalived/compare/v1.4.5...v2.0.10
