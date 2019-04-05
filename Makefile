@@ -1,5 +1,5 @@
 NAME = osixia/keepalived
-VERSION = 2.0.13
+VERSION = 2.0.15
 
 .PHONY: build build-nocache test tag-latest push push-latest release git-tag-version
 
