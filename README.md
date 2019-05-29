@@ -34,7 +34,7 @@ Latest release: 2.0.16 - Keepalived 2.0.16 - [Changelog](CHANGELOG.md) | [Docker
 
 This image require the kernel module ip_vs loaded on the host (`modprobe ip_vs`) and need to be run with : --cap-add=NET_ADMIN --net=host
 
-    docker run --cap-add=NET_ADMIN --net=host -d osixia/keepalived:2.0.16
+    docker run --cap-add=NET_ADMIN --cap-add=NET_BROADCAST --cap-add=NET_RAW --net=host -d osixia/keepalived:2.0.16
 
 ## Beginner Guide
 
