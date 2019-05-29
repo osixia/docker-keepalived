@@ -5,6 +5,14 @@ Please refer to the upstream [keepalived changelog](https://github.com/acassen/k
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project follows keepalived versioning.
 
+## [2.0.16] - 2019-05-29
+### Added 
+  - Add NET_BROADCAST and NET_RAW capabilities on readme. Fixes #14
+
+### Changed
+  - Upgrade keepalived version to 2.0.16
+
+
 ## [2.0.15] - 2019-04-05
 ### Changed
   - Upgrade keepalived version to 2.0.15
@@ -178,6 +186,7 @@ and this project follows keepalived versioning.
 ## 0.1.0 - 2015-06-16
 Initial release
 
+[2.0.16]: https://github.com/osixia/docker-keepalived/compare/v2.0.15...v2.0.16
 [2.0.15]: https://github.com/osixia/docker-keepalived/compare/v2.0.13...v2.0.15
 [2.0.13]: https://github.com/osixia/docker-keepalived/compare/v2.0.12...v2.0.13
 [2.0.12]: https://github.com/osixia/docker-keepalived/compare/v2.0.11...v2.0.12
