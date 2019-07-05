@@ -8,6 +8,7 @@ and this project follows keepalived versioning.
 ## [2.0.17] - 2019-07-05
 ### Changed
   - Upgrade keepalived version to 2.0.17
+  - Upgrade baseimage to alpine-light-baseimage:0.1.6
 
 ## [2.0.16] - 2019-05-29
 ### Added 
