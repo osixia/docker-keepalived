@@ -6,6 +6,9 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project follows keepalived versioning.
 
 ## [2.0.17] - 2019-07-05
+### Added
+  - Curl
+
 ### Changed
   - Upgrade keepalived version to 2.0.17
   - Upgrade baseimage to alpine-light-baseimage:0.1.6
