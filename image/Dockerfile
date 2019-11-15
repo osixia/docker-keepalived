@@ -1,9 +1,9 @@
 # Use osixia/light-baseimage
 # sources: https://github.com/osixia/docker-light-baseimage
-FROM osixia/alpine-light-baseimage:0.1.6
+FROM osixia/light-baseimage:alpine-0.1.6-dev
 
 # Keepalived version
-ARG KEEPALIVED_VERSION=2.0.17
+ARG KEEPALIVED_VERSION=2.0.19
 
 # Download, build and install Keepalived
 RUN apk --no-cache add \
