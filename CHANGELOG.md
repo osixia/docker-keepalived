@@ -5,6 +5,13 @@ Please refer to the upstream [keepalived changelog](https://github.com/acassen/k
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project follows keepalived versioning.
 
+## [2.0.19] - 2019-11-15
+## Added
+  - Multiarch support
+
+### Changed
+  - Upgrade keepalived version to 2.0.19
+
 ## [2.0.17] - 2019-07-05
 ### Added
   - Curl
