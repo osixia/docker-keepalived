@@ -6,8 +6,11 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project follows keepalived versioning.
 
 ## [2.0.20] - 2020-02-07
-## Changed
+### Changed
   - Upgrade keepalived version to 2.0.20
+
+### Fixed
+  - When system reboot or unexpected shutdown, keepalived never start up again #18 #25
 
 ## [2.0.19] - 2019-11-15
 ## Added
