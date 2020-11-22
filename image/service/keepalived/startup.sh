@@ -8,6 +8,17 @@ FIRST_START_DONE="${CONTAINER_STATE_DIR}/docker-keepalived-first-start-done"
 # container first start
 if [ ! -e "$FIRST_START_DONE" ]; then
 
+  # autodetect the default network interface
+  if [ -z "$KEEPALIVED_INTERFACE" ]; then
+    KEEPALIVED_INTERFACE=$(ip route | awk '/default/ { print $5 }')
+    if [ -z "$KEEPALIVED_INTERFACE" ]; then
+      echo "ERROR: Couldn't autodetect the default network interface, specify it manually."
+      exit 1
+    else
+      echo "Autodetected default network interface: $KEEPALIVED_INTERFACE"
+    fi
+  fi
+
   #
   # bootstrap config
   #
