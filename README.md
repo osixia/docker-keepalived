@@ -77,7 +77,7 @@ Environment variables defaults are set in **image/environment/default.yaml**
 See how to [set your own environment variables](#set-your-own-environment-variables)
 
 
-- **KEEPALIVED_INTERFACE**: Keepalived network interface. Defaults to `eth0`
+- **KEEPALIVED_INTERFACE**: Keepalived network interface. Autodetected to interface with default route (see `ip route`)
 - **KEEPALIVED_PASSWORD**: Keepalived password. Defaults to `d0cker`
 - **KEEPALIVED_PRIORITY** Keepalived node priority. Defaults to `150`
 - **KEEPALIVED_ROUTER_ID** Keepalived virtual router ID. Defaults to `51`
