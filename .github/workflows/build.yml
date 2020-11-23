@@ -1,0 +1,51 @@
+name: Build and Push Image
+
+on: push
+
+env:
+  PLATFORMS: linux/386,linux/amd64,linux/arm/v7,linux/arm64/v8
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Inject slug/short Github variables
+        uses: rlespinasse/github-slug-action@v3.x
+
+      - name: Use the branch/tag name as VERSION
+        run: echo VERSION=${GITHUB_REF_SLUG} >> $GITHUB_ENV
+      - name: Overwrite the version to 'stable' if we are on the master branch
+        run: echo VERSION=stable >> $GITHUB_ENV
+        if: env.GITHUB_REF_SLUG == 'master'
+
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v1
+        with:
+          platforms: ${{ env.PLATFORMS }}
+      - name: Set up Docker Buildx
+        id: buildx
+        uses: docker/setup-buildx-action@v1
+        with:
+          install: true # use buildx on normal `docker build` calls
+
+      - uses: actions/setup-node@v2
+      - run: sudo npm install -g bats@1.2.1
+      - run: bats -v
+
+      - uses: actions/checkout@v2
+      - run: make build-nocache NAME=${{ secrets.CONTAINER_REPOSITORY }} VERSION=${{ env.VERSION }}
+      - run: make test NAME=${{ secrets.CONTAINER_REPOSITORY }} VERSION=${{ env.VERSION }}
+
+      - name: Login to DockerHub
+        uses: docker/login-action@v1
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+      - name: Build and push the image
+        uses: docker/build-push-action@v2
+        with:
+          context: image
+          file: image/Dockerfile
+          platforms: ${{ env.PLATFORMS }}
+          push: ${{ env.VERSION == 'stable' || env.VERSION == 'develop' }} # only push stable and develop versions, no feature/... branches
+          tags: ${{ secrets.CONTAINER_REPOSITORY }}:${{ env.VERSION }}
