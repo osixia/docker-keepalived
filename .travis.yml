@@ -28,6 +28,9 @@ before_install:
   - 'echo "  \"experimental\": \"enabled\"" >> $HOME/.docker/config.json'
   - 'echo "}" >> $HOME/.docker/config.json'
   - sudo service docker restart
+  # To have `DOCKER_USER` and `DOCKER_PASS`
+  # use `travis env set`.
+  - echo "$DOCKER_PASS" | docker login -u "$DOCKER_USER" --password-stdin
 
 install:
   # For cross buidling our images
@@ -54,6 +57,8 @@ before_script:
   - if [ "${TRAVIS_BRANCH}" == 'master' ]; then
     VERSION="stable";
     fi
+  # replace / with - in version
+  - VERSION=$(echo "${VERSION}" | sed 's|/|-|g');
 
 script:
   - make build-nocache NAME=${NAME} VERSION=${VERSION}-${TARGET_ARCH}
@@ -64,9 +69,6 @@ before_deploy:
   - docker run -d --name test_image ${NAME}:${VERSION}-${TARGET_ARCH} sleep 10
   - sleep 5
   - sudo docker ps | grep -q test_image
-  # To have `DOCKER_USER` and `DOCKER_PASS`
-  # use `travis env set`.
-  - docker login -u "$DOCKER_USER" -p "$DOCKER_PASS";
   - make tag NAME=${NAME} VERSION=${VERSION}-${TARGET_ARCH}
 
 deploy:
@@ -81,7 +83,7 @@ jobs:
       install: skip
       script: skip
       after_deploy:
-        - docker login -u "$DOCKER_USER" -p "$DOCKER_PASS";
+        - echo "$DOCKER_PASS" | docker login -u "$DOCKER_USER" --password-stdin
         - docker manifest create ${NAME}:${VERSION} ${NAME}:${VERSION}-amd64 ${NAME}:${VERSION}-arm32v7 ${NAME}:${VERSION}-arm64v8;
           docker manifest annotate ${NAME}:${VERSION} ${NAME}:${VERSION}-amd64 --os linux --arch amd64;
           docker manifest annotate ${NAME}:${VERSION} ${NAME}:${VERSION}-arm32v7 --os linux --arch arm --variant v7;

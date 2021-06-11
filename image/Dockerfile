@@ -1,6 +1,6 @@
 # Use osixia/light-baseimage
 # sources: https://github.com/osixia/docker-light-baseimage
-FROM osixia/light-baseimage:alpine-0.1.6-dev
+FROM osixia/light-baseimage:alpine-0.1.6
 
 # Keepalived version
 ARG KEEPALIVED_VERSION=2.1.5
@@ -46,7 +46,7 @@ RUN apk --no-cache add \
 ADD service /container/service
 
 # Use baseimage install-service script
-# https://github.com/osixia/docker-light-baseimage/blob/stable/image/tool/install-service
+# https://github.com/osixia/docker-light-baseimage/blob/master/image/tool/install-service
 RUN /container/tool/install-service
 
 # Add default env variables
