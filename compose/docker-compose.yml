@@ -1,0 +1,17 @@
+# https://github.com/compose-spec/compose-spec
+# https://man7.org/linux/man-pages/man7/capabilities.7.html
+
+version: '3.3'
+services:
+    keepalived:
+        build: https://github.com/nser77/docker-keepalived.git#main:build
+        network_mode: host
+        volumes:
+            -  /etc/keepalived:/etc/keepalived
+            # - /etc/keepalived/tmp:/tmp/keepalived
+        cap_drop:
+            - ALL
+        cap_add:
+            - NET_ADMIN
+            - NET_BROADCAST
+            - NET_RAW
