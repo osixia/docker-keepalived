@@ -4,11 +4,41 @@
 version: '3.3'
 services:
     keepalived:
-        build: https://github.com/nser77/docker-keepalived.git#main:build
+        build:
+            context: https://github.com/nser77/docker-keepalived.git#dev:build
+            args:
+                - __ENABLE_MAGIC__=0
+                - __ENABLE_DBUS__=0
+                - __DISABLE_IPSET__=0
+                - __DISABLE_IPTABLES__=0
+                - __DISABLE_NFTABLES__=0
+                - __ENABLE_SNMP_VRRP__=0
+                - __ENABLE_REGEX__=0
+                - __ENABLE_JSON__=0
+                - __DISABLE_LVS__=0
+                - __DISABLE_VRRP__=0
+                - __DISABLE_VRRP_AUTH__=0
+                - __ENABLE_BFD__=0
+                - __DISABLE_VMAC__=0
+                - __ENABLE_LTO__=0
+                - __DISABLE_CHECKSUM_COMPACT__=0
+                - __DISABLE_ROUTES__=0
+                - __DISABLE_LINKBEAT__=0
+                - __ENABLE_SOCK_STORAGE__=0
+                - __ENABLE_DEBUG__=0
+                - __ENABLE_SNMP_ALERT_DEBUG__=0
+                - __ENABLE_EPOLL_DEBUG__=0
+                - __ENABLE_VRRP_FD_DEBUG__=0
+                - __ENABLE_RECVMSG_DEBUG__=0
+                - __ENABLE_EINTR_DEBUG__=0
+                - __ENABLE_PARSER_DEBUG__=0
+                - __ENABLE_CHECKSUM_DEBUG__=0
+                - __ENABLE_CHECKER_DEBUG__=0
+                - __ENABLE_MEM_ERR_DEBUG__=0
+                - __ENABLE_SCRIPT_DEBUG__=0
         network_mode: host
         volumes:
             -  /etc/keepalived:/etc/keepalived
-            # - /etc/keepalived/tmp:/tmp/keepalived
         cap_drop:
             - ALL
         cap_add:

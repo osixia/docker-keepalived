@@ -1,12 +1,11 @@
 FROM alpine:latest
 
-ARG GIT_KVER=master
-
 LABEL author="Alexandre Cassen <acassen@gmail.com>"
 LABEL project="https://github.com/acassen/keepalived"
 LABEL homepage="https://www.keepalived.org"
 LABEL git_branch=$GIT_KVER
 
+ARG GIT_KVER=master
 ARG WDIR=/tmp/keepalived
 
 ARG __ENABLE_MAGIC__=0
@@ -38,7 +37,7 @@ ARG __ENABLE_CHECKSUM_DEBUG__=0
 ARG __ENABLE_CHECKER_DEBUG__=0
 ARG __ENABLE_MEM_ERR_DEBUG__=0
 ARG __ENABLE_SCRIPT_DEBUG__=0
-    
+
 RUN apk --no-cache add \
         python3 \
         git \
