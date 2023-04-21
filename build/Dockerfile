@@ -101,8 +101,6 @@ RUN ./configure.py \
 
 RUN make && make install
 
-RUN strip /usr/sbin/keepalived
-
 RUN apk --no-cache del \
         python3 \
         git \
@@ -124,6 +122,6 @@ RUN if [ $__ENABLE_REGEX__     -eq 1 ]; then apk --no-cache del pcre2-dev;      
 
 RUN rm -rf $WDIR
 
-RUN addgroup -S keepalived_script && adduser -D -S -G keepalived_script keepalived_script
+#RUN addgroup -S keepalived_script && adduser -D -S -G keepalived_script keepalived_script
 
 ENTRYPOINT ["/usr/sbin/keepalived","--dont-fork","--log-console", "-d", "-D", "-f","/etc/keepalived/keepalived.conf"]
