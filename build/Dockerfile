@@ -50,13 +50,13 @@ RUN apk --no-cache add \
         openssl-dev \
         autoconf \
         automake
-RUN if [ $__ENABLE_MAGIC__     -eq 1 ]; then apk --no-cache add file file-dev;           fi
-RUN if [ $__ENABLE_DBUS__      -eq 1 ]; then apk --no-cache add glib glib-dev;           fi
-RUN if [ $__DISABLE_IPSET__    -eq 0 ]; then apk --no-cache add ipset ipset-dev;         fi
-RUN if [ $__DISABLE_IPTABLES__ -eq 0 ]; then apk --no-cache add iptables iptables-dev;   fi
-RUN if [ $__DISABLE_NFTABLES__ -eq 0 ]; then apk --no-cache add libmnl-dev libnftnl-dev; fi
-RUN if [ $__ENABLE_SNMP_VRRP__ -eq 1 ]; then apk --no-cache add net-snmp-dev;            fi
-RUN if [ $__ENABLE_REGEX__     -eq 1 ]; then apk --no-cache add pcre2 pcre2-dev;         fi
+RUN if [[ $__ENABLE_MAGIC__     -eq 1 ]]; then apk --no-cache add file file-dev;           fi
+RUN if [[ $__ENABLE_DBUS__      -eq 1 ]]; then apk --no-cache add glib glib-dev;           fi
+RUN if [[ $__DISABLE_IPSET__    -eq 0 ]]; then apk --no-cache add ipset ipset-dev;         fi
+RUN if [[ $__DISABLE_IPTABLES__ -eq 0 ]]; then apk --no-cache add iptables iptables-dev;   fi
+RUN if [[ $__DISABLE_NFTABLES__ -eq 0 ]]; then apk --no-cache add libmnl-dev libnftnl-dev; fi
+RUN if [[ $__ENABLE_SNMP_VRRP__ -eq 1 ]]; then apk --no-cache add net-snmp-dev;            fi
+RUN if [[ $__ENABLE_REGEX__     -eq 1 ]]; then apk --no-cache add pcre2 pcre2-dev;         fi
 
 RUN git clone -b $GIT_KVER https://github.com/acassen/keepalived.git $WDIR
 
@@ -111,16 +111,16 @@ RUN apk --no-cache del \
         openssl-dev \
         autoconf \
         automake
-RUN if [ $__ENABLE_MAGIC__     -eq 1 ]; then apk --no-cache del file-dev;                fi
-RUN if [ $__ENABLE_DBUS__      -eq 1 ]; then apk --no-cache del glib-dev;                fi
-RUN if [ $__DISABLE_IPSET__    -eq 0 ]; then apk --no-cache del ipset-dev;               fi
-RUN if [ $__DISABLE_IPTABLES__ -eq 0 ]; then apk --no-cache del iptables-dev;            fi
-RUN if [ $__DISABLE_NFTABLES__ -eq 0 ]; then apk --no-cache del libmnl-dev libnftnl-dev; fi
-RUN if [ $__ENABLE_SNMP_VRRP__ -eq 1 ]; then apk --no-cache del net-snmp-dev;            fi
-RUN if [ $__ENABLE_REGEX__     -eq 1 ]; then apk --no-cache del pcre2-dev;               fi
+RUN if [[ $__ENABLE_MAGIC__     -eq 1 ]]; then apk --no-cache del file-dev;                fi
+RUN if [[ $__ENABLE_DBUS__      -eq 1 ]]; then apk --no-cache del glib-dev;                fi
+RUN if [[ $__DISABLE_IPSET__    -eq 0 ]]; then apk --no-cache del ipset-dev;               fi
+RUN if [[ $__DISABLE_IPTABLES__ -eq 0 ]]; then apk --no-cache del iptables-dev;            fi
+RUN if [[ $__DISABLE_NFTABLES__ -eq 0 ]]; then apk --no-cache del libmnl-dev libnftnl-dev; fi
+RUN if [[ $__ENABLE_SNMP_VRRP__ -eq 1 ]]; then apk --no-cache del net-snmp-dev;            fi
+RUN if [[ $__ENABLE_REGEX__     -eq 1 ]]; then apk --no-cache del pcre2-dev;               fi
 
 RUN rm -rf $WDIR
 
-#RUN addgroup -S keepalived_script && adduser -D -S -G keepalived_script keepalived_script
+RUN addgroup -S keepalived_script && adduser -D -S -G keepalived_script keepalived_script
 
 ENTRYPOINT ["/usr/sbin/keepalived","--dont-fork","--log-console", "-d", "-D", "-f","/etc/keepalived/keepalived.conf"]
