@@ -35,7 +35,7 @@ services:
                 - __ENABLE_SCRIPT_DEBUG__=0
         network_mode: host
         volumes:
-            -  /etc/keepalived:/etc/keepalived
+            -  /etc/keepalived/keepalived.conf:/etc/keepalived/keepalived.conf:ro
         cap_drop:
             - ALL
         cap_add:
