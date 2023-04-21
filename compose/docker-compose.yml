@@ -1,7 +1,10 @@
-version: '3.3'
+version: '3.7'
 services:
     keepalived:
+        container_name: keepalived
         build:
+            cache_from:
+                - alpine:latest
             context: https://github.com/nser77/docker-keepalived.git#dev:build
             args:
                 - __ENABLE_MAGIC__=0
@@ -35,7 +38,9 @@ services:
                 - __ENABLE_SCRIPT_DEBUG__=0
         network_mode: host
         volumes:
-            -  /etc/keepalived/keepalived.conf:/etc/keepalived/keepalived.conf:ro
+            - type: bind
+              source: /etc/keepalived
+              target: /etc/keepalived
         cap_drop:
             - ALL
         cap_add:
