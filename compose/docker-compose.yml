@@ -2,6 +2,7 @@ version: '3.7'
 services:
     keepalived:
         container_name: keepalived
+        image: keepalived
         build:
             cache_from:
                 - alpine:latest
@@ -11,18 +12,18 @@ services:
                 - __ENABLE_DBUS__=0
                 - __DISABLE_IPSET__=0
                 - __DISABLE_IPTABLES__=0
-                - __DISABLE_NFTABLES__=0
+                - __DISABLE_NFTABLES__=1
                 - __ENABLE_SNMP_VRRP__=0
                 - __ENABLE_REGEX__=0
-                - __ENABLE_JSON__=0
-                - __DISABLE_LVS__=0
+                - __ENABLE_JSON__=1
+                - __DISABLE_LVS__=1
                 - __DISABLE_VRRP__=0
-                - __DISABLE_VRRP_AUTH__=0
+                - __DISABLE_VRRP_AUTH__=1
                 - __ENABLE_BFD__=0
                 - __DISABLE_VMAC__=0
                 - __ENABLE_LTO__=0
                 - __DISABLE_CHECKSUM_COMPACT__=0
-                - __DISABLE_ROUTES__=0
+                - __DISABLE_ROUTES__=1
                 - __DISABLE_LINKBEAT__=0
                 - __ENABLE_SOCK_STORAGE__=0
                 - __ENABLE_DEBUG__=0
@@ -35,7 +36,7 @@ services:
                 - __ENABLE_CHECKSUM_DEBUG__=0
                 - __ENABLE_CHECKER_DEBUG__=0
                 - __ENABLE_MEM_ERR_DEBUG__=0
-                - __ENABLE_SCRIPT_DEBUG__=0
+                - __ENABLE_SCRIPT_DEBUG__=1
         # Sets the PID mode to the host PID mode. 
         # This turns on sharing between container and the host operating system the PID address space. 
         # Containers launched with this flag can access and manipulate other containers in the bare-metal machine’s namespace and vice versa.
@@ -45,6 +46,9 @@ services:
             - type: bind
               source: /etc/keepalived
               target: /etc/keepalived
+            - type: bind
+              source: /tmp/keepalived
+              target: /tmp/keepalived
         cap_drop:
             - ALL
         cap_add:
