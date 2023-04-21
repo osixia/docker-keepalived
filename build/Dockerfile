@@ -3,7 +3,6 @@ FROM alpine:latest
 LABEL author="Alexandre Cassen <acassen@gmail.com>"
 LABEL project="https://github.com/acassen/keepalived"
 LABEL homepage="https://www.keepalived.org"
-LABEL git_branch=$GIT_KVER
 
 ARG GIT_KVER=master
 ARG WDIR=/usr/src/keepalived
@@ -47,6 +46,7 @@ RUN apk --no-cache add \
         libnl3-dev \
         make \
         musl-dev \
+        openssl \
         openssl-dev \
         autoconf \
         automake
@@ -121,6 +121,6 @@ RUN if [ $__ENABLE_REGEX__     -eq 1 ]; then apk --no-cache del pcre2-dev;      
 
 RUN rm -rf $WDIR
 
-RUN addgroup -S keepalived_script && adduser -D -S -G keepalived_script keepalived_script
+#RUN addgroup -S keepalived_script && adduser -D -S -G keepalived_script keepalived_script
 
 ENTRYPOINT ["/usr/sbin/keepalived","--dont-fork","--log-console", "-d", "-D", "-f","/etc/keepalived/keepalived.conf"]

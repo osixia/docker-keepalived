@@ -19,17 +19,15 @@ usage: configure.py [-h] [-n] [--enable-dbus ENABLE_DBUS] [--disable-libipset DI
 | 1 | Dynamically manipulate ```keepalived``` in ```docker``` compilation.  |
 | 2 | Downloads ```keepalived``` from GitHub and not from [keepalived.org](https://keepalived.org).  |
 | 3 | No pre build is needed.  | 
-| 5 | ```docker-compose``` skeleton and support.   |
-| 6 | Based on ```alpine linux```.  |
-| 7 | Small image.  |
-| 8 | You can build  this project from the GitHub repo. |
+| 4 | ```docker-compose``` skeleton and support.   |
+| 5 | Based on ```alpine linux```.  |
+| 6 | Small size image.  |
+| 7 | You can build this project from the GitHub repo. |
 
 # Build from GitHub
 There are a lot of choices to build this image.
 
 ## ```docker build```
-Is possible to download the image and directly build it as following:
-
 ```
 docker build \
     -t keepalived \
@@ -38,8 +36,15 @@ docker build \
      https://github.com/nser77/docker-keepalived.git#main:build
 ```
 
-#### ```--build-arg```
-At build time, one or more of the following arguments could be specified via ```--build-arg``` to modify the ```keepalived``` behavior; defaults are:
+## ```docker-compose```
+```
+f=docker-compose.yml; docker-compose -f  ```wget -N https://raw.githubusercontent.com/nser77/docker-keepalived/main/compose/$f && echo $f``` up
+```
+
+## ```args```
+At build time, one or more of the following arguments can be specified via ```--build-arg``` to modify the ```keepalived``` configuration; those arguments can also be used from [```docker-compose```](compose/docker-compose.yml).
+
+Defaults are:
 
 ```
 # keepalived git branch
@@ -74,17 +79,4 @@ ARG __ENABLE_CHECKSUM_DEBUG__=0
 ARG __ENABLE_CHECKER_DEBUG__=0
 ARG __ENABLE_MEM_ERR_DEBUG__=0
 ARG __ENABLE_SCRIPT_DEBUG__=0
-```
-
-### Run the container:
-
-```
- docker run --cap-add=NET_ADMIN --cap-add=NET_BROADCAST --cap-add=NET_RAW --net=host -v /etc/keepalived:/etc/keepalived:ro --rm keepalived
-```
-
-## ```docker-compose```
-Is possible to download the [docker-compose file](https://raw.githubusercontent.com/nser77/docker-keepalived/main/compose/docker-compose.yml) and use it as following:
-
-```
-f=docker-compose.yml; docker-compose -f  ```wget -N https://raw.githubusercontent.com/nser77/docker-keepalived/main/compose/$f && echo $f``` up
 ```

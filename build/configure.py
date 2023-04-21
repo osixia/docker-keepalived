@@ -119,10 +119,8 @@ class C:
         self._configure()
         try:
             if not self.__cli_args__.__DEV__:
-                print(self.__QUEUE__)
                 p = subprocess.Popen(self.__QUEUE__)
             else:
-                print(self.__QUEUE_DEV__)
                 p = subprocess.Popen(self.__QUEUE_DEV__)
             if p:
                 p.wait()
