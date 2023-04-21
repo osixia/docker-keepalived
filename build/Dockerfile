@@ -6,7 +6,7 @@ LABEL homepage="https://www.keepalived.org"
 LABEL git_branch=$GIT_KVER
 
 ARG GIT_KVER=master
-ARG WDIR=/tmp/keepalived
+ARG WDIR=/usr/src/keepalived
 
 ARG __ENABLE_MAGIC__=0
 ARG __ENABLE_DBUS__=0
