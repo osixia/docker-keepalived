@@ -46,9 +46,6 @@ services:
             - type: bind
               source: /etc/keepalived
               target: /etc/keepalived
-            - type: bind
-              source: /tmp/keepalived
-              target: /tmp/keepalived
         cap_drop:
             - ALL
         cap_add:
