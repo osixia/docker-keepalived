@@ -38,8 +38,6 @@ ARG __ENABLE_CHECKER_DEBUG__=0
 ARG __ENABLE_MEM_ERR_DEBUG__=0
 ARG __ENABLE_SCRIPT_DEBUG__=0
 
-RUN echo $__ENABLE_MAGIC__
-
 RUN apk --no-cache add \
         python3 \
         git \
