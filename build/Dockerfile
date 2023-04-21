@@ -3,7 +3,6 @@ FROM alpine:latest
 LABEL author="Alexandre Cassen <acassen@gmail.com>"
 LABEL project="https://github.com/acassen/keepalived"
 LABEL homepage="https://www.keepalived.org"
-LABEL git_branch=$GIT_KVER
 
 ARG GIT_KVER=master
 ARG WDIR=/tmp/keepalived
