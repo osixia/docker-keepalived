@@ -47,6 +47,7 @@ RUN apk --no-cache add \
         libnl3-dev \
         make \
         musl-dev \
+        openssl \
         openssl-dev \
         autoconf \
         automake
@@ -99,6 +100,8 @@ RUN ./configure.py \
         --enable-script-debug      $__ENABLE_SCRIPT_DEBUG__
 
 RUN make && make install
+
+RUN strip /usr/sbin/keepalived
 
 RUN apk --no-cache del \
         python3 \
