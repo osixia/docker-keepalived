@@ -3,6 +3,10 @@ services:
     keepalived:
         container_name: keepalived
         build:
+            labels:
+                - author: "Alexandre Cassen <acassen@gmail.com>"
+                - project: "https://github.com/acassen/keepalived"
+                - homepage: "https://www.keepalived.org"
             cache_from:
                 - alpine:latest
             context: https://github.com/nser77/docker-keepalived.git#dev:build
@@ -36,6 +40,7 @@ services:
                 - __ENABLE_CHECKER_DEBUG__=0
                 - __ENABLE_MEM_ERR_DEBUG__=0
                 - __ENABLE_SCRIPT_DEBUG__=0
+        pid: host
         network_mode: host
         volumes:
             - type: bind
