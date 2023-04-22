@@ -43,15 +43,15 @@ Key features of ```docker-keepalived```.
 
 | # | Key
 | ------------- | ------------- |
-| 1 | Take a look to this file [docker](https://github.com/acassen/keepalived/tree/master/docker).  |
-| 2 | Take a look to this interesting issue [#665](https://github.com/acassen/keepalived/issues/665).  |
+| 1 | Take a look to this interesting issue [#665](https://github.com/acassen/keepalived/issues/665).  |
+| 2 | Take a look to this commit [#2052](https://github.com/acassen/keepalived/pull/2052).  |
 | 3 | From [#665](https://github.com/acassen/keepalived/issues/665): "My concern is that ```keepalived``` operates quite close to the kernel, significantly more so than most applications, and hence my questions to make sure that it really will work within a Docker environment." |
 | 4 | Remeber that ```keepalived``` is unable to load the ```ip_tables```, ```ip6_tables```, ```xt_set``` and ```ip_vs``` modules from within the container, so ensure they are already loaded in the host system. |
 | 5 | It is important that ```keepalived``` is shutdown before the container is removed, otherwise ```iptables```, ```ipsets``` and ```ipvs``` configuration can be left over in the host after the container terminates. |
 
 # Considerations about this project
 
-The Docker environment (```docker-keepalived```) is a really interesting virtual space for security reasons, but there are some apps that operates quite close to the kernel, significantly more then others, so if you really want to use ```keepalived``` and its advantages, or you simply want to use it in a complex production environment, you might need to build directly on your host, please see: [INSTALL](https://github.com/acassen/keepalived/blob/master/INSTALL).
+The Docker environment (```docker-keepalived```) is a really interesting virtual space for security reasons, but there are some apps that operates quite close to the kernel, significantly more then others, so if you really want to use ```keepalived``` and its advantages, or you simply want to use it in a complex production environment, you might need to build it directly on your host, please see: [INSTALL](https://github.com/acassen/keepalived/blob/master/INSTALL).
 
 If you are worry about security, remember that you can run ```keepalived``` as non-root user, please see: [keepalived-non-root.service](https://github.com/acassen/keepalived/blob/master/keepalived/keepalived-non-root.service.in), which is not the same that runs scripts.
 
