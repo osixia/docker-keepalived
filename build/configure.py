@@ -33,6 +33,7 @@ class C:
     __DISABLE_NFTABLES__         = 0
     __ENABLE_SNMP_VRRP__         = 0
     __ENABLE_REGEX__             = 0
+    __ENABLE_REGEX_TIMERS__      = 0
     __ENABLE_JSON__              = 0
     __DISABLE_LVS__              = 0
     __DISABLE_VRRP__             = 0
@@ -68,6 +69,7 @@ class C:
         ('--disable-nftables',         'disable_nftables',         int,     __DISABLE_NFTABLES__,         'Build without nftables support.', []),
         ('--enable-snmp-vrrp',         'enable_snmp_vrrp',         int,     __ENABLE_SNMP_VRRP__,         'Compile with SNMP vrrp support.', ['--enable-snmp-rfc']),
         ('--enable-regex',             'enable_regex',             int,     __ENABLE_REGEX__,             'Build with HTTP_GET regex checking.', []),
+        ('--enable-regex-timers',      'enable_regex_timers',      int,     __ENABLE_REGEX_TIMERS__,      'Build with HTTP_GET regex timers.', []),
         ('--enable-json',              'enable_json',              int,     __ENABLE_JSON__,              'Compile with signal to dump configuration and stats as json.', []),
         ('--disable-lvs',              'disable_lvs',              int,     __DISABLE_LVS__,              'Do not use the LVS framework.', []),
         ('--disable-vrrp',             'disable_vrrp',             int,     __DISABLE_VRRP__,             'Do not use the VRRP framework.', []),
