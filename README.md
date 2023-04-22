@@ -35,7 +35,7 @@ Key features of ```docker-keepalived```.
 | 1 | VRRP  | Yes | Working fine. |
 | 2 | BFD  | No | |
 | 3 | LVS  | No | |
-| 4 | Track script  | Yes | Working fine, but with some restrictions. |
+| 4 | Track script  | Yes | Working fine, but it needs FIFO no host. |
 | 5 | Track process  | No | |
 | 6 | SIGKILL output  | Yes | Signals are intercepted from ```keepalived``` but still no output.|
 
