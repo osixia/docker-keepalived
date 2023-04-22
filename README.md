@@ -25,7 +25,16 @@ usage: configure.py [-h] [-n] [--enable-dbus ENABLE_DBUS] [--disable-libipset DI
 | 7 | You can build this project from the GitHub repo. |
 
 # Build from GitHub
-There are a lot of choices to build this image.
+There are a lot of choices to build this image but also some recommendations.
+
+## Recommendations
+
+| # | Key
+| ------------- | ------------- |
+| 1 | Take a look to this file https://github.com/acassen/keepalived/tree/master/docker.  |
+| 2 | Take a look to this interesting issue https://github.com/acassen/keepalived/issues/665.  |
+| 3 | Remeber that ```keepalived``` is unable to load the ```ip_tables```, ```ip6_tables```, ```xt_set``` and ```ip_vs``` modules from within the container, so ensure they are already loaded in the host system. |
+| 3 | It is important that ```keepalived``` is shutdown before the container is removed, otherwise ```iptables```, ```ipsets``` and ```ipvs``` configuration can be left over in the host after the container terminates. |
 
 ## ```docker build```
 ```
@@ -37,8 +46,10 @@ docker build \
 ```
 
 ## ```docker-compose```
+Download the  [```docker-compose```](compose/docker-compose.yml) file and use it as following:
+
 ```
-f=docker-compose.yml; docker-compose -f  ```wget -N https://raw.githubusercontent.com/nser77/docker-keepalived/main/compose/$f && echo $f``` up
+docker-compose -f docker-compose.yml up
 ```
 
 ## ```args```
