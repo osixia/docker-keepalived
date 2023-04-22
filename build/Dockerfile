@@ -27,6 +27,7 @@ ARG __DISABLE_ROUTES__=0
 ARG __DISABLE_LINKBEAT__=0
 ARG __ENABLE_SOCK_STORAGE__=0
 ARG __DISABLE_FWMARK__=0
+ARG __DISABLE_TRACK_PROCESS__=0
 ARG __ENABLE_DEBUG__=0
 ARG __ENABLE_SNMP_ALERT_DEBUG__=0
 ARG __ENABLE_EPOLL_DEBUG__=0
@@ -91,6 +92,7 @@ RUN ./configure.py \
         --enable-sock-storage      $__ENABLE_SOCK_STORAGE__ \
         --disable-fwmark           $__DISABLE_FWMARK__ \
         --enable-debug             $__ENABLE_DEBUG__ \
+        --disable-track-process    $__DISABLE_TRACK_PROCESS__ \
         --enable-snmp-alert-debug  $__ENABLE_SNMP_ALERT_DEBUG__ \
         --enable-epoll-debug       $__ENABLE_EPOLL_DEBUG__ \
         --enable-vrrp-fd-debug     $__ENABLE_VRRP_FD_DEBUG__ \
