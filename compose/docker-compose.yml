@@ -23,7 +23,7 @@ services:
                 - __DISABLE_VMAC__=0
                 - __ENABLE_LTO__=0
                 - __DISABLE_CHECKSUM_COMPACT__=0
-                - __DISABLE_ROUTES__=1
+                - __DISABLE_ROUTES__=0
                 - __DISABLE_LINKBEAT__=0
                 - __ENABLE_SOCK_STORAGE__=0
                 - __ENABLE_DEBUG__=0
@@ -46,6 +46,7 @@ services:
             - type: bind
               source: /etc/keepalived
               target: /etc/keepalived
+            # also /tmp is needed
         cap_drop:
             - ALL
         cap_add:
