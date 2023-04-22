@@ -14,6 +14,7 @@ ARG __DISABLE_IPTABLES__=0
 ARG __DISABLE_NFTABLES__=0
 ARG __ENABLE_SNMP_VRRP__=0
 ARG __ENABLE_REGEX__=0
+ARG __ENABLE_REGEX_TIMERS__=0
 ARG __ENABLE_JSON__=0
 ARG __DISABLE_LVS__=0
 ARG __DISABLE_VRRP__=0
@@ -76,6 +77,7 @@ RUN ./configure.py \
         --disable-nftables         $__DISABLE_NFTABLES__ \
         --enable-snmp-vrrp         $__ENABLE_SNMP_VRRP__ \
         --enable-regex             $__ENABLE_REGEX__ \
+        --enable-regex-timers      $__ENABLE_REGEX_TIMERS__ \
         --enable-json              $__ENABLE_JSON__ \
         --disable-lvs              $__DISABLE_LVS__ \
         --disable-vrrp             $__DISABLE_VRRP__ \
