@@ -44,6 +44,7 @@ class C:
     __DISABLE_ROUTES__           = 0
     __DISABLE_LINKBEAT__         = 0
     __ENABLE_SOCK_STORAGE__      = 0
+    __DISABLE_FWMARK__           = 0
     __ENABLE_DEBUG__             = 0
     __ENABLE_SNMP_ALERT_DEBUG__  = 0
     __ENABLE_EPOLL_DEBUG__       = 0
@@ -78,6 +79,7 @@ class C:
         ('--disable-routes',           'disable_routes',           int,     __DISABLE_ROUTES__,           'Compile without ip rules/routes.', []),
         ('--disable-linkbeat',         'disable_linkbeat',         int,     __DISABLE_LINKBEAT__,         'Compile without linkbeat support.', []),
         ('--enable-sock-storage',      'enable_sock_storage',      int,     __ENABLE_SOCK_STORAGE__,      'Compile using sockaddr_storage rather than smaller sockaddr for IPv4/6 only', []),
+        ('--disable-fwmark',           'disable_fwmark',           int,     __DISABLE_FWMARK__,           'Compile without SO_MARK support.', []),
         ('--enable-debug',             'enable_debug',             int,     __ENABLE_DEBUG__,             'Compile with most debugging options.', []),
         ('--enable-snmp-alert-debug',  'enable_snmp_alert_debug',  int,     __ENABLE_SNMP_ALERT_DEBUG__,  'Compile with smtp-alert debugging.', []),
         ('--enable-epoll-debug',       'enable_epoll_debug',       int,     __ENABLE_EPOLL_DEBUG__,       'Compile with epoll_wait() debugging support.', []),
