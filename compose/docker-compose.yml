@@ -24,7 +24,7 @@ services:
                 - __DISABLE_VMAC__=0
                 - __ENABLE_LTO__=0
                 - __DISABLE_CHECKSUM_COMPACT__=0
-                - __DISABLE_ROUTES__=1
+                - __DISABLE_ROUTES__=0
                 - __DISABLE_LINKBEAT__=0
                 - __ENABLE_SOCK_STORAGE__=0
                 - __DISABLE_TRACK_PROCESS__=1
@@ -38,7 +38,7 @@ services:
                 - __ENABLE_CHECKSUM_DEBUG__=0
                 - __ENABLE_CHECKER_DEBUG__=0
                 - __ENABLE_MEM_ERR_DEBUG__=0
-                - __ENABLE_SCRIPT_DEBUG__=1
+                - __ENABLE_SCRIPT_DEBUG__=0
         # Sets the PID mode to the host PID mode.
         # This turns on sharing between container and the host operating system the PID address space.
         # Containers launched with this flag can access and manipulate other containers in the bare-metal machine’s namespace and vice versa.
