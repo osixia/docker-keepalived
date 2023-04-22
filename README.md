@@ -33,7 +33,7 @@ Key features of ```docker-keepalived```.
 | # | Module | Tested | Notes | 
 | ------------- | ------------- | ------------- | ------------- | 
 | 1 | VRRP  | Yes | Working fine. |
-| 2 | BFD  | No | |
+| 2 | BFD  | Yes | Working fine. |
 | 3 | LVS  | No | |
 | 4 | Track script  | Yes | Working fine, but it needs FIFO on the host. |
 | 5 | Track process  | No | |
