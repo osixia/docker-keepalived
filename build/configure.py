@@ -23,16 +23,13 @@ class C:
         "./configure",
     ] + __DEF_QUEUE__
 
-    __QUEUE_DEV__ = [
-        "./configure.sh",
-    ] + __DEF_QUEUE__
-
     __ENABLE_DBUS__              = 0
     __DISABLE_IPSET__            = 0
     __DISABLE_IPTABLES__         = 0
     __DISABLE_NFTABLES__         = 0
     __ENABLE_SNMP_VRRP__         = 0
     __ENABLE_REGEX__             = 0
+    __ENABLE_REGEX_TIMERS__      = 0
     __ENABLE_JSON__              = 0
     __DISABLE_LVS__              = 0
     __DISABLE_VRRP__             = 0
@@ -44,6 +41,9 @@ class C:
     __DISABLE_ROUTES__           = 0
     __DISABLE_LINKBEAT__         = 0
     __ENABLE_SOCK_STORAGE__      = 0
+    __DISABLE_FWMARK__           = 0
+    __DISABLE_TRACK_PROCESS__    = 0
+    __ENABLE_MEM_CHECK__         = 0
     __ENABLE_DEBUG__             = 0
     __ENABLE_SNMP_ALERT_DEBUG__  = 0
     __ENABLE_EPOLL_DEBUG__       = 0
@@ -67,6 +67,7 @@ class C:
         ('--disable-nftables',         'disable_nftables',         int,     __DISABLE_NFTABLES__,         'Build without nftables support.', []),
         ('--enable-snmp-vrrp',         'enable_snmp_vrrp',         int,     __ENABLE_SNMP_VRRP__,         'Compile with SNMP vrrp support.', ['--enable-snmp-rfc']),
         ('--enable-regex',             'enable_regex',             int,     __ENABLE_REGEX__,             'Build with HTTP_GET regex checking.', []),
+        ('--enable-regex-timers',      'enable_regex_timers',      int,     __ENABLE_REGEX_TIMERS__,      'Build with HTTP_GET regex timers.', []),
         ('--enable-json',              'enable_json',              int,     __ENABLE_JSON__,              'Compile with signal to dump configuration and stats as json.', []),
         ('--disable-lvs',              'disable_lvs',              int,     __DISABLE_LVS__,              'Do not use the LVS framework.', []),
         ('--disable-vrrp',             'disable_vrrp',             int,     __DISABLE_VRRP__,             'Do not use the VRRP framework.', []),
@@ -78,6 +79,9 @@ class C:
         ('--disable-routes',           'disable_routes',           int,     __DISABLE_ROUTES__,           'Compile without ip rules/routes.', []),
         ('--disable-linkbeat',         'disable_linkbeat',         int,     __DISABLE_LINKBEAT__,         'Compile without linkbeat support.', []),
         ('--enable-sock-storage',      'enable_sock_storage',      int,     __ENABLE_SOCK_STORAGE__,      'Compile using sockaddr_storage rather than smaller sockaddr for IPv4/6 only', []),
+        ('--disable-fwmark',           'disable_fwmark',           int,     __DISABLE_FWMARK__,           'Compile without SO_MARK support.', []),
+        ('--disable-track-process',    'disable_track_process',    int,     __DISABLE_TRACK_PROCESS__,    'Build without track-process functionality.', []),
+        ('--enable-mem-check',         'enable_mem_check',         int,     __ENABLE_MEM_CHECK__,         'Compile with memory alloc checking - e.g. no writes before or after buffer, everything allocated is freed', ['--enable-mem-check-log']),
         ('--enable-debug',             'enable_debug',             int,     __ENABLE_DEBUG__,             'Compile with most debugging options.', []),
         ('--enable-snmp-alert-debug',  'enable_snmp_alert_debug',  int,     __ENABLE_SNMP_ALERT_DEBUG__,  'Compile with smtp-alert debugging.', []),
         ('--enable-epoll-debug',       'enable_epoll_debug',       int,     __ENABLE_EPOLL_DEBUG__,       'Compile with epoll_wait() debugging support.', []),
@@ -87,14 +91,13 @@ class C:
         ('--enable-parser-debug',      'enable_parser_debug',      int,     __ENABLE_PARSER_DEBUG__,      'Compile with parser debugging support.', []),
         ('--enable-checksum-debug',    'enable_checksum_debug',    int,     __ENABLE_CHECKSUM_DEBUG__,    'Compile with checksum debugging support.', []),
         ('--enable-checker-debug',     'enable_checker_debug',     int,     __ENABLE_CHECKER_DEBUG__,     'Compile with checker debugging support.', []),
-        ('--enable-mem-err-debug',     'enable_mem_err_debug',     int,     __ENABLE_MEM_ERR_DEBUG__,     'Compile with MALLOC/FREE error debugging support.', []),
+        ('--enable-mem-err-debug',     'enable_mem_err_debug',     int,     __ENABLE_MEM_ERR_DEBUG__,     'Compile with MALLOC/FREE error debugging support.', ['--enable-mem-check', '--enable-mem-check-log']),
         ('--enable-script-debug',      'enable_script_debug',      int,     __ENABLE_SCRIPT_DEBUG__,      'Compile with script termination debugging support.', []),
     ]
 
     def _cli(self):
         from argparse import ArgumentParser
         p = ArgumentParser(description=self.__cli_desc__)
-        p.add_argument('-n', dest='__DEV__', action='count', default=0, help="Enable configure.py dev mode.")
         for c in self.__cli_mapping__:
             p.add_argument(c[0], dest=c[1], type=c[2], default=c[3], help=c[4])
         p.parse_args(namespace=self.__cli_args__)
@@ -105,23 +108,15 @@ class C:
         for k, v in self.__cli_args__.__dict__.items():
             if v == 1:
                 for c in self.__cli_mapping__:
-                    if not self.__cli_args__.__DEV__:
-                        if k == c[1]:
-                            self.__QUEUE__.append(c[0])
-                            if c[5]: self.__QUEUE__ = self.__QUEUE__ + (c[5])
-                    else:
-                         if k == c[1]:
-                            self.__QUEUE_DEV__.append(c[0])
-                            if c[5]: self.__QUEUE_DEV__ = self.__QUEUE_DEV__ + (c[5])
+                    if k == c[1]:
+                        self.__QUEUE__.append(c[0])
+                        if c[5]: self.__QUEUE__ = self.__QUEUE__ + (c[5])
         return
 
     def run(self):
         self._configure()
         try:
-            if not self.__cli_args__.__DEV__:
-                p = subprocess.Popen(self.__QUEUE__)
-            else:
-                p = subprocess.Popen(self.__QUEUE_DEV__)
+            p = subprocess.Popen(self.__QUEUE__)
             if p:
                 p.wait()
                 p.kill()
