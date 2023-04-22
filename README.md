@@ -6,12 +6,19 @@ This project is based on [```configure.py```](build/configure.py) and allows to 
 Also note that this ```Dockerimage``` is partially based on this commit [acassen/keepalived/pull/2052](https://github.com/acassen/keepalived/pull/2052) and will automaticaly download the ```keepalived``` version specified trought: ```GIT_KVER```.
 
 ```
-usage: configure.py [-h] [-n] [--enable-dbus ENABLE_DBUS] [--disable-libipset DISABLE_LIBIPSET] [--disable-iptables DISABLE_IPTABLES] [--disable-nftables DISABLE_NFTABLES] [--enable-snmp-vrrp ENABLE_SNMP_VRRP]
-                    [--enable-regex ENABLE_REGEX] [--enable-json ENABLE_JSON] [--disable-lvs DISABLE_LVS] [--disable-vrrp DISABLE_VRRP] [--disable-vrrp-auth DISABLE_VRRP_AUTH] [--enable-bfd ENABLE_BFD] [--disable-vmac DISABLE_VMAC]
-                    [--enable-lto ENABLE_LTO] [--disable-checksum-compact DISABLE_CHECKSUM_COMPACT] [--disable-routes DISABLE_ROUTES] [--disable-linkbeat DISABLE_LINKBEAT] [--enable-sock-storage ENABLE_SOCK_STORAGE]
-                    [--enable-debug ENABLE_DEBUG] [--enable-snmp-alert-debug ENABLE_SNMP_ALERT_DEBUG] [--enable-epoll-debug ENABLE_EPOLL_DEBUG] [--enable-vrrp-fd-debug ENABLE_VRRP_FD_DEBUG] [--enable-recvmsg-debug ENABLE_RECVMSG_DEBUG]
-                    [--enable-eintr-debug ENABLE_EINTR_DEBUG] [--enable-parser-debug ENABLE_PARSER_DEBUG] [--enable-checksum-debug ENABLE_CHECKSUM_DEBUG] [--enable-checker-debug ENABLE_CHECKER_DEBUG]
-                    [--enable-mem-err-debug ENABLE_MEM_ERR_DEBUG] [--enable-script-debug ENABLE_SCRIPT_DEBUG]
+usage: configure.py [-h] [--enable-dbus ENABLE_DBUS] [--disable-libipset DISABLE_LIBIPSET] [--disable-iptables DISABLE_IPTABLES]
+                    [--disable-nftables DISABLE_NFTABLES] [--enable-snmp-vrrp ENABLE_SNMP_VRRP] [--enable-regex ENABLE_REGEX]
+                    [--enable-regex-timers ENABLE_REGEX_TIMERS] [--enable-json ENABLE_JSON] [--disable-lvs DISABLE_LVS]
+                    [--disable-vrrp DISABLE_VRRP] [--disable-vrrp-auth DISABLE_VRRP_AUTH] [--enable-bfd ENABLE_BFD]
+                    [--disable-vmac DISABLE_VMAC] [--enable-lto ENABLE_LTO] [--disable-checksum-compact DISABLE_CHECKSUM_COMPACT]
+                    [--disable-routes DISABLE_ROUTES] [--disable-linkbeat DISABLE_LINKBEAT] [--enable-sock-storage ENABLE_SOCK_STORAGE]
+                    [--disable-fwmark DISABLE_FWMARK] [--disable-track-process DISABLE_TRACK_PROCESS] [--enable-mem-check ENABLE_MEM_CHECK]
+                    [--enable-debug ENABLE_DEBUG] [--enable-snmp-alert-debug ENABLE_SNMP_ALERT_DEBUG]
+                    [--enable-epoll-debug ENABLE_EPOLL_DEBUG] [--enable-vrrp-fd-debug ENABLE_VRRP_FD_DEBUG]
+                    [--enable-recvmsg-debug ENABLE_RECVMSG_DEBUG] [--enable-eintr-debug ENABLE_EINTR_DEBUG]
+                    [--enable-parser-debug ENABLE_PARSER_DEBUG] [--enable-checksum-debug ENABLE_CHECKSUM_DEBUG]
+                    [--enable-checker-debug ENABLE_CHECKER_DEBUG] [--enable-mem-err-debug ENABLE_MEM_ERR_DEBUG]
+                    [--enable-script-debug ENABLE_SCRIPT_DEBUG]
 ```
 
 # Key features
@@ -92,6 +99,7 @@ ARG __DISABLE_IPTABLES__=0
 ARG __DISABLE_NFTABLES__=0
 ARG __ENABLE_SNMP_VRRP__=0
 ARG __ENABLE_REGEX__=0
+ARG __ENABLE_REGEX_TIMERS__=0
 ARG __ENABLE_JSON__=0
 ARG __DISABLE_LVS__=0
 ARG __DISABLE_VRRP__=0
@@ -103,6 +111,9 @@ ARG __DISABLE_CHECKSUM_COMPACT__=0
 ARG __DISABLE_ROUTES__=0
 ARG __DISABLE_LINKBEAT__=0
 ARG __ENABLE_SOCK_STORAGE__=0
+ARG __DISABLE_FWMARK__=0
+ARG __DISABLE_TRACK_PROCESS__=0
+ARG __ENABLE_MEM_CHECK__=0
 ARG __ENABLE_DEBUG__=0
 ARG __ENABLE_SNMP_ALERT_DEBUG__=0
 ARG __ENABLE_EPOLL_DEBUG__=0
