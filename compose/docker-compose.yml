@@ -28,21 +28,18 @@ services:
                 - __DISABLE_LINKBEAT__=0
                 - __ENABLE_SOCK_STORAGE__=0
                 - __DISABLE_TRACK_PROCESS__=1
-                - __ENABLE_MEM_CHECK__=0
-                - __ENABLE_DEBUG__=0
+                - __ENABLE_MEM_CHECK__=1
+                - __ENABLE_DEBUG__=1
                 - __ENABLE_SNMP_ALERT_DEBUG__=0
-                - __ENABLE_EPOLL_DEBUG__=0
-                - __ENABLE_VRRP_FD_DEBUG__=0
-                - __ENABLE_RECVMSG_DEBUG__=0
-                - __ENABLE_EINTR_DEBUG__=0
-                - __ENABLE_PARSER_DEBUG__=0
-                - __ENABLE_CHECKSUM_DEBUG__=0
+                - __ENABLE_EPOLL_DEBUG__=1
+                - __ENABLE_VRRP_FD_DEBUG__=1
+                - __ENABLE_RECVMSG_DEBUG__=1
+                - __ENABLE_EINTR_DEBUG__=1
+                - __ENABLE_PARSER_DEBUG__=1
+                - __ENABLE_CHECKSUM_DEBUG__=1
                 - __ENABLE_CHECKER_DEBUG__=0
-                - __ENABLE_MEM_ERR_DEBUG__=0
-                - __ENABLE_SCRIPT_DEBUG__=0
-        # Sets the PID mode to the host PID mode.
-        # This turns on sharing between container and the host operating system the PID address space.
-        # Containers launched with this flag can access and manipulate other containers in the bare-metal machine’s namespace and vice versa.
+                - __ENABLE_MEM_ERR_DEBUG__=1
+                - __ENABLE_SCRIPT_DEBUG__=1
         pid: host
         network_mode: host
         volumes:
