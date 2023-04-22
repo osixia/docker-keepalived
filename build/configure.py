@@ -47,6 +47,7 @@ class C:
     __ENABLE_SOCK_STORAGE__      = 0
     __DISABLE_FWMARK__           = 0
     __DISABLE_TRACK_PROCESS__    = 0
+    __ENABLE_MEM_CHECK__         = 0
     __ENABLE_DEBUG__             = 0
     __ENABLE_SNMP_ALERT_DEBUG__  = 0
     __ENABLE_EPOLL_DEBUG__       = 0
@@ -84,6 +85,7 @@ class C:
         ('--enable-sock-storage',      'enable_sock_storage',      int,     __ENABLE_SOCK_STORAGE__,      'Compile using sockaddr_storage rather than smaller sockaddr for IPv4/6 only', []),
         ('--disable-fwmark',           'disable_fwmark',           int,     __DISABLE_FWMARK__,           'Compile without SO_MARK support.', []),
         ('--disable-track-process',    'disable_track_process',    int,     __DISABLE_TRACK_PROCESS__,    'Build without track-process functionality.', []),
+        ('--enable-mem-check',         'enable_mem_check',         int,     __ENABLE_MEM_CHECK__,         'Compile with memory alloc checking - e.g. no writes before or after buffer, everything allocated is freed', ['--enable-mem-check-log']),
         ('--enable-debug',             'enable_debug',             int,     __ENABLE_DEBUG__,             'Compile with most debugging options.', []),
         ('--enable-snmp-alert-debug',  'enable_snmp_alert_debug',  int,     __ENABLE_SNMP_ALERT_DEBUG__,  'Compile with smtp-alert debugging.', []),
         ('--enable-epoll-debug',       'enable_epoll_debug',       int,     __ENABLE_EPOLL_DEBUG__,       'Compile with epoll_wait() debugging support.', []),
@@ -93,7 +95,7 @@ class C:
         ('--enable-parser-debug',      'enable_parser_debug',      int,     __ENABLE_PARSER_DEBUG__,      'Compile with parser debugging support.', []),
         ('--enable-checksum-debug',    'enable_checksum_debug',    int,     __ENABLE_CHECKSUM_DEBUG__,    'Compile with checksum debugging support.', []),
         ('--enable-checker-debug',     'enable_checker_debug',     int,     __ENABLE_CHECKER_DEBUG__,     'Compile with checker debugging support.', []),
-        ('--enable-mem-err-debug',     'enable_mem_err_debug',     int,     __ENABLE_MEM_ERR_DEBUG__,     'Compile with MALLOC/FREE error debugging support.', []),
+        ('--enable-mem-err-debug',     'enable_mem_err_debug',     int,     __ENABLE_MEM_ERR_DEBUG__,     'Compile with MALLOC/FREE error debugging support.', ['--enable-mem-check', '--enable-mem-check-log']),
         ('--enable-script-debug',      'enable_script_debug',      int,     __ENABLE_SCRIPT_DEBUG__,      'Compile with script termination debugging support.', []),
     ]
 
