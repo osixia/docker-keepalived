@@ -13,6 +13,7 @@ usage: configure.py [-h] [-n] [--enable-dbus ENABLE_DBUS] [--disable-libipset DI
 ```
 
 # Key features
+Key features of ```docker-keepalived```.
 
 | # | Key
 | ------------- | ------------- |
@@ -23,6 +24,34 @@ usage: configure.py [-h] [-n] [--enable-dbus ENABLE_DBUS] [--disable-libipset DI
 | 5 | Based on ```alpine linux```.  |
 | 6 | Small size image.  |
 | 7 | You can build this project from the GitHub repo. |
+
+# What has been tested
+```keepalived``` is a very smart and robust software with lot of modules (LVS, BFD, VRRP, etc..) and ```docker-keepalived``` is still a new project so we may want to track what we tested and what we should test:
+
+| # | Module | Tested | Notes | 
+| ------------- | ------------- | ------------- | ------------- | 
+| 1 | VRRP  | Yes | Working fine. |
+| 2 | BFD  | No | |
+| 3 | LVS  | No | |
+| 4 | Track script  | Yes | Working fine, but with some restrictions. |
+| 5 | Track process  | No | |
+| 6 | SIGKILL output  | Yes | Signals are intercepted from ```keepalived``` but still no output.|
+
+# Recommendations
+
+| # | Key
+| ------------- | ------------- |
+| 1 | Take a look to this file [docker](https://github.com/acassen/keepalived/tree/master/docker).  |
+| 2 | Take a look to this interesting issue [#665](https://github.com/acassen/keepalived/issues/665).  |
+| 3 | From [#665](https://github.com/acassen/keepalived/issues/665): "My concern is that ```keepalived``` operates quite close to the kernel, significantly more so than most applications, and hence my questions to make sure that it really will work within a Docker environment." |
+| 4 | Remeber that ```keepalived``` is unable to load the ```ip_tables```, ```ip6_tables```, ```xt_set``` and ```ip_vs``` modules from within the container, so ensure they are already loaded in the host system. |
+| 5 | It is important that ```keepalived``` is shutdown before the container is removed, otherwise ```iptables```, ```ipsets``` and ```ipvs``` configuration can be left over in the host after the container terminates. |
+
+# Considerations about this project
+
+The Docker environment (```docker-keepalived```) is a really interesting virtual space for security reasons, but there are some apps that operates quite close to the kernel, significantly more then others, so if you really want to use ```keepalived``` and its advantages (track_scrtip, track_process, etc..), or want to use it in a complex production environment, you might need to build directly on your host, please see: [INSTALL](https://github.com/acassen/keepalived/blob/master/INSTALL).
+
+If you are worry about security, remember that you can run ```keepalived``` as non-root user, please see: [keepalived-non-root.service](https://github.com/acassen/keepalived/blob/master/keepalived/keepalived-non-root.service.in), which is not the same that runs scripts.
 
 # Build from GitHub
 There are a lot of choices to build this image.
@@ -37,8 +66,10 @@ docker build \
 ```
 
 ## ```docker-compose```
+Download the  [```docker-compose```](compose/docker-compose.yml) file and use it as following:
+
 ```
-f=docker-compose.yml; docker-compose -f  ```wget -N https://raw.githubusercontent.com/nser77/docker-keepalived/main/compose/$f && echo $f``` up
+docker-compose -f docker-compose.yml up
 ```
 
 ## ```args```

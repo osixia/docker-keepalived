@@ -1,4 +1,5 @@
 version: '3.7'
+
 services:
     keepalived:
         container_name: keepalived
@@ -37,13 +38,14 @@ services:
                 - __ENABLE_CHECKER_DEBUG__=0
                 - __ENABLE_MEM_ERR_DEBUG__=0
                 - __ENABLE_SCRIPT_DEBUG__=1
-        # Sets the PID mode to the host PID mode. 
-        # This turns on sharing between container and the host operating system the PID address space. 
+        # Sets the PID mode to the host PID mode.
+        # This turns on sharing between container and the host operating system the PID address space.
         # Containers launched with this flag can access and manipulate other containers in the bare-metal machine’s namespace and vice versa.
         pid: host
         network_mode: host
         volumes:
             - type: bind
+              read_only: true
               source: /etc/keepalived
               target: /etc/keepalived
         cap_drop:
@@ -52,5 +54,6 @@ services:
             - NET_ADMIN
             - NET_BROADCAST
             - NET_RAW
+            - SETUID
             - SETGID
         restart: on-failure
