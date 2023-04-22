@@ -1,3 +1,5 @@
+> Before continuing, read the [Recommendations](#recommendations) and [Considerations](#considerations-about-this-project) sections.
+
 # docker-keepalived
 This project is based on [```configure.py```](build/configure.py) and allows to dynamically manipulate ```keepalived docker-image```'s behaviors and configurations at build time; for more informations about the installation please see the section: [Build from GitHub](#build-from-github).
 
@@ -49,7 +51,7 @@ Key features of ```docker-keepalived```.
 
 # Considerations about this project
 
-The Docker environment (```docker-keepalived```) is a really interesting virtual space for security reasons, but there are some apps that operates quite close to the kernel, significantly more then others, so if you really want to use ```keepalived``` and its advantages (track_scrtip, track_process, etc..), or want to use it in a complex production environment, you might need to build directly on your host, please see: [INSTALL](https://github.com/acassen/keepalived/blob/master/INSTALL).
+The Docker environment (```docker-keepalived```) is a really interesting virtual space for security reasons, but there are some apps that operates quite close to the kernel, significantly more then others, so if you really want to use ```keepalived``` and its advantages, or you simply want to use it in a complex production environment, you might need to build directly on your host, please see: [INSTALL](https://github.com/acassen/keepalived/blob/master/INSTALL).
 
 If you are worry about security, remember that you can run ```keepalived``` as non-root user, please see: [keepalived-non-root.service](https://github.com/acassen/keepalived/blob/master/keepalived/keepalived-non-root.service.in), which is not the same that runs scripts.
 
