@@ -23,10 +23,6 @@ class C:
         "./configure",
     ] + __DEF_QUEUE__
 
-    __QUEUE_DEV__ = [
-        "./configure.sh",
-    ] + __DEF_QUEUE__
-
     __ENABLE_DBUS__              = 0
     __DISABLE_IPSET__            = 0
     __DISABLE_IPTABLES__         = 0
@@ -102,7 +98,6 @@ class C:
     def _cli(self):
         from argparse import ArgumentParser
         p = ArgumentParser(description=self.__cli_desc__)
-        p.add_argument('-n', dest='__DEV__', action='count', default=0, help="Enable configure.py dev mode.")
         for c in self.__cli_mapping__:
             p.add_argument(c[0], dest=c[1], type=c[2], default=c[3], help=c[4])
         p.parse_args(namespace=self.__cli_args__)
@@ -113,23 +108,15 @@ class C:
         for k, v in self.__cli_args__.__dict__.items():
             if v == 1:
                 for c in self.__cli_mapping__:
-                    if not self.__cli_args__.__DEV__:
-                        if k == c[1]:
-                            self.__QUEUE__.append(c[0])
-                            if c[5]: self.__QUEUE__ = self.__QUEUE__ + (c[5])
-                    else:
-                         if k == c[1]:
-                            self.__QUEUE_DEV__.append(c[0])
-                            if c[5]: self.__QUEUE_DEV__ = self.__QUEUE_DEV__ + (c[5])
+                    if k == c[1]:
+                        self.__QUEUE__.append(c[0])
+                        if c[5]: self.__QUEUE__ = self.__QUEUE__ + (c[5])
         return
 
     def run(self):
         self._configure()
         try:
-            if not self.__cli_args__.__DEV__:
-                p = subprocess.Popen(self.__QUEUE__)
-            else:
-                p = subprocess.Popen(self.__QUEUE_DEV__)
+            p = subprocess.Popen(self.__QUEUE__)
             if p:
                 p.wait()
                 p.kill()
