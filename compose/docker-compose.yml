@@ -65,4 +65,5 @@ services:
             retries: 2
         logging:
             driver: json
+        stop_grace_period: 1m30s
         entrypoint: ["/usr/sbin/keepalived","--dont-fork","--log-console", "-d", "-D", "-f", "/etc/keepalived/keepalived.conf"]
