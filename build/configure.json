@@ -1,0 +1,28 @@
+{
+  "mapping": [
+    {
+      "argument": "--enable-dbus",
+      "dest": "enable_dbus",
+      "type": 0,
+      "default": 0,
+      "help": "Compile with dbus support.",
+      "related_arguments": []
+    },
+    {
+      "argument": "--disable-libipset",
+      "dest": "disable_libipset",
+      "type": 0,
+      "default": 0,
+      "help": "Compile without libipset.",
+      "related_arguments": []
+    },
+    {
+      "argument": "",
+      "dest": "",
+      "type": 0,
+      "default": 0,
+      "help": "",
+      "related_arguments": []
+    }
+  ]
+}
