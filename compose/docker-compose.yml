@@ -60,10 +60,9 @@ services:
         restart: on-failure
         healthcheck:
             test: ["CMD", "killall", "-0", "/usr/sbin/keepalived"]
-            interval: 30s
+            interval: 5s
             timeout: 3s
             retries: 2
-        logging:
-            driver: json
+            #start_period: 10s
         stop_grace_period: 1m30s
         entrypoint: ["/usr/sbin/keepalived","--dont-fork","--log-console", "-d", "-D", "-f", "/etc/keepalived/keepalived.conf"]
