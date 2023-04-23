@@ -9,6 +9,7 @@ services:
                 - alpine:latest
             context: https://github.com/nser77/docker-keepalived.git#master:build
             args:
+                - GIT_KVER=2.2.7
                 - __ENABLE_MAGIC__=0
                 - __ENABLE_DBUS__=0
                 - __DISABLE_IPSET__=0
