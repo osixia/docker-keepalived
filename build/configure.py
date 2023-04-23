@@ -4,6 +4,9 @@ import subprocess
 from json import load
 from argparse import ArgumentParser
 
+class MappingEmpty(Exception):
+    pass
+
 class A(object):
     pass
 
@@ -12,32 +15,32 @@ class C:
     __cli_desc__       = 'docker-keepalived-configurer'
     __cli_args__       = A()
     __cli_mapping__    = []
-    __QUEUE__ = [
-        './configure.sh',
-    ]
+    __QUEUE__          = ['./configure.sh']
 
     def jsonConfig(self):
         try:
             with open(self.__configure_json__, 'r') as f:
                 j = load(f)
                 if j:
-                    try:
-                        self.loadDefQueue(j['def_queue'])
-                        self.loadMapping(j['mapping'])
-                    except KeyError as e:
-                        print("Key error for %s" % e)
-                        return False
-            return True
+                    self.loadDefQueue(j['def_queue'])
+                    self.loadMapping(j['mapping'])
+                    return True
         except FileNotFoundError:
-            print('%s does not exists.' % c)
-        return False
+            print('%s does not exists.' % self.__configure_json__)
+        except KeyError as e:
+            print("Key error for %s" % e)
+        except MappingEmpty as e:
+            print(e)
+        finally:
+            return False
 
     def loadDefQueue(self, dq):
         if dq: self.__QUEUE__ = self.__QUEUE__ + dq
         return
 
     def loadMapping(self, m):
-        if m: self.__cli_mapping__ = self.__cli_mapping__ + m
+        if not m: raise MappingEmpty("JSON mapping object must not be empty.")
+        self.__cli_mapping__ = self.__cli_mapping__ + m
         return
 
     def _typeConvertion(self, t):
@@ -63,13 +66,11 @@ class C:
                 for c in self.__cli_mapping__:
                     if k == c['dest']:
                         self.__QUEUE__.append(c['argument'])
-                        if c['related_arguments']:
-                            self.__QUEUE__ = self.__QUEUE__ + (c['related_arguments'])
+                        if c['related_arguments']: self.__QUEUE__ = self.__QUEUE__ + (c['related_arguments'])
         return
 
     def run(self):
-        if not self.jsonConfig():
-            return False
+        if not self.jsonConfig(): return False
         self._configure()
         try:
             p = subprocess.Popen(self.__QUEUE__)
@@ -79,7 +80,8 @@ class C:
                 return True
         except Exception as e:
             print(e)
-        return False
+        finally:
+            return False
 
 c = C()
 if not c.run(): exit(1)
