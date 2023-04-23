@@ -25,11 +25,9 @@ class C:
                     self.loadDefQueue(j['def_queue'])
                     self.loadMapping(j['mapping'])
                     return True
-        except FileNotFoundError:
-            print('%s does not exists.' % self.__configure_json__)
         except KeyError as e:
             print("Key error for %s" % e)
-        except MappingEmpty as e:
+        except Exception as e:
             print(e)
         finally:
             return False
@@ -39,7 +37,7 @@ class C:
         return
 
     def loadMapping(self, m):
-        if not m: raise MappingEmpty("JSON mapping object must not be empty.")
+        if not m: raise MappingEmpty("JSON mapping object cannot be empty.")
         self.__cli_mapping__ = self.__cli_mapping__ + m
         return
 
