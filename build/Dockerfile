@@ -134,4 +134,4 @@ RUN rm -rf $WDIR
 
 RUN addgroup -S keepalived_script && adduser -D -S -G keepalived_script keepalived_script
 
-ENTRYPOINT ["/usr/sbin/keepalived","--dont-fork","--log-console", "-d", "-D", "-f","/etc/keepalived/keepalived.conf"]
+ENTRYPOINT ["/usr/sbin/keepalived","--dont-fork","--log-console", "-f", "/etc/keepalived/keepalived.conf"]
