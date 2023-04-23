@@ -68,7 +68,7 @@ RUN git clone -b $GIT_KVER https://github.com/acassen/keepalived.git $WDIR
 WORKDIR $WDIR
 
 ADD configure.py ./configure.py
-#ADD configure.json ./configure.json
+ADD configure.json ./configure.json
 RUN if [[ ! $MAP_FROM == "local" ]]; then wget $MAP_FROM -O configure.json; fi
 
 RUN ./autogen.sh
