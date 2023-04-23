@@ -41,7 +41,7 @@
       "dest": "disable_nftables",
       "type": "int",
       "default": 0,
-      "help": "Compile without nftables support.",
+      "help": "Build without nftables support.",
       "related_arguments": []
     },
     {
@@ -49,8 +49,231 @@
       "dest": "enable_snmp_vrrp",
       "type": "int",
       "default": 0,
-      "help": "Compile with snmp vrrp support.",
-      "related_arguments": ["--enable-snmp-rfc"]
+      "help": "Compile with SNMP vrrp support.",
+      "related_arguments": [
+        "--enable-snmp-rfc"
+      ]
+    },
+    {
+      "argument": "--enable-regex",
+      "dest": "enable_regex",
+      "type": "int",
+      "default": 0,
+      "help": "Build with HTTP_GET regex checking.",
+      "related_arguments": []
+    },
+    {
+      "argument": "--enable-regex-timers",
+      "dest": "enable_regex_timers",
+      "type": "int",
+      "default": 0,
+      "help": "Build with HTTP_GET regex timers.",
+      "related_arguments": []
+    },
+    {
+      "argument": "--enable-json",
+      "dest": "enable_json",
+      "type": "int",
+      "default": 0,
+      "help": "Compile with signal to dump configuration and stats as json.",
+      "related_arguments": []
+    },
+    {
+      "argument": "--disable-lvs",
+      "dest": "disable_lvs",
+      "type": "int",
+      "default": 0,
+      "help": "Do not use the LVS framework.",
+      "related_arguments": []
+    },
+    {
+      "argument": "--disable-vrrp",
+      "dest": "disable_vrrp",
+      "type": "int",
+      "default": 0,
+      "help": "Do not use the VRRP framework.",
+      "related_arguments": []
+    },
+    {
+      "argument": "--disable-vrrp-auth",
+      "dest": "disable_vrrp_auth",
+      "type": "int",
+      "default": 0,
+      "help": "Compile without VRRP authentication.",
+      "related_arguments": []
+    },
+    {
+      "argument": "--enable-bfd",
+      "dest": "enable_bfd",
+      "type": "int",
+      "default": 0,
+      "help": "Use the BFD framework.",
+      "related_arguments": []
+    },
+    {
+      "argument": "--disable-vmac",
+      "dest": "disable_vmac",
+      "type": "int",
+      "default": 0,
+      "help": "Compile without VMAC support.",
+      "related_arguments": []
+    },
+    {
+      "argument": "--enable-lto",
+      "dest": "enable_lto",
+      "type": "int",
+      "default": 0,
+      "help": "Use Link Time Optimisation.",
+      "related_arguments": []
+    },
+    {
+      "argument": "--disable-checksum-compact",
+      "dest": "disable_checksum_compact",
+      "type": "int",
+      "default": 0,
+      "help": "Compile without v1.3.6 and earlier VRRPv3 unicast checksum compatibility",
+      "related_arguments": []
+    },
+    {
+      "argument": "--disable-routes",
+      "dest": "disable_routes",
+      "type": "int",
+      "default": 0,
+      "help": "Compile without ip rules/routes.",
+      "related_arguments": []
+    },
+    {
+      "argument": "--disable-linkbeat",
+      "dest": "disable_linkbeat",
+      "type": "int",
+      "default": 0,
+      "help": "Compile without linkbeat support.",
+      "related_arguments": []
+    },
+    {
+      "argument": "--enable-sock-storage",
+      "dest": "enable_sock_storage",
+      "type": "int",
+      "default": 0,
+      "help": "Compile using sockaddr_storage rather than smaller sockaddr for IPv4/6 only",
+      "related_arguments": []
+    },
+    {
+      "argument": "--disable-fwmark",
+      "dest": "disable_fwmark",
+      "type": "int",
+      "default": 0,
+      "help": "Compile without SO_MARK support.",
+      "related_arguments": []
+    },
+    {
+      "argument": "--disable-track-process",
+      "dest": "disable_track_process",
+      "type": "int",
+      "default": 0,
+      "help": "Build without track-process functionality.",
+      "related_arguments": []
+    },
+    {
+      "argument": "--enable-mem-check",
+      "dest": "enable_mem_check",
+      "type": "int",
+      "default": 0,
+      "help": "Compile with memory alloc checking - e.g. no writes before or after buffer, everything allocated is freed",
+      "related_arguments": [
+        "--enable-mem-check-log"
+      ]
+    },
+    {
+      "argument": "--enable-debug",
+      "dest": "enable_debug",
+      "type": "int",
+      "default": 0,
+      "help": "Compile with most debugging options.",
+      "related_arguments": []
+    },
+    {
+      "argument": "--enable-snmp-alert-debug",
+      "dest": "enable_snmp_alert_debug",
+      "type": "int",
+      "default": 0,
+      "help": "Compile with smtp-alert debugging.",
+      "related_arguments": []
+    },
+    {
+      "argument": "--enable-epoll-debug",
+      "dest": "enable_epoll_debug",
+      "type": "int",
+      "default": 0,
+      "help": "Compile with epoll_wait() debugging support.",
+      "related_arguments": []
+    },
+    {
+      "argument": "--enable-vrrp-fd-debug",
+      "dest": "enable_vrrp_fd_debug",
+      "type": "int",
+      "default": 0,
+      "help": "Compile with vrrp fd debugging support.",
+      "related_arguments": []
+    },
+    {
+      "argument": "--enable-recvmsg-debug",
+      "dest": "enable_recvmsg_debug",
+      "type": "int",
+      "default": 0,
+      "help": "Compile with recvmsg() debugging support.",
+      "related_arguments": []
+    },
+    {
+      "argument": "--enable-eintr-debug",
+      "dest": "enable_eintr_debug",
+      "type": "int",
+      "default": 0,
+      "help": "Compile with EINTR debugging support, set to check/not check for EINTR.",
+      "related_arguments": []
+    },
+    {
+      "argument": "--enable-parser-debug",
+      "dest": "enable_parser_debug",
+      "type": "int",
+      "default": 0,
+      "help": "Compile with parser debugging support.",
+      "related_arguments": []
+    },
+    {
+      "argument": "--enable-checksum-debug",
+      "dest": "enable_checksum_debug",
+      "type": "int",
+      "default": 0,
+      "help": "Compile with checksum debugging support.",
+      "related_arguments": []
+    },
+    {
+      "argument": "--enable-checker-debug",
+      "dest": "enable_checker_debug",
+      "type": "int",
+      "default": 0,
+      "help": "Compile with checker debugging support.",
+      "related_arguments": []
+    },
+    {
+      "argument": "--enable-mem-err-debug",
+      "dest": "enable_mem_err_debug",
+      "type": "int",
+      "default": 0,
+      "help": "Compile with MALLOC/FREE error debugging support.",
+      "related_arguments": [
+        "--enable-mem-check",
+        "--enable-mem-check-log"
+      ]
+    },
+    {
+      "argument": "--enable-script-debug",
+      "dest": "enable_script_debug",
+      "type": "int",
+      "default": 0,
+      "help": "Compile with script termination debugging support.",
+      "related_arguments": []
     }
   ]
 }
