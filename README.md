@@ -80,7 +80,7 @@ docker build \
 Download the  [```docker-compose```](compose/docker-compose.yml) file and use it as following:
 
 ```
-docker-compose -f docker-compose.yml up
+docker-compose -f docker-compose.yml build
 ```
 
 ## ```args```
