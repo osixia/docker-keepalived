@@ -8,10 +8,10 @@ class A(object):
     pass
 
 class C:
-    __configure_json__='configure.json'
-    __cli_desc__ = 'docker-keepalived-configurer'
-    __cli_args__= A()
-    __cli_mapping__ = []
+    __configure_json__ = 'configure.json'
+    __cli_desc__       = 'docker-keepalived-configurer'
+    __cli_args__       = A()
+    __cli_mapping__    = []
     __QUEUE__ = [
         './configure.sh',
     ]
@@ -42,7 +42,9 @@ class C:
 
     def _typeConvertion(self, t):
         match t:
-            case 1:
+            case 'int':
+                return int
+            case 'str':
                 return str
             case _:
                 return int
