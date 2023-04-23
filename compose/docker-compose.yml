@@ -30,18 +30,18 @@ services:
                 - __DISABLE_LINKBEAT__=0
                 - __ENABLE_SOCK_STORAGE__=0
                 - __DISABLE_TRACK_PROCESS__=1
-                - __ENABLE_MEM_CHECK__=1
-                - __ENABLE_DEBUG__=1
+                - __ENABLE_MEM_CHECK__=0
+                - __ENABLE_DEBUG__=0
                 - __ENABLE_SNMP_ALERT_DEBUG__=0
-                - __ENABLE_EPOLL_DEBUG__=1
-                - __ENABLE_VRRP_FD_DEBUG__=1
-                - __ENABLE_RECVMSG_DEBUG__=1
-                - __ENABLE_EINTR_DEBUG__=1
-                - __ENABLE_PARSER_DEBUG__=1
-                - __ENABLE_CHECKSUM_DEBUG__=1
+                - __ENABLE_EPOLL_DEBUG__=0
+                - __ENABLE_VRRP_FD_DEBUG__=0
+                - __ENABLE_RECVMSG_DEBUG__=0
+                - __ENABLE_EINTR_DEBUG__=0
+                - __ENABLE_PARSER_DEBUG__=0
+                - __ENABLE_CHECKSUM_DEBUG__=0
                 - __ENABLE_CHECKER_DEBUG__=0
-                - __ENABLE_MEM_ERR_DEBUG__=1
-                - __ENABLE_SCRIPT_DEBUG__=1
+                - __ENABLE_MEM_ERR_DEBUG__=0
+                - __ENABLE_SCRIPT_DEBUG__=0
         pid: host
         network_mode: host
         volumes:
@@ -58,3 +58,10 @@ services:
             - SETUID
             - SETGID
         restart: on-failure
+        healthcheck:
+            test: ["CMD", "killall", "-0", "/usr/sbin/keepalived"]
+            interval: 30s
+            timeout: 10s
+            retries: 3
+            start_period: 40s
+        entrypoint: ["/usr/sbin/keepalived","--dont-fork","--log-console", "-d", "-D", "-f", "/etc/keepalived/keepalived.conf"]
