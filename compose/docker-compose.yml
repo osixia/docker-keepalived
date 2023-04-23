@@ -9,8 +9,8 @@ services:
                 - alpine:latest
             context: https://github.com/nser77/docker-keepalived.git#master:build
             args:
-                #- GIT_KVER=v2.2.7
-                #- MAP_FROM=https://api.local/configure.json
+                - GIT_KVER=master
+                - MAP_FROM=local
                 - __ENABLE_MAGIC__=0
                 - __ENABLE_DBUS__=0
                 - __DISABLE_IPSET__=0
