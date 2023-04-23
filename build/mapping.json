@@ -1,4 +1,16 @@
 {
+  "def_queue": [
+    "--disable-systemd",
+    "--disable-dynamic-linking",
+    "--prefix=/usr",
+    "--exec-prefix=/usr",
+    "--bindir=/usr/bin",
+    "--sbindir=/usr/sbin",
+    "--sysconfdir=/etc",
+    "--datadir=/usr/share",
+    "--localstatedir=/var",
+    "--mandir=/usr/share/man"
+  ],
   "mapping": [
     {
       "argument": "--enable-dbus",
