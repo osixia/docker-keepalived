@@ -15,7 +15,7 @@ class C:
     __cli_desc__       = 'docker-keepalived-configurer'
     __cli_args__       = A()
     __cli_mapping__    = []
-    __QUEUE__          = ['./configure.sh']
+    __QUEUE__          = ['./configure']
 
     def jsonConfig(self):
         try:
