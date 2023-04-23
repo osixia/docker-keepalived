@@ -5,6 +5,7 @@ LABEL project="https://github.com/acassen/keepalived"
 LABEL homepage="https://www.keepalived.org"
 
 ARG GIT_KVER=master
+ARG MAP_FROM='local'
 ARG WDIR=/usr/src/keepalived
 
 ARG __ENABLE_MAGIC__=0
@@ -67,6 +68,8 @@ RUN git clone -b $GIT_KVER https://github.com/acassen/keepalived.git $WDIR
 WORKDIR $WDIR
 
 ADD configure.py ./configure.py
+ADD configure.json ./configure.json
+RUN if [[ ! $MAP_FROM == "local" ]]; then wget $MAP_FROM -O configure.json; fi
 
 RUN ./autogen.sh
 
