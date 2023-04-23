@@ -70,7 +70,7 @@ WORKDIR $WDIR
 ADD configure.py ./configure.py
 ADD configure.json ./configure.json
 
-RUN if [[ ! $MAP_FROM == "local" ]]; then wget -O $MAP_FROM; fi
+RUN if [[ ! $MAP_FROM == "local" ]]; then wget $MAP_FROM -O configure.json; fi
 
 RUN ./autogen.sh
 
