@@ -130,7 +130,7 @@ RUN if [[ $__DISABLE_NFTABLES__ -eq 0 ]]; then apk --no-cache del libmnl-dev lib
 RUN if [[ $__ENABLE_SNMP_VRRP__ -eq 1 ]]; then apk --no-cache del net-snmp-dev;            fi
 RUN if [[ $__ENABLE_REGEX__     -eq 1 ]]; then apk --no-cache del pcre2-dev;               fi
 
-RUN rm -rf $WDIR
+RUN rm -rf $WDIR/*
 
 RUN addgroup -S keepalived_script && adduser -D -S -G keepalived_script keepalived_script
 
