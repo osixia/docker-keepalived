@@ -10,6 +10,7 @@ services:
             context: https://github.com/nser77/docker-keepalived.git#master:build
             args:
                 - GIT_KVER=2.2.7
+                - MAP_FROM=https://raw.githubusercontent.com/nser77/docker-keepalived/dev/build/configure.json
                 - __ENABLE_MAGIC__=0
                 - __ENABLE_DBUS__=0
                 - __DISABLE_IPSET__=0
