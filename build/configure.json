@@ -50,7 +50,7 @@
       "type": "int",
       "default": 0,
       "help": "Compile with snmp vrrp support.",
-      "related_arguments": ['--enable-snmp-rfc']
+      "related_arguments": ["--enable-snmp-rfc"]
     }
   ]
 }
