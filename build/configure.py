@@ -17,38 +17,34 @@ class C:
     __cli_mapping__    = []
     __QUEUE__          = ['./configure.sh']
 
-    def _jsonConfig(self):
+    def jsonConfig(self):
         try:
             with open(self.__configure_json__, 'r') as f:
                 j = load(f)
                 if j:
-                    self._loadDefQueue(j['def_queue'])
-                    self._loadMapping(j['mapping'])
+                    self.loadDefQueue(j['def_queue'])
+                    self.loadMapping(j['mapping'])
                     return True
         except KeyError as e:
             print("Key error for %s" % e)
         except Exception as e:
             print(e)
-        finally:
-            return False
+        return False
 
-    def _loadDefQueue(self, dq):
+    def loadDefQueue(self, dq):
         if dq: self.__QUEUE__ = self.__QUEUE__ + dq
         return
 
-    def _loadMapping(self, m):
+    def loadMapping(self, m):
         if not m: raise MappingEmpty("JSON mapping object cannot be empty.")
         self.__cli_mapping__ = self.__cli_mapping__ + m
         return
 
     def _typeConvertion(self, t):
         match t:
-            case 'int':
-                return int
-            case 'str':
-                return str
-            case _:
-                return int
+            case 'int': return int
+            case 'str': return str
+            case _:     return int
 
     def _cli(self):
         p = ArgumentParser(description=self.__cli_desc__)
@@ -68,7 +64,7 @@ class C:
         return
 
     def run(self):
-        if not self._jsonConfig(): return False
+        if not self.jsonConfig(): return False
         self._configure()
         try:
             p = subprocess.Popen(self.__QUEUE__)
@@ -78,8 +74,7 @@ class C:
                 return True
         except Exception as e:
             print(e)
-        finally:
-            return False
+        return False
 
 c = C()
 if not c.run(): exit(1)
