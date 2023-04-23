@@ -9,8 +9,8 @@ services:
                 - alpine:latest
             context: https://github.com/nser77/docker-keepalived.git#master:build
             args:
-                - GIT_KVER=v2.2.7
-                - MAP_FROM=https://raw.githubusercontent.com/nser77/docker-keepalived/dev/build/configure.json
+                - GIT_KVER=master
+                - MAP_FROM=local
                 - __ENABLE_MAGIC__=0
                 - __ENABLE_DBUS__=0
                 - __DISABLE_IPSET__=0
@@ -30,18 +30,18 @@ services:
                 - __DISABLE_LINKBEAT__=0
                 - __ENABLE_SOCK_STORAGE__=0
                 - __DISABLE_TRACK_PROCESS__=1
-                - __ENABLE_MEM_CHECK__=1
-                - __ENABLE_DEBUG__=1
+                - __ENABLE_MEM_CHECK__=0
+                - __ENABLE_DEBUG__=0
                 - __ENABLE_SNMP_ALERT_DEBUG__=0
-                - __ENABLE_EPOLL_DEBUG__=1
-                - __ENABLE_VRRP_FD_DEBUG__=1
-                - __ENABLE_RECVMSG_DEBUG__=1
-                - __ENABLE_EINTR_DEBUG__=1
-                - __ENABLE_PARSER_DEBUG__=1
-                - __ENABLE_CHECKSUM_DEBUG__=1
+                - __ENABLE_EPOLL_DEBUG__=0
+                - __ENABLE_VRRP_FD_DEBUG__=0
+                - __ENABLE_RECVMSG_DEBUG__=0
+                - __ENABLE_EINTR_DEBUG__=0
+                - __ENABLE_PARSER_DEBUG__=0
+                - __ENABLE_CHECKSUM_DEBUG__=0
                 - __ENABLE_CHECKER_DEBUG__=0
-                - __ENABLE_MEM_ERR_DEBUG__=1
-                - __ENABLE_SCRIPT_DEBUG__=1
+                - __ENABLE_MEM_ERR_DEBUG__=0
+                - __ENABLE_SCRIPT_DEBUG__=0
         pid: host
         network_mode: host
         volumes:
@@ -58,3 +58,11 @@ services:
             - SETUID
             - SETGID
         restart: on-failure
+        healthcheck:
+            test: ["CMD", "killall", "-0", "/usr/sbin/keepalived"]
+            interval: 5s
+            timeout: 3s
+            retries: 2
+            #start_period: 10s
+        stop_grace_period: 1m30s
+        entrypoint: ["/usr/sbin/keepalived","--dont-fork","--log-console", "-d", "-D", "-f", "/etc/keepalived/keepalived.conf"]

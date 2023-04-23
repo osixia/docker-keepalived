@@ -31,7 +31,7 @@ Key features of ```docker-keepalived```.
 | 3 | No pre build is needed.  | 
 | 4 | ```docker-compose``` skeleton and support.   |
 | 5 | Based on ```alpine linux```.  |
-| 6 | Small size image.  |
+| 6 | Small size image 	(310.3 MB).  |
 | 7 | You can build this project from the GitHub repo. |
 
 # What has been tested
@@ -56,7 +56,9 @@ Key features of ```docker-keepalived```.
 | 2 | Take a look to this commit [#2052](https://github.com/acassen/keepalived/pull/2052).  |
 | 3 | From [#665](https://github.com/acassen/keepalived/issues/665): "My concern is that ```keepalived``` operates quite close to the kernel, significantly more so than most applications, and hence my questions to make sure that it really will work within a Docker environment." |
 | 4 | Remeber that ```keepalived``` is unable to load the ```ip_tables```, ```ip6_tables```, ```xt_set``` and ```ip_vs``` modules from within the container, so ensure they are already loaded in the host system. |
-| 5 | It is important that ```keepalived``` is shutdown before the container is removed, otherwise ```iptables```, ```ipsets``` and ```ipvs``` configuration can be left over in the host after the container terminates. |
+| 5* | It is important that ```keepalived``` is shutdown before the container is removed, otherwise ```iptables```, ```ipsets``` and ```ipvs``` configuration can be left over in the host after the container terminates. |
+
+*```docker-compose``` has a work-around for this; reference: [stop_grace_period](https://docs.docker.com/compose/compose-file/compose-file-v3/#stop_grace_period).
 
 # Considerations about this project
 
@@ -80,7 +82,7 @@ docker build \
 Download the  [```docker-compose```](compose/docker-compose.yml) file and use it as following:
 
 ```
-docker-compose -f docker-compose.yml up
+docker-compose -f docker-compose.yml build
 ```
 
 ## ```args```
