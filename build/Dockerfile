@@ -6,7 +6,6 @@ LABEL homepage="https://www.keepalived.org"
 
 ARG GIT_KVER=master
 ARG MAP_FROM='local'
-ARG WDIR=/usr/src/keepalived
 
 ARG __ENABLE_MAGIC__=0
 ARG __ENABLE_DBUS__=0
@@ -42,6 +41,13 @@ ARG __ENABLE_CHECKER_DEBUG__=0
 ARG __ENABLE_MEM_ERR_DEBUG__=0
 ARG __ENABLE_SCRIPT_DEBUG__=0
 
+ARG WDIR=/usr/src/keepalived
+ARG CPY=/usr/src/configure.py
+ARG CJSON=/usr/src/configure.json
+
+ADD configure.py $CPY
+ADD configure.json $CJSON
+
 WORKDIR $WDIR
 
 RUN \
@@ -68,12 +74,9 @@ if [[ $__DISABLE_NFTABLES__ -eq 0 ]]; then apk --no-cache add libmnl-dev libnftn
 if [[ $__ENABLE_SNMP_VRRP__ -eq 1 ]]; then apk --no-cache add net-snmp-dev;            fi; \
 if [[ $__ENABLE_REGEX__     -eq 1 ]]; then apk --no-cache add pcre2 pcre2-dev;         fi; \
 \
-git clone -b $GIT_KVER https://github.com/acassen/keepalived.git $WDIR
-
-ADD configure.py ./configure.py
-ADD configure.json ./configure.json
-
-RUN \
+git clone -b $GIT_KVER https://github.com/acassen/keepalived.git $WDIR; \
+\
+mv $CPY $CJSON $WDIR; \
 \
 if [[ ! $MAP_FROM == "local" ]]; then wget $MAP_FROM -O configure.json; fi; \
 \

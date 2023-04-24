@@ -31,7 +31,7 @@ Key features of ```docker-keepalived```.
 | 3 | No pre build is needed.  | 
 | 4 | ```docker-compose``` skeleton and support.   |
 | 5 | Based on ```alpine linux```.  |
-| 6 | Small size image 	(310.3 MB).  |
+| 6 | Super small size image 	(46 MB).  |
 | 7 | You can build this project from the GitHub repo. |
 
 # What has been tested
