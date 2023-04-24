@@ -74,7 +74,7 @@ if [[ $__DISABLE_NFTABLES__ -eq 0 ]]; then apk --no-cache add libmnl-dev libnftn
 if [[ $__ENABLE_SNMP_VRRP__ -eq 1 ]]; then apk --no-cache add net-snmp-dev;            fi; \
 if [[ $__ENABLE_REGEX__     -eq 1 ]]; then apk --no-cache add pcre2 pcre2-dev;         fi; \
 \
-git clone -b $GIT_KVER https://github.com/acassen/keepalived.git $WDIR
+git clone -b $GIT_KVER https://github.com/acassen/keepalived.git $WDIR; \
 \
 mv $CPY $CJSON $WDIR; \
 \
