@@ -1,5 +1,5 @@
 {
-  "def_queue": [
+  "static": [
     "--disable-systemd",
     "--disable-dynamic-linking",
     "--prefix=/usr",
