@@ -15,14 +15,14 @@ class C:
     __cli_desc__       = 'docker-keepalived-configurer'
     __cli_args__       = A()
     __cli_mapping__    = []
-    __QUEUE__          = ['./configure']
+    __queue__          = ['./configure']
 
-    def jsonConfig(self):
+    def ingestConfigureJson(self):
         try:
             with open(self.__configure_json__, 'r') as f:
                 j = load(f)
                 if j:
-                    self.loadDefQueue(j['def_queue'])
+                    self.loadStatic(j['static'])
                     self.loadMapping(j['mapping'])
                     return True
         except KeyError as e:
@@ -31,8 +31,8 @@ class C:
             print(e)
         return False
 
-    def loadDefQueue(self, dq):
-        if dq: self.__QUEUE__ = self.__QUEUE__ + dq
+    def loadStatic(self, s):
+        if dq: self.__queue__ = self.__queue__ + s
         return
 
     def loadMapping(self, m):
@@ -42,8 +42,6 @@ class C:
 
     def _typeConvertion(self, t):
         match t:
-            case 'int': return int
-            case 'str': return str
             case _:     return int
 
     def _cli(self):
@@ -59,15 +57,15 @@ class C:
             if v == 1:
                 for c in self.__cli_mapping__:
                     if k == c['dest']:
-                        self.__QUEUE__.append(c['argument'])
-                        if c['related_arguments']: self.__QUEUE__ = self.__QUEUE__ + (c['related_arguments'])
+                        self.__queue__.append(c['argument'])
+                        if c['related_arguments']: self.__queue__ = self.__queue__ + (c['related_arguments'])
         return
 
     def run(self):
-        if not self.jsonConfig(): return False
+        if not self.ingestConfigureJson(): return False
         self._configure()
         try:
-            p = subprocess.Popen(self.__QUEUE__)
+            p = subprocess.Popen(self.__queue__)
             if p:
                 p.wait()
                 p.kill()
