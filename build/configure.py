@@ -32,7 +32,7 @@ class C:
         return False
 
     def loadStatic(self, s):
-        if dq: self.__queue__ = self.__queue__ + s
+        if s: self.__queue__ = self.__queue__ + s
         return
 
     def loadMapping(self, m):
