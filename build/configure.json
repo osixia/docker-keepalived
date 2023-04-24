@@ -1,5 +1,5 @@
 {
-  "def_queue": [
+  "static": [
     "--disable-systemd",
     "--disable-dynamic-linking",
     "--prefix=/usr",
@@ -9,7 +9,8 @@
     "--sysconfdir=/etc",
     "--datadir=/usr/share",
     "--localstatedir=/var",
-    "--mandir=/usr/share/man"
+    "--mandir=/usr/share/man",
+    "--with-tmp-dir=/tmp"
   ],
   "mapping": [
     {
