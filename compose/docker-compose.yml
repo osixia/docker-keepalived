@@ -57,6 +57,7 @@ services:
             - NET_RAW
             - SETUID
             - SETGID
+            - IPC_LOCK
         restart: on-failure
         healthcheck:
             test: ["CMD", "killall", "-0", "/usr/sbin/keepalived"]
