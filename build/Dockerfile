@@ -133,17 +133,11 @@ apk --no-cache del \
         automake; \
 \
 if [[ $__ENABLE_MAGIC__     -eq 1 ]]; then apk --no-cache del file-dev;                fi; \
-\
 if [[ $__ENABLE_DBUS__      -eq 1 ]]; then apk --no-cache del glib-dev;                fi; \
-\
 if [[ $__DISABLE_IPSET__    -eq 0 ]]; then apk --no-cache del ipset-dev;               fi; \
-\
 if [[ $__DISABLE_IPTABLES__ -eq 0 ]]; then apk --no-cache del iptables-dev;            fi; \
-\
 if [[ $__DISABLE_NFTABLES__ -eq 0 ]]; then apk --no-cache del libmnl-dev libnftnl-dev; fi; \
-\
 if [[ $__ENABLE_SNMP_VRRP__ -eq 1 ]]; then apk --no-cache del net-snmp-dev;            fi; \
-\
 if [[ $__ENABLE_REGEX__     -eq 1 ]]; then apk --no-cache del pcre2-dev;               fi; \
 \
 rm -rf $WDIR/*; \
