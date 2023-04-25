@@ -55,6 +55,7 @@ services:
             - NET_ADMIN
             - NET_BROADCAST
             - NET_RAW
+            - NET_BIND_SERVICE
             - CHOWN
             - SETUID
             - SETGID
