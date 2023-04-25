@@ -55,9 +55,14 @@ services:
             - NET_ADMIN
             - NET_BROADCAST
             - NET_RAW
+            - CHOWN
             - SETUID
             - SETGID
             - IPC_LOCK
+            - KILL
+            - SYS_NICE
+            - SYS_RESOURCE
+            - SYS_MODULE
         restart: on-failure
         healthcheck:
             test: ["CMD", "killall", "-0", "/usr/sbin/keepalived"]
