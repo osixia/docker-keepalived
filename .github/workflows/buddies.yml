@@ -2,9 +2,7 @@ name: buddies-ci
 
 on:
   push:
-    branches: [ "master" ]
-  pull_request:
-    branches: [ "master" ]
+    branches: [ "master", "dev"]
 
 jobs:
   docker0:
