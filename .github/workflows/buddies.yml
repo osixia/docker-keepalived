@@ -1,0 +1,25 @@
+name: buddies-ci
+
+on:
+  push:
+    branches: [ "master" ]
+  pull_request:
+    branches: [ "master" ]
+
+jobs:
+  docker:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
+  
+      - name: Build
+        uses: docker/build-push-action@v4
+        with:
+          context: ./build
+          push: false
+          build-args: |
+            __ENABLE_JSON__=1
