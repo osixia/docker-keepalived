@@ -65,7 +65,7 @@ jobs:
            __ENABLE_SNMP_VRRP__=1
            __ENABLE_REGEX__=1
            __ENABLE_REGEX_TIMERS__=1
-           __ENABLE_JSON__=1
+           __ENABLE_JSON__=0
            __DISABLE_LVS__=1
            __DISABLE_VRRP__=1
            __DISABLE_VRRP_AUTH__=1
