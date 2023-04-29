@@ -2,6 +2,8 @@ name: buddies-ci
 
 on:
   push:
+    paths:
+      - 'build/**'
     branches: [ "master", "dev"]
 
 jobs:
