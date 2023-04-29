@@ -1,0 +1,77 @@
+name: buddies-ci
+
+on:
+  push:
+    branches: [ "master", "dev"]
+
+jobs:
+  docker0:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
+
+      - name: Build
+        uses: docker/build-push-action@v4
+        with:
+          context: ./build
+          push: false
+          build-args: |
+           __ENABLE_MAGIC__=0
+           __ENABLE_DBUS__=0
+           __DISABLE_IPSET__=0
+           __DISABLE_IPTABLES__=0
+           __DISABLE_NFTABLES__=0
+           __ENABLE_SNMP_VRRP__=0
+           __ENABLE_REGEX__=0
+           __ENABLE_REGEX_TIMERS__=0
+           __ENABLE_JSON__=0
+           __DISABLE_LVS__=0
+           __DISABLE_VRRP__=0
+           __DISABLE_VRRP_AUTH__=0
+           __ENABLE_BFD__=0
+           __DISABLE_VMAC__=0
+           __ENABLE_LTO__=0
+           __DISABLE_ROUTES__=0
+           __DISABLE_LINKBEAT__=0
+           __DISABLE_FWMARK__=0
+           __DISABLE_TRACK_PROCESS__=0
+           __ENABLE_MEM_CHECK__=0
+  docker1:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
+
+      - name: Build
+        uses: docker/build-push-action@v4
+        with:
+          context: ./build
+          push: false
+          build-args: |
+           __ENABLE_MAGIC__=1
+           __ENABLE_DBUS__=1
+           __DISABLE_IPSET__=0
+           __DISABLE_IPTABLES__=0
+           __DISABLE_NFTABLES__=0
+           __ENABLE_SNMP_VRRP__=1
+           __ENABLE_REGEX__=1
+           __ENABLE_REGEX_TIMERS__=1
+           __ENABLE_JSON__=1
+           __DISABLE_LVS__=0
+           __DISABLE_VRRP__=0
+           __DISABLE_VRRP_AUTH__=0
+           __ENABLE_BFD__=1
+           __DISABLE_VMAC__=0
+           __ENABLE_LTO__=1
+           __DISABLE_ROUTES__=0
+           __DISABLE_LINKBEAT__=0
+           __DISABLE_FWMARK__=0
+           __DISABLE_TRACK_PROCESS__=1
+           __ENABLE_MEM_CHECK__=1
