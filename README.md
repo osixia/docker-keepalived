@@ -3,7 +3,7 @@
 # docker-keepalived
 This project is based on [```configure.py```](build/configure.py) and allows to dynamically manipulate ```keepalived docker-image```'s behaviors and configurations at build time; for more informations about the compilation please see the sections: [Build from GitHub](#build-from-github) or [Install from DockerHub](#install-from-dockerhub).
 
-Also note that this ```Dockerimage``` is partially based on this commit [acassen/keepalived/pull/2052](https://github.com/acassen/keepalived/pull/2052) and will automaticaly download the ```keepalived``` version specified via the argument: ```GIT_KVER``` through GitHub (default is ```master```).
+Also note that this ```Dockerimage``` is partially based on this commit [acassen/keepalived/pull/2052](https://github.com/acassen/keepalived/pull/2052) and will automaticaly clone the ```keepalived``` version specified via: ```GIT_KVER``` through GitHub (default is ```master```).
 
 # Key features
 Key features of ```docker-keepalived```.
@@ -55,16 +55,6 @@ Download the  [```docker-compose```](compose/docker-compose.yml) file and use it
 docker-compose -f docker-compose.yml build
 ```
 
-# Install from DockerHub
-This image is also avaible on DockerHub: [nser77/docker-keepalived](https://hub.docker.com/repository/docker/nser77/docker-keepalived/general).
-
-| tag | Description |
-| ------------- | ------------- |
-| ```vrrp``` | Compiled only with ```vrrp``` module.  |
-| ```vrrp-snmp``` | Compiled only with ```vrrp``` module and SNMP support.  |
-| ```lvs``` | Compiled only with ```lvs``` module.  |
-| ```lvs-snmp``` | Compiled only with ```lvs``` module and SNMP support.  |
-
 # ```build-args```
 At build time, one or more of the following arguments can be specified via ```--build-arg``` to modify the ```keepalived``` configuration; those arguments can also be used from [```docker-compose```](compose/docker-compose.yml).
 
@@ -108,3 +98,6 @@ ARG __ENABLE_CHECKER_DEBUG__=0
 ARG __ENABLE_MEM_ERR_DEBUG__=0
 ARG __ENABLE_SCRIPT_DEBUG__=0
 ```
+
+# Install from DockerHub
+This image is also available on DockerHub: [nser77/docker-keepalived](https://hub.docker.com/repository/docker/nser77/docker-keepalived/general).
