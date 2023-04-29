@@ -1,8 +1,6 @@
 #!/usr/bin/env python3
 
-# test
-
-import subprocess
+#import subprocess
 from json import load
 from argparse import ArgumentParser
 
