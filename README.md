@@ -1,30 +1,14 @@
 > Before continuing, read the [Recommendations](#recommendations) and [Considerations](#considerations-about-this-project) sections.
 
 # docker-keepalived
-This project is based on [```configure.py```](build/configure.py) and allows to dynamically manipulate ```keepalived docker-image```'s behaviors and configurations at build time; for more informations about the installation please see the section: [Build from GitHub](#build-from-github).
+This project is based on [```configure.py```](build/configure.py) and allows to dynamically manipulate ```keepalived docker-image```'s behaviors and configurations at build time; for more informations about the compilation please see the sections: [Build from GitHub](#build-from-github) or [Install from DockerHub](#install-from-dockerhub).
 
-Also note that this ```Dockerimage``` is partially based on this commit [acassen/keepalived/pull/2052](https://github.com/acassen/keepalived/pull/2052) and will automaticaly download the ```keepalived``` version specified trought: ```GIT_KVER```.
-
-```
-usage: configure.py [-h] [--enable-dbus ENABLE_DBUS] [--disable-libipset DISABLE_LIBIPSET] [--disable-iptables DISABLE_IPTABLES]
-                    [--disable-nftables DISABLE_NFTABLES] [--enable-snmp-vrrp ENABLE_SNMP_VRRP] [--enable-regex ENABLE_REGEX]
-                    [--enable-regex-timers ENABLE_REGEX_TIMERS] [--enable-json ENABLE_JSON] [--disable-lvs DISABLE_LVS]
-                    [--disable-vrrp DISABLE_VRRP] [--disable-vrrp-auth DISABLE_VRRP_AUTH] [--enable-bfd ENABLE_BFD]
-                    [--disable-vmac DISABLE_VMAC] [--enable-lto ENABLE_LTO] [--disable-checksum-compact DISABLE_CHECKSUM_COMPACT]
-                    [--disable-routes DISABLE_ROUTES] [--disable-linkbeat DISABLE_LINKBEAT] [--enable-sock-storage ENABLE_SOCK_STORAGE]
-                    [--disable-fwmark DISABLE_FWMARK] [--disable-track-process DISABLE_TRACK_PROCESS] [--enable-mem-check ENABLE_MEM_CHECK]
-                    [--enable-debug ENABLE_DEBUG] [--enable-snmp-alert-debug ENABLE_SNMP_ALERT_DEBUG]
-                    [--enable-epoll-debug ENABLE_EPOLL_DEBUG] [--enable-vrrp-fd-debug ENABLE_VRRP_FD_DEBUG]
-                    [--enable-recvmsg-debug ENABLE_RECVMSG_DEBUG] [--enable-eintr-debug ENABLE_EINTR_DEBUG]
-                    [--enable-parser-debug ENABLE_PARSER_DEBUG] [--enable-checksum-debug ENABLE_CHECKSUM_DEBUG]
-                    [--enable-checker-debug ENABLE_CHECKER_DEBUG] [--enable-mem-err-debug ENABLE_MEM_ERR_DEBUG]
-                    [--enable-script-debug ENABLE_SCRIPT_DEBUG]
-```
+Also note that this ```Dockerimage``` is partially based on this commit [acassen/keepalived/pull/2052](https://github.com/acassen/keepalived/pull/2052) and will automaticaly download the ```keepalived``` version specified via the argument: ```GIT_KVER``` through GitHub (default is ```master```).
 
 # Key features
 Key features of ```docker-keepalived```.
 
-| # | Key
+| # | Key |
 | ------------- | ------------- |
 | 1 | Dynamically manipulate ```keepalived``` in ```docker``` compilation.  |
 | 2 | Downloads ```keepalived``` from GitHub and not from [keepalived.org](https://keepalived.org).  |
@@ -33,20 +17,6 @@ Key features of ```docker-keepalived```.
 | 5 | Based on ```alpine linux```.  |
 | 6 | Super small size image 	(46 MB).  |
 | 7 | You can build this project from the GitHub repo. |
-
-# What has been tested
-```keepalived``` is a very smart and robust software with lot of modules (LVS, BFD, VRRP, etc..) and ```docker-keepalived``` is still a new project so we may want to track what we tested and what we should test:
-
-| # | Module | Tested | Notes | 
-| ------------- | ------------- | ------------- | ------------- | 
-| 1 | VRRP  | Yes | Working fine. |
-| 2 | BFD  | Yes | Working fine. |
-| 3 | LVS  | Yes | Working fine. |
-| 4 | Track script  | Yes | Working fine (with limitations). |
-| 5 | Track process  | No | It does not work in a single process environment. |
-| 6 | Track file | Yes | Working fine. |
-| 7 | SNMP | No |  |
-| 8 | SIGKILL output  | Yes | Signals are intercepted by ```keepalived```.|
 
 # Recommendations
 
@@ -62,7 +32,7 @@ Key features of ```docker-keepalived```.
 
 # Considerations about this project
 
-The Docker environment (```docker-keepalived```) is a really interesting virtual space for security reasons, but there are some apps that operates quite close to the kernel, significantly more then others, so if you really want to use ```keepalived``` and its advantages, or you simply want to use it in a complex production environment, you might need to build it directly on your host, please see: [INSTALL](https://github.com/acassen/keepalived/blob/master/INSTALL).
+The Docker environment (```docker-keepalived```) is a really interesting virtual space for security and automation reasons, but there are some apps that operates quite close to the kernel, significantly more then others, so if you really want to use ```keepalived``` and its advantages, or you simply want to use it in a complex production environment, you might need to build it directly on your host, please see: [INSTALL](https://github.com/acassen/keepalived/blob/master/INSTALL).
 
 If you are worry about security, remember that you can run ```keepalived``` as non-root user, please see: [keepalived-non-root.service](https://github.com/acassen/keepalived/blob/master/keepalived/keepalived-non-root.service.in), which is not the same that runs scripts.
 
@@ -85,7 +55,17 @@ Download the  [```docker-compose```](compose/docker-compose.yml) file and use it
 docker-compose -f docker-compose.yml build
 ```
 
-## ```args```
+# Install from DockerHub
+This image is also avaible on DockerHub: [nser77/docker-keepalived](https://hub.docker.com/repository/docker/nser77/docker-keepalived/general).
+
+| tag | Description |
+| ------------- | ------------- |
+| ```vrrp``` | Compiled only with ```vrrp``` module.  |
+| ```vrrp-snmp``` | Compiled only with ```vrrp``` module and SNMP support.  |
+| ```lvs``` | Compiled only with ```lvs``` module.  |
+| ```lvs-snmp``` | Compiled only with ```lvs``` module and SNMP support.  |
+
+# ```build-args```
 At build time, one or more of the following arguments can be specified via ```--build-arg``` to modify the ```keepalived``` configuration; those arguments can also be used from [```docker-compose```](compose/docker-compose.yml).
 
 Defaults are:
