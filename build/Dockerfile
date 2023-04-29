@@ -45,8 +45,8 @@ ARG WDIR=/usr/src/keepalived
 ARG CPY=/usr/src/configure.py
 ARG CJSON=/usr/src/configure.json
 
-ADD configure.py $CPY
-ADD configure.json $CJSON
+ADD ./configure/configure.py $CPY
+ADD ./configure/configure.json $CJSON
 
 WORKDIR $WDIR
 
