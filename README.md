@@ -1,197 +1,110 @@
-# osixia/keepalived
-
-[![Docker Pulls](https://img.shields.io/docker/pulls/osixia/keepalived.svg)][hub]
-[![Docker Stars](https://img.shields.io/docker/stars/osixia/keepalived.svg)][hub]
-[![](https://images.microbadger.com/badges/image/osixia/keepalived.svg)](http://microbadger.com/images/osixia/keepalived "Get your own image badge on microbadger.com")
-
-[hub]: https://hub.docker.com/r/osixia/keepalived/
-
-Latest release: 2.0.20 - Keepalived 2.0.20 - [Changelog](CHANGELOG.md) | [Docker Hub](https://hub.docker.com/r/osixia/keepalived/) 
-
-**A docker image to run Keepalived.**
-> [keepalived.org](http://keepalived.org/)
-
-- [osixia/keepalived](#osixiakeepalived)
-	- [Quick start](#quick-start)
-	- [Beginner Guide](#beginner-guide)
-		- [Use your own Keepalived config](#use-your-own-keepalived-config)
-		- [Fix docker mounted file problems](#fix-docker-mounted-file-problems)
-		- [Debug](#debug)
-	- [Environment Variables](#environment-variables)
-		- [Set your own environment variables](#set-your-own-environment-variables)
-			- [Use command line argument](#use-command-line-argument)
-			- [Link environment file](#link-environment-file)
-			- [Make your own image or extend this image](#make-your-own-image-or-extend-this-image)
-	- [Advanced User Guide](#advanced-user-guide)
-		- [Extend osixia/keepalived:2.0.20 image](#extend-osixiakeepalived2020-image)
-		- [Make your own keepalived image](#make-your-own-keepalived-image)
-		- [Tests](#tests)
-		- [Under the hood: osixia/light-baseimage](#under-the-hood-osixialight-baseimage)
-	- [Security](#security)
-	- [Changelog](#changelog)
-
-## Quick start
-
-This image require the kernel module ip_vs loaded on the host (`modprobe ip_vs`) and need to be run with : --cap-add=NET_ADMIN --net=host
-
-    docker run --cap-add=NET_ADMIN --cap-add=NET_BROADCAST --cap-add=NET_RAW --net=host -d osixia/keepalived:2.0.20
-
-## Beginner Guide
-
-### Use your own Keepalived config
-This image comes with a keepalived config file that can be easily customized via environment variables for a quick bootstrap,
-but setting your own keepalived.conf is possible. 2 options:
-
-- Link your config file at run time to `/container/service/keepalived/assets/keepalived.conf` :
-
-      docker run --volume /data/my-keepalived.conf:/container/service/keepalived/assets/keepalived.conf --detach osixia/keepalived:2.0.20
-
-- Add your config file by extending or cloning this image, please refer to the [Advanced User Guide](#advanced-user-guide)
-
-### Fix docker mounted file problems
-
-You may have some problems with mounted files on some systems. The startup script try to make some file adjustment and fix files owner and permissions, this can result in multiple errors. See [Docker documentation](https://docs.docker.com/v1.4/userguide/dockervolumes/#mount-a-host-file-as-a-data-volume).
-
-To fix that run the container with `--copy-service` argument :
-
-		docker run [your options] osixia/keepalived:2.0.20 --copy-service
-
-### Debug
-
-The container default log level is **info**.
-Available levels are: `none`, `error`, `warning`, `info`, `debug` and `trace`.
-
-Example command to run the container in `debug` mode:
-
-	docker run --detach osixia/keepalived:2.0.20 --loglevel debug
-
-See all command line options:
-
-	docker run osixia/keepalived:2.0.20 --help
-
-
-## Environment Variables
-
-Environment variables defaults are set in **image/environment/default.yaml**
-
-See how to [set your own environment variables](#set-your-own-environment-variables)
-
-
-- **KEEPALIVED_INTERFACE**: Keepalived network interface. Defaults to `eth0`
-- **KEEPALIVED_PASSWORD**: Keepalived password. Defaults to `d0cker`
-- **KEEPALIVED_PRIORITY** Keepalived node priority. Defaults to `150`
-- **KEEPALIVED_ROUTER_ID** Keepalived virtual router ID. Defaults to `51`
-
-- **KEEPALIVED_UNICAST_PEERS** Keepalived unicast peers. Defaults to :
-      - 192.168.1.10
-      - 192.168.1.11
-
-  If you want to set this variable at docker run command add the tag `#PYTHON2BASH:` and convert the yaml in python:
-
-      docker run --env KEEPALIVED_UNICAST_PEERS="#PYTHON2BASH:['192.168.1.10', '192.168.1.11']" --detach osixia/keepalived:2.0.20
-
-  To convert yaml to python online : http://yaml-online-parser.appspot.com/
-
-
-- **KEEPALIVED_VIRTUAL_IPS** Keepalived virtual IPs. Defaults to :
-
-      - 192.168.1.231
-      - 192.168.1.232
-
-  If you want to set this variable at docker run command convert the yaml in python, see above.
-
-- **KEEPALIVED_NOTIFY** Script to execute when node state change. Defaults to `/container/service/keepalived/assets/notify.sh`
-
-- **KEEPALIVED_COMMAND_LINE_ARGUMENTS** Keepalived command line arguments; Defaults to `--log-detail --dump-conf`
-
-- **KEEPALIVED_STATE** The starting state of keepalived; it can either be MASTER or BACKUP.
-
-### Set your own environment variables
-
-#### Use command line argument
-Environment variables can be set by adding the --env argument in the command line, for example:
-
-    docker run --env KEEPALIVED_INTERFACE="eno1" --env KEEPALIVED_PASSWORD="password!" \
-    --env KEEPALIVED_PRIORITY="100" --detach osixia/keepalived:2.0.20
-
-
-#### Link environment file
-
-For example if your environment file is in :  /data/environment/my-env.yaml
-
-	docker run --volume /data/environment/my-env.yaml:/container/environment/01-custom/env.yaml \
-	--detach osixia/keepalived:2.0.20
-
-Take care to link your environment file to `/container/environment/XX-somedir` (with XX < 99 so they will be processed before default environment files) and not  directly to `/container/environment` because this directory contains predefined baseimage environment files to fix container environment (INITRD, LANG, LANGUAGE and LC_CTYPE).
-
-#### Make your own image or extend this image
-
-This is the best solution if you have a private registry. Please refer to the [Advanced User Guide](#advanced-user-guide) just below.
-
-## Advanced User Guide
-
-### Extend osixia/keepalived:2.0.20 image
-
-If you need to add your custom TLS certificate, bootstrap config or environment files the easiest way is to extends this image.
-
-Dockerfile example:
-
-    FROM osixia/keepalived:2.0.20
-    MAINTAINER Your Name <your@name.com>
-
-    ADD keepalived.conf /container/service/keepalived/assets/keepalived.conf
-    ADD environment /container/environment/01-custom
-    ADD scripts.sh /container/service/keepalived/assets/notify.sh
-
-
-### Make your own keepalived image
-
-
-Clone this project :
-
-	git clone https://github.com/osixia/docker-keepalived
-	cd docker-keepalived
-
-Adapt Makefile, set your image NAME and VERSION, for example :
-
-	NAME = osixia/keepalived
-	VERSION = 1.3.5
-
-	becomes :
-	NAME = billy-the-king/keepalived
-	VERSION = 0.1.0
-
-Add your custom scripts, environment files, config ...
-
-Build your image :
-
-	make build
-
-Run your image :
-
-	docker run -d billy-the-king/keepalived:0.1.0
-
-### Tests
-
-We use **Bats** (Bash Automated Testing System) to test this image:
-
-> [https://github.com/bats-core/bats-core](https://github.com/bats-core/bats-core)
-
-Install Bats, and in this project directory run :
-
-	make test
-
-
-### Under the hood: osixia/light-baseimage
-
-This image is based on osixia/light-baseimage.
-More info: https://github.com/osixia/docker-light-baseimage
-
-## Security
-If you discover a security vulnerability within this docker image, please send an email to the Osixia! team at security@osixia.net. For minor vulnerabilities feel free to add an issue here on github.
-
-Please include as many details as possible.
-
-## Changelog
-
-Please refer to: [CHANGELOG.md](CHANGELOG.md)
+> Before continuing, read the [Recommendations](#recommendations) and [Considerations](#considerations-about-this-project) sections.
+
+# docker-keepalived
+This project is based on [```configure.py```](build/configure.py) and allows to dynamically manipulate ```keepalived docker-image```'s behaviors and configurations at build time; for more informations about the compilation please see the sections: [Build from GitHub](#build-from-github) or [Install from DockerHub](#install-from-dockerhub).
+
+Also note that this ```Dockerimage``` is partially based on this commit [acassen/keepalived/pull/2052](https://github.com/acassen/keepalived/pull/2052) and will automaticaly download the ```keepalived``` version specified via the argument: ```GIT_KVER``` through GitHub (default is ```master```).
+
+# Key features
+Key features of ```docker-keepalived```.
+
+| # | Key |
+| ------------- | ------------- |
+| 1 | Dynamically manipulate ```keepalived``` in ```docker``` compilation.  |
+| 2 | Downloads ```keepalived``` from GitHub and not from [keepalived.org](https://keepalived.org).  |
+| 3 | No pre build is needed.  | 
+| 4 | ```docker-compose``` skeleton and support.   |
+| 5 | Based on ```alpine linux```.  |
+| 6 | Super small size image 	(46 MB).  |
+| 7 | You can build this project from the GitHub repo. |
+
+# Recommendations
+
+| # | Key |
+| ------------- | ------------- |
+| 1 | Take a look to this interesting issue [#665](https://github.com/acassen/keepalived/issues/665).  |
+| 2 | Take a look to this commit [#2052](https://github.com/acassen/keepalived/pull/2052).  |
+| 3 | From [#665](https://github.com/acassen/keepalived/issues/665): "My concern is that ```keepalived``` operates quite close to the kernel, significantly more so than most applications, and hence my questions to make sure that it really will work within a Docker environment." |
+| 4 | Remeber that ```keepalived``` is unable to load the ```ip_tables```, ```ip6_tables```, ```xt_set``` and ```ip_vs``` modules from within the container, so ensure they are already loaded in the host system. |
+| 5* | It is important that ```keepalived``` is shutdown before the container is removed, otherwise ```iptables```, ```ipsets``` and ```ipvs``` configuration can be left over in the host after the container terminates. |
+
+*```docker-compose``` has a work-around for this; reference: [stop_grace_period](https://docs.docker.com/compose/compose-file/compose-file-v3/#stop_grace_period).
+
+# Considerations about this project
+
+The Docker environment (```docker-keepalived```) is a really interesting virtual space for security and automation reasons, but there are some apps that operates quite close to the kernel, significantly more then others, so if you really want to use ```keepalived``` and its advantages, or you simply want to use it in a complex production environment, you might need to build it directly on your host, please see: [INSTALL](https://github.com/acassen/keepalived/blob/master/INSTALL).
+
+If you are worry about security, remember that you can run ```keepalived``` as non-root user, please see: [keepalived-non-root.service](https://github.com/acassen/keepalived/blob/master/keepalived/keepalived-non-root.service.in), which is not the same that runs scripts.
+
+# Build from GitHub
+There are a lot of choices to build this image.
+
+## ```docker build```
+```
+docker build \
+    -t keepalived \
+    --build-arg GIT_KVER=master \
+    --build-arg __ENABLE_JSON__=1 \
+     https://github.com/nser77/docker-keepalived.git#main:build
+```
+
+## ```docker-compose```
+Download the  [```docker-compose```](compose/docker-compose.yml) file and use it as following:
+
+```
+docker-compose -f docker-compose.yml build
+```
+
+# Install from DockerHub
+This image is also avaible on DockerHub: [nser77/docker-keepalived](https://hub.docker.com/repository/docker/nser77/docker-keepalived/general).
+
+| tag | Description |
+| ------------- | ------------- |
+| ```vrrp``` | Compiled only with ```vrrp``` module.  |
+| ```vrrp-snmp``` | Compiled only with ```vrrp``` module and SNMP support.  |
+| ```lvs``` | Compiled only with ```lvs``` module.  |
+| ```lvs-snmp``` | Compiled only with ```lvs``` module and SNMP support.  |
+
+# ```build-args```
+At build time, one or more of the following arguments can be specified via ```--build-arg``` to modify the ```keepalived``` configuration; those arguments can also be used from [```docker-compose```](compose/docker-compose.yml).
+
+Defaults are:
+
+```
+# keepalived git branch
+ARG GIT_KVER=master
+
+ARG __ENABLE_MAGIC__=0
+ARG __ENABLE_DBUS__=0
+ARG __DISABLE_IPSET__=0
+ARG __DISABLE_IPTABLES__=0
+ARG __DISABLE_NFTABLES__=0
+ARG __ENABLE_SNMP_VRRP__=0
+ARG __ENABLE_REGEX__=0
+ARG __ENABLE_REGEX_TIMERS__=0
+ARG __ENABLE_JSON__=0
+ARG __DISABLE_LVS__=0
+ARG __DISABLE_VRRP__=0
+ARG __DISABLE_VRRP_AUTH__=0
+ARG __ENABLE_BFD__=0
+ARG __DISABLE_VMAC__=0
+ARG __ENABLE_LTO__=0
+ARG __DISABLE_CHECKSUM_COMPACT__=0
+ARG __DISABLE_ROUTES__=0
+ARG __DISABLE_LINKBEAT__=0
+ARG __ENABLE_SOCK_STORAGE__=0
+ARG __DISABLE_FWMARK__=0
+ARG __DISABLE_TRACK_PROCESS__=0
+ARG __ENABLE_MEM_CHECK__=0
+ARG __ENABLE_DEBUG__=0
+ARG __ENABLE_SNMP_ALERT_DEBUG__=0
+ARG __ENABLE_EPOLL_DEBUG__=0
+ARG __ENABLE_VRRP_FD_DEBUG__=0
+ARG __ENABLE_RECVMSG_DEBUG__=0
+ARG __ENABLE_EINTR_DEBUG__=0
+ARG __ENABLE_PARSER_DEBUG__=0
+ARG __ENABLE_CHECKSUM_DEBUG__=0
+ARG __ENABLE_CHECKER_DEBUG__=0
+ARG __ENABLE_MEM_ERR_DEBUG__=0
+ARG __ENABLE_SCRIPT_DEBUG__=0
+```

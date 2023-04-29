@@ -1,0 +1,75 @@
+version: '3.7'
+
+services:
+    keepalived:
+        container_name: keepalived
+        image: keepalived
+        build:
+            cache_from:
+                - alpine:latest
+            context: https://github.com/nser77/docker-keepalived.git#master:build
+            args:
+                - GIT_KVER=master
+                - MAP_FROM=local
+                - __ENABLE_MAGIC__=0
+                - __ENABLE_DBUS__=0
+                - __DISABLE_IPSET__=0
+                - __DISABLE_IPTABLES__=0
+                - __DISABLE_NFTABLES__=1
+                - __ENABLE_SNMP_VRRP__=0
+                - __ENABLE_REGEX__=0
+                - __ENABLE_JSON__=1
+                - __DISABLE_LVS__=1
+                - __DISABLE_VRRP__=0
+                - __DISABLE_VRRP_AUTH__=1
+                - __ENABLE_BFD__=0
+                - __DISABLE_VMAC__=0
+                - __ENABLE_LTO__=0
+                - __DISABLE_CHECKSUM_COMPACT__=0
+                - __DISABLE_ROUTES__=0
+                - __DISABLE_LINKBEAT__=0
+                - __ENABLE_SOCK_STORAGE__=0
+                - __DISABLE_TRACK_PROCESS__=1
+                - __ENABLE_MEM_CHECK__=0
+                - __ENABLE_DEBUG__=0
+                - __ENABLE_SNMP_ALERT_DEBUG__=0
+                - __ENABLE_EPOLL_DEBUG__=0
+                - __ENABLE_VRRP_FD_DEBUG__=0
+                - __ENABLE_RECVMSG_DEBUG__=0
+                - __ENABLE_EINTR_DEBUG__=0
+                - __ENABLE_PARSER_DEBUG__=0
+                - __ENABLE_CHECKSUM_DEBUG__=0
+                - __ENABLE_CHECKER_DEBUG__=0
+                - __ENABLE_MEM_ERR_DEBUG__=0
+                - __ENABLE_SCRIPT_DEBUG__=0
+        pid: host
+        network_mode: host
+        volumes:
+            - type: bind
+              read_only: true
+              source: /etc/keepalived
+              target: /etc/keepalived
+        cap_drop:
+            - ALL
+        cap_add:
+            - NET_ADMIN
+            - NET_BROADCAST
+            - NET_RAW
+            - NET_BIND_SERVICE
+            - CHOWN
+            - SETUID
+            - SETGID
+            - IPC_LOCK
+            - KILL
+            - SYS_NICE
+            - SYS_RESOURCE
+            - SYS_MODULE
+        restart: on-failure
+        healthcheck:
+            test: ["CMD", "killall", "-0", "/usr/sbin/keepalived"]
+            interval: 5s
+            timeout: 3s
+            retries: 2
+            #start_period: 10s
+        stop_grace_period: 1m30s
+        entrypoint: ["/usr/sbin/keepalived","--dont-fork","--log-console", "-d", "-D", "-f", "/etc/keepalived/keepalived.conf"]
