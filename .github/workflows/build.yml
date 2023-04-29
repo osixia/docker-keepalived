@@ -1,9 +1,6 @@
 name: dockerhub-ci
 
 on:
-  schedule: 
-    - cron: '*/5 * * * *'
-
   workflow_dispatch:
 
 jobs:
