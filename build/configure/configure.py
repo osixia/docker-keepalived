@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 
-import subprocess
+from sys import exit
+from subprocess import Popen
 from json import load
 from argparse import ArgumentParser
 
@@ -66,7 +67,7 @@ class C:
         if not self.ingestConfigureJson(): return False
         self._configure()
         try:
-            p = subprocess.Popen(self.__queue__)
+            p = Popen(self.__queue__)
             if p:
                 p.wait()
                 p.kill()
@@ -76,5 +77,5 @@ class C:
         return False
 
 c = C()
-if not c.run(): exit(1)
-exit(0)
+if not c.run(): exit(-1)
+exit()

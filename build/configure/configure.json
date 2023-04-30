@@ -152,8 +152,8 @@
       "related_arguments": []
     },
     {
-      "argument": "--enable-sock-storage",
-      "dest": "enable_sock_storage",
+      "argument": "--enable-sockaddr-storage",
+      "dest": "enable_sockaddr_storage",
       "type": "int",
       "default": 0,
       "help": "Compile using sockaddr_storage rather than smaller sockaddr for IPv4/6 only",
