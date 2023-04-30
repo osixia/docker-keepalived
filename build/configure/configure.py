@@ -11,11 +11,12 @@ class A(object):
     pass
 
 class C:
-    __configure_json__ = 'configure.json'
-    __cli_desc__       = 'docker-keepalived-configurer'
-    __cli_args__       = A()
-    __cli_mapping__    = []
-    __queue__          = ['./configure']
+    def __init__(self):
+        self.__configure_json__ = 'configure.json'
+        self.__cli_desc__       = 'docker-keepalived-configurer'
+        self.__cli_args__       = A()
+        self.__cli_mapping__    = []
+        self.__queue__          = ['./configure']
 
     def ingestConfigureJson(self):
         try:
