@@ -28,7 +28,7 @@ jobs:
           context: ./build
           platforms: linux/amd64,linux/arm64
           push: true
-          tags: nser77/docker-keepalived:latest
+          tags: nser77/docker-keepalived:vrrp-latest
           build-args: |
            __ENABLE_JSON__=1
            __DISABLE_LVS__=1
@@ -56,7 +56,7 @@ jobs:
           context: ./build
           platforms: linux/amd64,linux/arm64
           push: true
-          tags: nser77/docker-keepalived:vrrp-latest-minimal
+          tags: nser77/docker-keepalived:vrrp-latest-snmp
           build-args: |
            __ENABLE_JSON__=1
            __DISABLE_LVS__=1
@@ -116,7 +116,7 @@ jobs:
           context: ./build
           platforms: linux/amd64,linux/arm64
           push: true
-          tags: nser77/docker-keepalived:vrrp-latest-minimal
+          tags: nser77/docker-keepalived:lvs-latest
           build-args: |
            __ENABLE_REGEX__=1
            __ENABLE_REGEX_TIMERS__=1
