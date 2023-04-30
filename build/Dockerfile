@@ -78,7 +78,7 @@ git clone -b $GIT_KVER https://github.com/acassen/keepalived.git $WDIR; \
 \
 mv $CPY $CJSON $WDIR; \
 \
-if [[ ! $MAP_FROM == "local" ]]; then wget $MAP_FROM -O configure.json; fi; \
+if [[ ! $MAP_FROM == "local" ]]; then wget $MAP_FROM -O ./configure/configure.json; fi; \
 \
 ./autogen.sh; \
 \
