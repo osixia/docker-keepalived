@@ -1,6 +1,8 @@
-> Before continuing, read the [Recommendations](#recommendations) and [Considerations](#considerations-about-this-project) sections.
+> **Use this repository at your own risk**: [acassen/keepalived](https://github.com/acassen/keepalived) does not provide a ```docker-image```. It is not something that the maintainers of keepalived use, and therefore not something that [acassen/keepalived](https://github.com/acassen/keepalived) could maintain properly; please see: [#2309](https://github.com/acassen/keepalived/issues/2309).
 
 # docker-keepalived
+> Before continuing, read the [Recommendations](#recommendations) and [Considerations](#considerations-about-this-project) sections.
+
 This project is based on [```configure.py```](build/configure/configure.py) and allows to dynamically manipulate ```keepalived docker-image```'s behaviors and configurations at build time; for more informations about the compilation please see the sections: [Build from GitHub](#build-from-github) or [Install from DockerHub](#install-from-dockerhub).
 
 Also note that this ```Dockerimage``` is partially based on this commit [acassen/keepalived/pull/2052](https://github.com/acassen/keepalived/pull/2052) and will automaticaly clone the ```keepalived``` version specified via: ```GIT_KVER``` through GitHub (default is ```master```).
@@ -22,7 +24,7 @@ Key features of ```docker-keepalived```.
 
 | # | Key |
 | ------------- | ------------- |
-| 1 | [acassen/keepalived](https://github.com/acassen/keepalived) do not provide a docker image. It is not something that the maintainers of keepalived use, and therefore not something that [acassen/keepalived](https://github.com/acassen/keepalived) could maintain properly.  |
+| 1 | [acassen/keepalived](https://github.com/acassen/keepalived) does not provide a ```docker-image```. It is not something that the maintainers of keepalived use, and therefore not something that [acassen/keepalived](https://github.com/acassen/keepalived) could maintain properly.  |
 | 2 | Take a look to those interesting issues [#665](https://github.com/acassen/keepalived/issues/665) and  [#2309](https://github.com/acassen/keepalived/issues/2309)   |
 | 3 | Take a look to this commit [#2052](https://github.com/acassen/keepalived/pull/2052).  |
 | 4 | From [#665](https://github.com/acassen/keepalived/issues/665): "My concern is that ```keepalived``` operates quite close to the kernel, significantly more so than most applications, and hence my questions to make sure that it really will work within a Docker environment." |
