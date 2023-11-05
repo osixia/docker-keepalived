@@ -4,8 +4,8 @@ LABEL author="Alexandre Cassen <acassen@gmail.com>"
 LABEL project="https://github.com/acassen/keepalived"
 LABEL homepage="https://www.keepalived.org"
 
-ARG GIT_KVER=master
-ARG MAP_FROM='local'
+ARG GIT_KVER="master"
+ARG MAP_FROM="local"
 
 ARG __ENABLE_MAGIC__=0
 ARG __ENABLE_DBUS__=0
@@ -41,14 +41,12 @@ ARG __ENABLE_CHECKER_DEBUG__=0
 ARG __ENABLE_MEM_ERR_DEBUG__=0
 ARG __ENABLE_SCRIPT_DEBUG__=0
 
-ARG WDIR=/usr/src/keepalived
-ARG CPY=/usr/src/configure.py
-ARG CJSON=/usr/src/configure.json
-
-ADD ./configure/configure.py $CPY
-ADD ./configure/configure.json $CJSON
+ARG WDIR=/tmp
 
 WORKDIR $WDIR
+
+ADD ./configure/configure.py .
+ADD ./configure/configure.json .
 
 RUN \
 \
@@ -64,21 +62,24 @@ apk --no-cache add \
         openssl \
         openssl-dev \
         autoconf \
+	wget \
         automake; \
 \
-if [[ $__ENABLE_MAGIC__     -eq 1 ]]; then apk --no-cache add file file-dev;           fi; \
-if [[ $__ENABLE_DBUS__      -eq 1 ]]; then apk --no-cache add glib glib-dev;           fi; \
-if [[ $__DISABLE_IPSET__    -eq 0 ]]; then apk --no-cache add ipset ipset-dev;         fi; \
-if [[ $__DISABLE_IPTABLES__ -eq 0 ]]; then apk --no-cache add iptables iptables-dev;   fi; \
-if [[ $__DISABLE_NFTABLES__ -eq 0 ]]; then apk --no-cache add libmnl-dev libnftnl-dev; fi; \
-if [[ $__ENABLE_SNMP_VRRP__ -eq 1 ]]; then apk --no-cache add net-snmp-dev;            fi; \
-if [[ $__ENABLE_REGEX__     -eq 1 ]]; then apk --no-cache add pcre2 pcre2-dev;         fi; \
+if [ "$__ENABLE_MAGIC__"     -eq "1" ]; then apk --no-cache add file file-dev;           fi; \
+if [ "$__ENABLE_DBUS__"      -eq "1" ]; then apk --no-cache add glib glib-dev;           fi; \
+if [ "$__DISABLE_IPSET__"    -eq "0" ]; then apk --no-cache add ipset ipset-dev;         fi; \
+if [ "$__DISABLE_IPTABLES__" -eq "0" ]; then apk --no-cache add iptables iptables-dev;   fi; \
+if [ "$__DISABLE_NFTABLES__" -eq "0" ]; then apk --no-cache add libmnl-dev libnftnl-dev; fi; \
+if [ "$__ENABLE_SNMP_VRRP__" -eq "1" ]; then apk --no-cache add net-snmp-dev;            fi; \
+if [ "$__ENABLE_REGEX__"     -eq "1" ]; then apk --no-cache add pcre2 pcre2-dev;         fi; \
 \
-git clone -b $GIT_KVER https://github.com/acassen/keepalived.git $WDIR; \
+git clone -b $GIT_KVER https://github.com/acassen/keepalived.git; \
 \
-mv $CPY $CJSON $WDIR; \
+mv configure.py configure.json ./keepalived; \
 \
-if [[ ! $MAP_FROM == "local" ]]; then wget $MAP_FROM -O ./configure/configure.json; fi; \
+if [ "$MAP_FROM" != "local" ]; then wget $MAP_FROM -O ./configure.json; fi; \
+\
+cd ./keepalived; \
 \
 ./autogen.sh; \
 \
@@ -130,15 +131,16 @@ apk --no-cache del \
         musl-dev \
         openssl-dev \
         autoconf \
+	wget \
         automake; \
 \
-if [[ $__ENABLE_MAGIC__     -eq 1 ]]; then apk --no-cache del file-dev;                fi; \
-if [[ $__ENABLE_DBUS__      -eq 1 ]]; then apk --no-cache del glib-dev;                fi; \
-if [[ $__DISABLE_IPSET__    -eq 0 ]]; then apk --no-cache del ipset-dev;               fi; \
-if [[ $__DISABLE_IPTABLES__ -eq 0 ]]; then apk --no-cache del iptables-dev;            fi; \
-if [[ $__DISABLE_NFTABLES__ -eq 0 ]]; then apk --no-cache del libmnl-dev libnftnl-dev; fi; \
-if [[ $__ENABLE_SNMP_VRRP__ -eq 1 ]]; then apk --no-cache del net-snmp-dev;            fi; \
-if [[ $__ENABLE_REGEX__     -eq 1 ]]; then apk --no-cache del pcre2-dev;               fi; \
+if [ "$__ENABLE_MAGIC__"     -eq "1" ]; then apk --no-cache del file-dev;                fi; \
+if [ "$__ENABLE_DBUS__"      -eq "1" ]; then apk --no-cache del glib-dev;                fi; \
+if [ "$__DISABLE_IPSET__"    -eq "0" ]; then apk --no-cache del ipset-dev;               fi; \
+if [ "$__DISABLE_IPTABLES__" -eq "0" ]; then apk --no-cache del iptables-dev;            fi; \
+if [ "$__DISABLE_NFTABLES__" -eq "0" ]; then apk --no-cache del libmnl-dev libnftnl-dev; fi; \
+if [ "$__ENABLE_SNMP_VRRP__" -eq "1" ]; then apk --no-cache del net-snmp-dev;            fi; \
+if [ "$__ENABLE_REGEX__"     -eq "1" ]; then apk --no-cache del pcre2-dev;               fi; \
 \
 rm -rf $WDIR/*; \
 \
